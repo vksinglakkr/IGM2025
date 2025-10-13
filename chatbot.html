@@ -6,7 +6,7 @@
   <title>Gita Scholar AI — International Gita Mahotsav 2025</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Sans+Devanagari:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     body {
       background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
@@ -15,7 +15,6 @@
     .saffron { background-color: #FF9933; }
     .white { background-color: #FFFFFF; }
     .green { background-color: #138808; }
-    .devanagari { font-family: 'Noto Sans Devanagari', sans-serif; }
     .gita-font { font-family: 'Playfair Display', serif; }
     .mandala-bg {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%23FF9933' stroke-width='0.5' opacity='0.1'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%23138808' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
@@ -37,19 +36,18 @@
 
   <div class="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden">
     
-    <!-- Sacred Header -->
+    <!-- Sacred Header (Fixed Visibility) -->
     <div class="bg-gradient-to-r from-saffron to-amber-500 p-6 text-center">
-      <h1 class="text-3xl md:text-4xl font-bold gita-font text-white mb-1">🕉️ गीता ज्ञानी AI</h1>
-      <p class="text-lg text-blue-100 devanagari">श्रीमद्भगवद्गीता का ज्ञान, विचार और संवाद</p>
+      <h1 class="text-3xl md:text-4xl font-bold gita-font text-white mb-1 drop-shadow-md">🕉️ Gita Scholar AI</h1>
+      <p class="text-lg text-blue-100">Wisdom of the Bhagavad Gita, Anytime, Anywhere</p>
     </div>
 
     <!-- Gita Quote Banner -->
     <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mx-6 mt-4">
-      <p class="text-lg italic text-gray-800 gita-font text-center devanagari">
-        "यत्र योगेश्वरः कृष्णो यत्र पार्थो धनुर्धरः।<br>
-        तत्र श्रीर्विजयो भूतिः ध्रुवा नीतिर्मतिर्मम॥"
+      <p class="text-lg italic text-gray-800 gita-font text-center">
+        "Wherever Krishna, the Lord of Yoga, is present, and wherever Arjuna, the archer, is present—there will be prosperity, victory, and righteousness."
       </p>
-      <p class="text-right text-gray-600 mt-1">— श्रीमद्भगवद्गीता, अध्याय 18, श्लोक 78</p>
+      <p class="text-right text-gray-600 mt-1">— Bhagavad Gita, Chapter 18, Verse 78</p>
     </div>
 
     <!-- Chat Interface -->
@@ -59,9 +57,11 @@
           <div class="bg-amber-100 p-2 rounded-lg mr-3">
             <i data-lucide="bot" class="text-amber-700 w-5 h-5"></i>
           </div>
-          <div class="text-gray-800 devanagari">
-            नमस्ते! मैं आपके गीता संबंधी प्रश्नों का उत्तर देने के लिए यहाँ हूँ।<br>
-            आप पूछ सकते हैं: "अध्याय 2 का संदेश क्या है?", "कुरुक्षेत्र के 48 कोस स्थल कौन-कौन से हैं?", "आज का कार्यक्रम क्या है?"
+          <div class="text-gray-800">
+            Welcome! I can answer your questions about:<br>
+            • Bhagavad Gita (chapters 1-18)<br>
+            • Kurukshetra's 48 Kos religious sites<br>
+            • Today's International Gita Mahotsav program
           </div>
         </div>
       </div>
@@ -70,22 +70,22 @@
       <div class="flex flex-col space-y-3">
         <input 
           id="userInput" 
-          class="w-full rounded-lg border border-gray-300 p-3 text-gray-800 devanagari"
-          placeholder="अपना प्रश्न यहाँ लिखें..."
+          class="w-full rounded-lg border border-gray-300 p-3 text-gray-800"
+          placeholder="Ask your question about the Gita..."
         />
         
         <div class="flex flex-wrap gap-2">
           <button class="langBtn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition active" data-lang="Hindi">
-            हिंदी
+            Hindi
           </button>
           <button class="langBtn px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition" data-lang="English">
             English
           </button>
           <button id="voiceBtn" class="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition">
-            <i data-lucide="mic" class="w-4 h-4"></i> बोलें
+            <i data-lucide="mic" class="w-4 h-4"></i> Speak
           </button>
           <button id="submitBtn" class="flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg transition flex-1">
-            <i data-lucide="send" class="w-4 h-4"></i> भेजें
+            <i data-lucide="send" class="w-4 h-4"></i> Send
           </button>
         </div>
       </div>
@@ -93,37 +93,37 @@
       <!-- Return to Main -->
       <div class="mt-4 text-center">
         <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center justify-center gap-1">
-          <i data-lucide="home" class="w-4 h-4"></i> मुख्य पृष्ठ पर लौटें
+          <i data-lucide="home" class="w-4 h-4"></i> Return to Main Page
         </a>
       </div>
     </div>
 
     <!-- Footer with Logos & Credits -->
     <div class="border-t border-gray-200 p-4">
-      <div class="flex flex-wrap justify-center items-center gap-4 mb-2">
-        <!-- NIC Logo -->
+      <div class="flex flex-wrap justify-center items-center gap-6 mb-3">
+        <!-- Haryana Govt Logo -->
         <div class="text-center">
-          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="NIC" class="w-12 h-12 object-contain">
-          <p class="text-xs text-gray-600 mt-1">हरियाणा सरकार</p>
+          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Government of Haryana" class="w-14 h-14 object-contain">
+          <p class="text-xs text-gray-600 mt-1">Govt. of Haryana</p>
         </div>
         <!-- KDB Logo -->
         <div class="text-center">
-          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdblogo.png" alt="NIC" class="w-12 h-12 object-contain">
+          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdblogo.png" alt="Kurukshetra Development Board" class="w-14 h-14 object-contain">
           <p class="text-xs text-gray-600 mt-1">KDB</p>
         </div>
-        <!-- Haryana Govt Logo -->
+        <!-- NIC Logo -->
         <div class="text-center">
-          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nic-logo.png" alt="NIC" class="w-12 h-12 object-contain">
-          <p class="text-xs text-gray-600 mt-1">NIC</p>
+          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nic-logo.png" alt="National Informatics Centre" class="w-14 h-14 object-contain">
+          <p class="text-xs text-gray-600 mt-1">NIC Kurukshetra</p>
         </div>
       </div>
       
-      <p class="text-center text-gray-600 text-sm devanagari">
-        अंतर्राष्ट्रीय गीता महोत्सव 2025 — डिज़ाइन एवं अनुरक्षण: एनआईसी, कुरुक्षेत्र
+      <p class="text-center text-gray-600 text-sm">
+        International Gita Mahotsav 2025 — Designed & Maintained by NIC, Kurukshetra
       </p>
       
       <p class="text-center text-gray-500 text-xs mt-2">
-        अंतिम अपडेट: <span id="lastModified"></span>
+        Last Updated: <span id="lastModified"></span>
       </p>
     </div>
   </div>
@@ -132,7 +132,11 @@
     lucide.createIcons();
 
     // Set last modified date
-    document.getElementById("lastModified").textContent = new Date(document.lastModified).toLocaleDateString('hi-IN');
+    document.getElementById("lastModified").textContent = new Date(document.lastModified).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
 
     // Language selection
     let selectedLanguage = 'Hindi';
@@ -144,7 +148,7 @@
       });
     });
 
-    // Submit handler (replace with n8n call in production)
+    // Submit handler
     document.getElementById('submitBtn').addEventListener('click', async () => {
       const question = document.getElementById('userInput').value.trim();
       if (!question) return;
@@ -152,13 +156,13 @@
       const chatBox = document.getElementById('chatBox');
       const userMsg = document.createElement('div');
       userMsg.className = 'flex mb-3 justify-end';
-      userMsg.innerHTML = `<div class="bg-blue-100 p-2 rounded-lg ml-3 text-gray-800 devanagari">${question}</div>`;
+      userMsg.innerHTML = `<div class="bg-blue-100 p-2 rounded-lg ml-3 text-gray-800">${question}</div>`;
       chatBox.appendChild(userMsg);
       chatBox.scrollTop = chatBox.scrollHeight;
 
       document.getElementById('userInput').value = '';
 
-      // Simulate AI response
+      // Simulate AI response (replace with n8n call)
       setTimeout(() => {
         const aiMsg = document.createElement('div');
         aiMsg.className = 'flex mb-3';
@@ -166,8 +170,8 @@
           <div class="bg-amber-100 p-2 rounded-lg mr-3">
             <i data-lucide="bot" class="text-amber-700 w-5 h-5"></i>
           </div>
-          <div class="text-gray-800 devanagari">
-            अर्जुन को गीता कुरुक्षेत्र के युद्धभूमि में मिली, जहाँ श्रीकृष्ण ने उन्हें धर्म, कर्म और मोक्ष का उपदेश दिया।
+          <div class="text-gray-800">
+            Arjuna received the Gita on the battlefield of Kurukshetra, where Lord Krishna imparted teachings on dharma, karma, and moksha.
           </div>
         `;
         chatBox.appendChild(aiMsg);
@@ -176,7 +180,7 @@
       }, 1000);
     });
 
-    // Voice input (carry forward your working implementation)
+    // Voice input
     let recognition;
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
