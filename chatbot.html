@@ -31,28 +31,27 @@
     <div class="w-1/3 green"></div>
   </div>
 
-  <div class="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden">
+  <div class="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border-2 border-amber-200">
     
     <!-- Sacred Header -->
-    <div class="bg-gradient-to-r from-saffron to-amber-500 p-6 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold cinzel text-white mb-2 drop-shadow-md">International Gita Mahotsav 2025</h1>
-      <h2 class="text-2xl font-bold text-white mt-3">AskGita</h2>
+    <div class="bg-gradient-to-r from-saffron to-amber-500 p-6 text-center border-b-4 border-amber-600">
+      <h1 class="text-4xl md:text-5xl font-bold cinzel text-white mb-2 drop-shadow-md">International Gita Mahotsav</h1>
+      <h2 class="text-2xl font-bold text-white mt-1">2025</h2>
+      <div class="mt-4 bg-white/20 rounded-xl p-3 inline-block">
+        <h3 class="text-xl font-bold text-white">AskGita</h3>
+      </div>
     </div>
 
-    <!-- Event Dates in Boxes -->
-    <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-blue-50 border-l-4 border-l-blue-500 rounded-xl p-4 text-center">
-        <p class="font-bold text-gray-800">Exhibition</p>
-        <p class="text-sm text-gray-700">15 Nov – 5 Dec 2025</p>
-      </div>
-      <div class="bg-amber-50 border-l-4 border-l-amber-500 rounded-xl p-4 text-center">
-        <p class="font-bold text-gray-800">Daily Quiz</p>
-        <p class="text-sm text-gray-700">4 – 14 Nov 2025</p>
-      </div>
-      <div class="bg-green-50 border-l-4 border-l-green-500 rounded-xl p-4 text-center">
-        <p class="font-bold text-gray-800">Cultural Programs</p>
-        <p class="text-sm text-gray-700">24 Nov – 1 Dec 2025</p>
-      </div>
+    <!-- Gita Quote Banner -->
+    <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mx-6 mt-4 rounded-r-lg">
+      <p class="text-lg italic text-gray-800 font-serif text-center">
+        "ज्ञानं तेऽहं सविज्ञानमिदं वक्ष्याम्यशेषतः।<br>
+        यज्ज्ञात्वा नेह भूयोऽन्यज्ज्ञातव्यमवशिष्यते॥"
+      </p>
+      <p class="text-right text-gray-600 mt-1">— श्रीमद्भगवद्गीता, अध्याय 7, श्लोक 2</p>
+      <p class="text-center text-sm text-gray-700 mt-2 font-medium">
+        "I shall now declare to you in full this knowledge with realization, knowing which nothing else remains to be known in this world."
+      </p>
     </div>
 
     <!-- Chat Interface -->
@@ -62,12 +61,12 @@
         <label class="block text-sm font-medium text-gray-700 mb-2">Ask Your Question</label>
         <input 
           id="userInput" 
-          class="w-full rounded-lg border border-gray-300 p-3 text-gray-800"
-          placeholder="e.g., What is the message of Chapter 2 of the Gita?"
+          class="w-full rounded-lg border-2 border-gray-300 p-3 text-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-200"
+          placeholder="e.g., What is the message of Chapter 2 of the Gita? What are the 48 Kos sites in Kurukshetra? What is today's program?"
         />
         <div class="flex flex-wrap gap-2 mt-3">
           <button class="langBtn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition active" data-lang="Hindi">
-            Hindi
+            हिंदी
           </button>
           <button class="langBtn px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition" data-lang="English">
             English
@@ -81,24 +80,16 @@
         </div>
       </div>
 
-      <!-- Sample Questions -->
-      <div class="mb-6">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Or Select a Ready Question</label>
-        <div id="sampleQuestions" class="max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-3 space-y-2 bg-gray-50">
-          <!-- Questions populated by JS -->
-        </div>
+      <!-- Welcome Message -->
+      <div class="bg-amber-50 border-2 border-amber-200 rounded-xl p-4 mb-6">
+        <p class="text-gray-800 font-medium">
+          Welcome! Ask about the Bhagavad Gita, Kurukshetra's 48 Kos religious sites, today's International Gita Mahotsav program, or clarify your spiritual doubts through dialogue.
+        </p>
       </div>
 
       <!-- Chat Box -->
-      <div id="chatBox" class="bg-gray-50 rounded-xl p-4 h-64 overflow-y-auto border border-gray-200">
-        <div class="flex mb-3">
-          <div class="bg-amber-100 p-2 rounded-lg mr-3">
-            <i data-lucide="bot" class="text-amber-700 w-5 h-5"></i>
-          </div>
-          <div class="text-gray-800">
-            Welcome! Ask about the Gita, Kurukshetra, or today's program.
-          </div>
-        </div>
+      <div id="chatBox" class="bg-gray-50 rounded-xl p-4 h-64 overflow-y-auto border-2 border-gray-200">
+        <!-- Initial message will appear here -->
       </div>
 
       <!-- Return to Main -->
@@ -110,27 +101,21 @@
     </div>
 
     <!-- Footer -->
-    <div class="border-t border-gray-200 p-4">
-      <div class="flex flex-wrap justify-center items-center gap-6 mb-3">
-        <div class="text-center">
-          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Government of Haryana" class="w-12 h-12 object-contain mx-auto">
-          <p class="text-xs text-gray-600 mt-1">Govt. of Haryana</p>
-        </div>
-        <div class="text-center">
-          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="Kurukshetra Development Board" class="w-12 h-12 object-contain mx-auto">
-          <p class="text-xs text-gray-600 mt-1">KDB</p>
-        </div>
-        <div class="text-center">
-          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nic-Logo.png" alt="National Informatics Centre" class="w-12 h-12 object-contain mx-auto">
-          <p class="text-xs text-gray-600 mt-1">NIC Kurukshetra</p>
-        </div>
-      </div>
-      <p class="text-center text-gray-600 text-sm">
-        International Gita Mahotsav 2025 — Designed & Maintained by NIC, Kurukshetra
+    <div class="border-t-2 border-gray-200 p-4 text-center">
+      <p class="text-gray-600 text-sm">
+        International Gita Mahotsav 2025<br>
+        Designed & Maintained by NIC, Kurukshetra
       </p>
       <p class="text-center text-gray-500 text-xs mt-2">
         Last Updated: <span id="lastModified"></span>
       </p>
+      
+      <!-- Logos -->
+      <div class="flex flex-wrap justify-center items-center gap-6 mt-3">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Government of Haryana" class="w-12 h-12 object-contain">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="Kurukshetra Development Board" class="w-12 h-12 object-contain">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nicLogo.png" alt="National Informatics Centre" class="w-12 h-12 object-contain">
+      </div>
     </div>
   </div>
 
@@ -146,33 +131,6 @@
       minute: '2-digit',
       second: '2-digit',
       hour12: false
-    });
-
-    // Sample questions
-    const samples = [
-      "What is the message of Chapter 2 of the Gita?",
-      "What are the three new criminal laws of 2024?",
-      "How are cybercrimes treated under the new laws?",
-      "What changes exist in evidence collection?",
-      "How do the new laws ensure speedy trials?"
-    ];
-
-    const container = document.getElementById('sampleQuestions');
-    samples.forEach((q, i) => {
-      const id = `q${i}`;
-      const div = document.createElement('div');
-      div.className = 'flex items-start py-1';
-      div.innerHTML = `
-        <input type="radio" id="${id}" name="sampleQ" value="${q}" class="mt-1.5 text-blue-600 focus:ring-blue-600">
-        <label for="${id}" class="ml-2 text-sm text-gray-700 cursor-pointer hover:text-blue-700">${q}</label>
-      `;
-      container.appendChild(div);
-    });
-
-    container.addEventListener('change', e => {
-      if (e.target.name === 'sampleQ') {
-        document.getElementById('userInput').value = e.target.value;
-      }
     });
 
     // Language selection
