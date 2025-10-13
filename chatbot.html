@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Gita Scholar AI — International Gita Mahotsav 2025</title>
+  <title>International Gita Mahotsav 2025 — Gita Scholar AI</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display:wght@700&family=Noto+Sans+Devanagari:wght@600&display=swap" rel="stylesheet">
   <style>
     body {
       background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
@@ -15,21 +15,11 @@
     .saffron { background-color: #FF9933; }
     .white { background-color: #FFFFFF; }
     .green { background-color: #138808; }
-    .gita-font { font-family: 'Playfair Display', serif; }
+    .devanagari { font-family: 'Noto Sans Devanagari', sans-serif; }
+    .cinzel { font-family: 'Cinzel', serif; }
     .mandala-bg {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%23FF9933' stroke-width='0.5' opacity='0.1'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%23138808' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
       background-size: 300px;
-    }
-    .card-shadow {
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
-    }
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.4); }
-      70% { box-shadow: 0 0 0 10px rgba(255, 153, 51, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0); }
     }
   </style>
 </head>
@@ -46,50 +36,47 @@
     
     <!-- Sacred Header -->
     <div class="bg-gradient-to-r from-saffron to-amber-500 p-6 text-center">
-      <div class="flex justify-center mb-2">
-        <div class="bg-white p-2 rounded-lg">
-          <i data-lucide="om" class="text-indigo-800 w-6 h-6"></i>
-        </div>
+      <h1 class="text-4xl md:text-5xl font-bold cinzel text-white mb-2">International Gita Mahotsav 2025</h1>
+      <div class="mt-3 flex flex-col items-center">
+        <h2 class="text-2xl font-bold text-white gita-font">Gita Scholar AI</h2>
+        <p class="text-lg text-blue-100 devanagari">गीता ज्ञानी एआई</p>
       </div>
-      <h1 class="text-3xl md:text-4xl font-bold gita-font text-black mb-1">Gita Scholar AI</h1>
-      <p class="text-lg text-blue-100">Wisdom of the Bhagavad Gita, Anytime, Anywhere</p>
     </div>
 
-    <!-- Gita Quote Banner -->
-    <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mx-6 mt-4">
-      <p class="text-lg italic text-gray-800 gita-font text-center">
-        "Wherever Krishna, the Lord of Yoga, is present, and wherever Arjuna, the archer, is present—there will be prosperity, victory, and righteousness."
-      </p>
-      <p class="text-right text-gray-600 mt-1">— Bhagavad Gita, Chapter 18, Verse 78</p>
+    <!-- Event Dates in Boxes -->
+    <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- Exhibition -->
+      <div class="bg-blue-50 border-l-4 border-l-blue-500 rounded-xl p-4 text-center">
+        <p class="font-bold text-gray-800">Exhibition</p>
+        <p class="text-sm text-gray-700 devanagari">15 नवंबर – 5 दिसंबर 2025</p>
+      </div>
+      
+      <!-- Quiz -->
+      <div class="bg-amber-50 border-l-4 border-l-amber-500 rounded-xl p-4 text-center">
+        <p class="font-bold text-gray-800">Daily Quiz</p>
+        <p class="text-sm text-gray-700 devanagari">4 – 14 नवंबर 2025</p>
+      </div>
+      
+      <!-- Cultural -->
+      <div class="bg-green-50 border-l-4 border-l-green-500 rounded-xl p-4 text-center">
+        <p class="font-bold text-gray-800">Cultural Programs</p>
+        <p class="text-sm text-gray-700 devanagari">24 नवंबर – 1 दिसंबर 2025</p>
+      </div>
     </div>
 
     <!-- Chat Interface -->
     <div class="p-6">
-      <div id="chatBox" class="bg-gray-50 rounded-xl p-4 h-96 overflow-y-auto mb-4 border border-gray-200">
-        <div class="flex mb-3">
-          <div class="bg-amber-100 p-2 rounded-lg mr-3">
-            <i data-lucide="bot" class="text-amber-700 w-5 h-5"></i>
-          </div>
-          <div class="text-gray-800">
-            Welcome! I can answer your questions about:<br>
-            • Bhagavad Gita (chapters 1-18)<br>
-            • Kurukshetra's 48 Kos religious sites<br>
-            • Today's International Gita Mahotsav program
-          </div>
-        </div>
-      </div>
-
-      <!-- Input Area -->
-      <div class="flex flex-col space-y-3">
+      <!-- Input Area (ABOVE sample questions) -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Ask Your Question</label>
         <input 
           id="userInput" 
           class="w-full rounded-lg border border-gray-300 p-3 text-gray-800"
-          placeholder="Ask your question about the Gita..."
+          placeholder="e.g., What is the message of Chapter 2?"
         />
-        
-        <div class="flex flex-wrap gap-2">
+        <div class="flex flex-wrap gap-2 mt-3">
           <button class="langBtn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition active" data-lang="Hindi">
-            Hindi
+            हिंदी
           </button>
           <button class="langBtn px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition" data-lang="English">
             English
@@ -103,6 +90,26 @@
         </div>
       </div>
 
+      <!-- Sample Questions -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Or Select a Ready Question</label>
+        <div id="sampleQuestions" class="max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-3 space-y-2 bg-gray-50">
+          <!-- Questions will be populated by JS -->
+        </div>
+      </div>
+
+      <!-- Chat Box -->
+      <div id="chatBox" class="bg-gray-50 rounded-xl p-4 h-64 overflow-y-auto border border-gray-200">
+        <div class="flex mb-3">
+          <div class="bg-amber-100 p-2 rounded-lg mr-3">
+            <i data-lucide="bot" class="text-amber-700 w-5 h-5"></i>
+          </div>
+          <div class="text-gray-800">
+            Welcome! Ask about Gita, Kurukshetra, or today's program.
+          </div>
+        </div>
+      </div>
+
       <!-- Return to Main -->
       <div class="mt-4 text-center">
         <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center justify-center gap-1">
@@ -111,30 +118,16 @@
       </div>
     </div>
 
-    <!-- Footer with Logos & Credits -->
+    <!-- Footer -->
     <div class="border-t border-gray-200 p-4">
       <div class="flex flex-wrap justify-center items-center gap-6 mb-3">
-        <!-- Haryana Govt Logo -->
-        <div class="text-center">
-          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Government of Haryana" class="w-14 h-14 object-contain">
-          <p class="text-xs text-gray-600 mt-1">Govt. of Haryana</p>
-        </div>
-        <!-- KDB Logo -->
-        <div class="text-center">
-          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="Kurukshetra Development Board" class="w-14 h-14 object-contain">
-          <p class="text-xs text-gray-600 mt-1">KDB</p>
-        </div>
-        <!-- NIC Logo -->
-        <div class="text-center">
-          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nicLogo.png" alt="National Informatics Centre" class="w-18 h-18 object-contain">
-          <p class="text-xs text-gray-600 mt-1">NIC Kurukshetra</p>
-        </div>
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Government of Haryana" class="w-12 h-12 object-contain">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdblogo.png" alt="Kurukshetra Development Board" class="w-12 h-12 object-contain">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nic-logo.png" alt="National Informatics Centre" class="w-12 h-12 object-contain">
       </div>
-      
       <p class="text-center text-gray-600 text-sm">
         International Gita Mahotsav 2025 — Designed & Maintained by NIC, Kurukshetra
       </p>
-      
       <p class="text-center text-gray-500 text-xs mt-2">
         Last Updated: <span id="lastModified"></span>
       </p>
@@ -144,15 +137,44 @@
   <script>
     lucide.createIcons();
 
-   // Set last modified date and time
-document.getElementById("lastModified").textContent = new Date(document.lastModified).toLocaleString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit'
-});
+    // Set last modified date and time
+    document.getElementById("lastModified").textContent = new Date(document.lastModified).toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+
+    // Sample questions
+    const samples = [
+      "What are the three new prosecution laws implemented since 2024?",
+      "How have the new laws changed the FIR process?",
+      "Are bail provisions modified under the new system?",
+      "How are cybercrimes treated under the new prosecution laws?",
+      "What changes exist in the evidence collection process?"
+    ];
+
+    const container = document.getElementById('sampleQuestions');
+    samples.forEach((q, i) => {
+      const id = `q${i}`;
+      const div = document.createElement('div');
+      div.className = 'flex items-start py-1';
+      div.innerHTML = `
+        <input type="radio" id="${id}" name="sampleQ" value="${q}" class="mt-1.5 text-blue-600 focus:ring-blue-600">
+        <label for="${id}" class="ml-2 text-sm text-gray-700 cursor-pointer hover:text-blue-700">${q}</label>
+      `;
+      container.appendChild(div);
+    });
+
+    container.addEventListener('change', e => {
+      if (e.target.name === 'sampleQ') {
+        document.getElementById('userInput').value = e.target.value;
+      }
+    });
+
     // Language selection
     let selectedLanguage = 'Hindi';
     document.querySelectorAll('.langBtn').forEach(btn => {
