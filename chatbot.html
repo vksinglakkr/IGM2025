@@ -34,18 +34,31 @@
   <div class="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border-2 border-amber-200">
     
 <!-- Sacred Header -->
-<div class="relative p-6 text-center rounded-3xl border-4 border-gradient-to-r from-amber-400 via-orange-500 to-green-600 shadow-xl"
-     style="background: linear-gradient(135deg, #FF9933, #FFD54F, #138808);">
-  <!-- Decorative border glow -->
-  <div class="absolute inset-0 rounded-3xl border-2 border-white opacity-30 pointer-events-none"></div>
+<div class="relative text-center rounded-3xl p-8 shadow-2xl border-4 border-yellow-400 overflow-hidden"
+     style="background: radial-gradient(circle at top left, #FF9933 0%, #FFD54F 35%, #138808 100%);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
 
-  <h1 class="text-4xl md:text-5xl font-bold cinzel text-white mb-2 drop-shadow-lg">
+  <!-- Faint decorative mandala -->
+  <div style="position:absolute;top:50%;left:50%;width:300px;height:300px;
+              background: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\' viewBox=\'0 0 200 200\'%3E%3Ccircle cx=\'100\' cy=\'100\' r=\'90\' fill=\'none\' stroke=\'%23FFD700\' stroke-width=\'0.5\' opacity=\'0.08\'/%3E%3Ccircle cx=\'100\' cy=\'100\' r=\'70\' fill=\'none\' stroke=\'%23FFD700\' stroke-width=\'0.5\' opacity=\'0.08\'/%3E%3C/svg%3E') no-repeat center/contain;
+              transform: translate(-50%, -50%); pointer-events:none;"></div>
+
+  <h1 class="text-5xl md:text-6xl font-bold cinzel text-white mb-2"
+      style="text-shadow: 3px 3px 12px rgba(0,0,0,0.4), 0 0 8px #FFD700;">
     International Gita Mahotsav
   </h1>
-  <h2 class="text-2xl font-bold text-white mt-1 drop-shadow-md">2025</h2>
 
-  <div class="mt-4 bg-white/25 backdrop-blur-sm rounded-xl p-3 inline-block border-2 border-white shadow-inner">
-    <h3 class="text-xl font-bold text-amber-900">AskGita</h3>
+  <h2 class="text-2xl md:text-3xl font-bold text-white mt-2"
+      style="text-shadow: 2px 2px 8px rgba(0,0,0,0.3);">
+    2025
+  </h2>
+
+  <!-- AskGita Badge -->
+  <div class="mt-6 inline-block rounded-xl px-6 py-3 border-2 border-yellow-300 shadow-inner"
+       style="background: rgba(255,255,255,0.2); backdrop-filter: blur(8px);">
+    <h3 class="text-2xl font-bold text-yellow-100" style="text-shadow: 1px 1px 4px #000;">
+      AskGita
+    </h3>
   </div>
 </div>
 
