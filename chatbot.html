@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>International Gita Mahotsav 2025 — Gita Scholar AI</title>
+  <title>AskGita — International Gita Mahotsav 2025</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display:wght@700&family=Noto+Sans+Devanagari:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     body {
       background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
@@ -15,7 +15,6 @@
     .saffron { background-color: #FF9933; }
     .white { background-color: #FFFFFF; }
     .green { background-color: #138808; }
-    .devanagari { font-family: 'Noto Sans Devanagari', sans-serif; }
     .cinzel { font-family: 'Cinzel', serif; }
     .mandala-bg {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%23FF9933' stroke-width='0.5' opacity='0.1'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%23138808' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
@@ -36,47 +35,39 @@
     
     <!-- Sacred Header -->
     <div class="bg-gradient-to-r from-saffron to-amber-500 p-6 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold cinzel text-white mb-2">International Gita Mahotsav 2025</h1>
-      <div class="mt-3 flex flex-col items-center">
-        <h2 class="text-2xl font-bold text-white gita-font">Gita Scholar AI</h2>
-        <p class="text-lg text-blue-100 devanagari">गीता ज्ञानी एआई</p>
-      </div>
+      <h1 class="text-4xl md:text-5xl font-bold cinzel text-white mb-2 drop-shadow-md">International Gita Mahotsav 2025</h1>
+      <h2 class="text-2xl font-bold text-white mt-3">AskGita</h2>
     </div>
 
     <!-- Event Dates in Boxes -->
     <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-      <!-- Exhibition -->
       <div class="bg-blue-50 border-l-4 border-l-blue-500 rounded-xl p-4 text-center">
         <p class="font-bold text-gray-800">Exhibition</p>
-        <p class="text-sm text-gray-700 devanagari">15 नवंबर – 5 दिसंबर 2025</p>
+        <p class="text-sm text-gray-700">15 Nov – 5 Dec 2025</p>
       </div>
-      
-      <!-- Quiz -->
       <div class="bg-amber-50 border-l-4 border-l-amber-500 rounded-xl p-4 text-center">
         <p class="font-bold text-gray-800">Daily Quiz</p>
-        <p class="text-sm text-gray-700 devanagari">4 – 14 नवंबर 2025</p>
+        <p class="text-sm text-gray-700">4 – 14 Nov 2025</p>
       </div>
-      
-      <!-- Cultural -->
       <div class="bg-green-50 border-l-4 border-l-green-500 rounded-xl p-4 text-center">
         <p class="font-bold text-gray-800">Cultural Programs</p>
-        <p class="text-sm text-gray-700 devanagari">24 नवंबर – 1 दिसंबर 2025</p>
+        <p class="text-sm text-gray-700">24 Nov – 1 Dec 2025</p>
       </div>
     </div>
 
     <!-- Chat Interface -->
     <div class="p-6">
-      <!-- Input Area (ABOVE sample questions) -->
+      <!-- Input Area -->
       <div class="mb-6">
         <label class="block text-sm font-medium text-gray-700 mb-2">Ask Your Question</label>
         <input 
           id="userInput" 
           class="w-full rounded-lg border border-gray-300 p-3 text-gray-800"
-          placeholder="e.g., What is the message of Chapter 2?"
+          placeholder="e.g., What is the message of Chapter 2 of the Gita?"
         />
         <div class="flex flex-wrap gap-2 mt-3">
           <button class="langBtn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition active" data-lang="Hindi">
-            हिंदी
+            Hindi
           </button>
           <button class="langBtn px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition" data-lang="English">
             English
@@ -94,7 +85,7 @@
       <div class="mb-6">
         <label class="block text-sm font-medium text-gray-700 mb-2">Or Select a Ready Question</label>
         <div id="sampleQuestions" class="max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-3 space-y-2 bg-gray-50">
-          <!-- Questions will be populated by JS -->
+          <!-- Questions populated by JS -->
         </div>
       </div>
 
@@ -105,7 +96,7 @@
             <i data-lucide="bot" class="text-amber-700 w-5 h-5"></i>
           </div>
           <div class="text-gray-800">
-            Welcome! Ask about Gita, Kurukshetra, or today's program.
+            Welcome! Ask about the Gita, Kurukshetra, or today's program.
           </div>
         </div>
       </div>
@@ -121,9 +112,18 @@
     <!-- Footer -->
     <div class="border-t border-gray-200 p-4">
       <div class="flex flex-wrap justify-center items-center gap-6 mb-3">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Government of Haryana" class="w-12 h-12 object-contain">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdblogo.png" alt="Kurukshetra Development Board" class="w-12 h-12 object-contain">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nic-logo.png" alt="National Informatics Centre" class="w-12 h-12 object-contain">
+        <div class="text-center">
+          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Government of Haryana" class="w-12 h-12 object-contain mx-auto">
+          <p class="text-xs text-gray-600 mt-1">Govt. of Haryana</p>
+        </div>
+        <div class="text-center">
+          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="Kurukshetra Development Board" class="w-12 h-12 object-contain mx-auto">
+          <p class="text-xs text-gray-600 mt-1">KDB</p>
+        </div>
+        <div class="text-center">
+          <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nic-Logo.png" alt="National Informatics Centre" class="w-12 h-12 object-contain mx-auto">
+          <p class="text-xs text-gray-600 mt-1">NIC Kurukshetra</p>
+        </div>
       </div>
       <p class="text-center text-gray-600 text-sm">
         International Gita Mahotsav 2025 — Designed & Maintained by NIC, Kurukshetra
@@ -150,11 +150,11 @@
 
     // Sample questions
     const samples = [
-      "What are the three new prosecution laws implemented since 2024?",
-      "How have the new laws changed the FIR process?",
-      "Are bail provisions modified under the new system?",
-      "How are cybercrimes treated under the new prosecution laws?",
-      "What changes exist in the evidence collection process?"
+      "What is the message of Chapter 2 of the Gita?",
+      "What are the three new criminal laws of 2024?",
+      "How are cybercrimes treated under the new laws?",
+      "What changes exist in evidence collection?",
+      "How do the new laws ensure speedy trials?"
     ];
 
     const container = document.getElementById('sampleQuestions');
