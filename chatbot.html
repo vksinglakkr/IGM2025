@@ -23,10 +23,6 @@
     }
     .card-shadow {
       box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s ease;
-    }
-    .card-shadow:hover {
-      transform: translateY(-5px);
     }
   </style>
 </head>
@@ -43,7 +39,7 @@
     
     <!-- Sacred Header -->
     <div class="bg-gradient-to-r from-saffron to-amber-500 p-6 text-center">
-      <h1 class="text-3xl font-bold gita-font text-white mb-1">🕉️ गीता ज्ञानी AI</h1>
+      <h1 class="text-3xl md:text-4xl font-bold gita-font text-white mb-1">🕉️ गीता ज्ञानी AI</h1>
       <p class="text-lg text-blue-100 devanagari">श्रीमद्भगवद्गीता का ज्ञान, विचार और संवाद</p>
     </div>
 
@@ -93,17 +89,50 @@
           </button>
         </div>
       </div>
+
+      <!-- Return to Main -->
+      <div class="mt-4 text-center">
+        <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center justify-center gap-1">
+          <i data-lucide="home" class="w-4 h-4"></i> मुख्य पृष्ठ पर लौटें
+        </a>
+      </div>
     </div>
 
-    <!-- Footer -->
-    <div class="border-t border-gray-200 p-4 text-center">
-      <p class="text-gray-600 devanagari">अंतर्राष्ट्रीय गीता महोत्सव 2025 — कुरुक्षेत्र विकास बोर्ड द्वारा आयोजित</p>
-      <p class="text-sm text-gray-500 mt-1">धर्मो रक्षति रक्षितः</p>
+    <!-- Footer with Logos & Credits -->
+    <div class="border-t border-gray-200 p-4">
+      <div class="flex flex-wrap justify-center items-center gap-4 mb-2">
+        <!-- NIC Logo -->
+        <div class="text-center">
+          <div class="bg-gray-200 border-2 border-dashed rounded-xl w-12 h-12 mx-auto"></div>
+          <p class="text-xs text-gray-600 mt-1">NIC</p>
+        </div>
+        <!-- KDB Logo -->
+        <div class="text-center">
+          <div class="bg-gray-200 border-2 border-dashed rounded-xl w-12 h-12 mx-auto"></div>
+          <p class="text-xs text-gray-600 mt-1">KDB</p>
+        </div>
+        <!-- Haryana Govt Logo -->
+        <div class="text-center">
+          <div class="bg-gray-200 border-2 border-dashed rounded-xl w-12 h-12 mx-auto"></div>
+          <p class="text-xs text-gray-600 mt-1">हरियाणा सरकार</p>
+        </div>
+      </div>
+      
+      <p class="text-center text-gray-600 text-sm devanagari">
+        अंतर्राष्ट्रीय गीता महोत्सव 2025 — डिज़ाइन एवं अनुरक्षण: एनआईसी, कुरुक्षेत्र
+      </p>
+      
+      <p class="text-center text-gray-500 text-xs mt-2">
+        अंतिम अपडेट: <span id="lastModified"></span>
+      </p>
     </div>
   </div>
 
   <script>
     lucide.createIcons();
+
+    // Set last modified date
+    document.getElementById("lastModified").textContent = new Date(document.lastModified).toLocaleDateString('hi-IN');
 
     // Language selection
     let selectedLanguage = 'Hindi';
@@ -115,12 +144,11 @@
       });
     });
 
-    // Submit handler
+    // Submit handler (replace with n8n call in production)
     document.getElementById('submitBtn').addEventListener('click', async () => {
       const question = document.getElementById('userInput').value.trim();
       if (!question) return;
 
-      // Add user message
       const chatBox = document.getElementById('chatBox');
       const userMsg = document.createElement('div');
       userMsg.className = 'flex mb-3 justify-end';
@@ -128,10 +156,9 @@
       chatBox.appendChild(userMsg);
       chatBox.scrollTop = chatBox.scrollHeight;
 
-      // Clear input
       document.getElementById('userInput').value = '';
 
-      // Simulate AI response (replace with n8n call)
+      // Simulate AI response
       setTimeout(() => {
         const aiMsg = document.createElement('div');
         aiMsg.className = 'flex mb-3';
