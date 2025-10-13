@@ -12,110 +12,96 @@
       background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
       font-family: 'Inter', sans-serif;
     }
+    .saffron { background-color: #FF9933; }
+    .white { background-color: #FFFFFF; }
+    .green { background-color: #138808; }
     .cinzel { font-family: 'Cinzel', serif; }
-    .header-section {
-      background: linear-gradient(135deg,#FF9933,#FFD54F,#138808);
-      color: white;
-      text-align: center;
-      padding: 50px 20px;
-      border-radius: 0 0 40px 40px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-      position: relative;
-    }
-    .header-section h1 {
-      font-size: 3rem;
-      font-family: 'Cinzel', serif;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
-    }
-    .header-section h2 {
-      font-size: 1.5rem;
-      margin-top:10px;
-      font-weight:600;
-    }
-    .header-card {
-      display: inline-block;
-      margin-top:20px;
-      padding: 12px 24px;
-      background: rgba(255,255,255,0.25);
-      border-radius: 16px;
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.3);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .header-card h3 { font-size:1.8rem; font-weight:bold; color:white; }
-
-    /* Popup Modal */
-    #aiModal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      justify-content: center; align-items: center;
-      z-index: 50;
-    }
-    #aiModalContent {
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(10px);
-      padding: 24px;
-      border-radius: 20px;
-      max-width: 600px;
-      width: 90%;
-      max-height: 70%;
-      overflow-y: auto;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      text-align: left;
-    }
-    #aiModalContent h4 { font-size: 1.5rem; font-weight:bold; margin-bottom:12px; }
-    #aiModalContent p { margin-bottom:10px; font-size:1rem; color:#333; }
-    #closeModal {
-      position: absolute;
-      top:10px; right:10px;
-      background:none; border:none; font-size:1.5rem; cursor:pointer; color:#333;
+    .mandala-bg {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%23FF9933' stroke-width='0.5' opacity='0.1'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%23138808' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
+      background-size: 300px;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 mandala-bg">
 
-  <!-- Elegant Header -->
-  <div class="header-section">
-    <h1 class="cinzel">International Gita Mahotsav</h1>
-    <h2>2025</h2>
-    <div class="header-card">
-      <h3>AskGita</h3>
-    </div>
+  <!-- Tiranga Header -->
+  <div class="flex h-3 w-full max-w-4xl">
+    <div class="w-1/3 saffron"></div>
+    <div class="w-1/3 white"></div>
+    <div class="w-1/3 green"></div>
   </div>
 
-  <!-- Main Content -->
-  <div class="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border-2 border-amber-200 mt-8 p-6">
+  <div class="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border-2 border-amber-200">
+    
+    <!-- Sacred Header -->
+    <div class="bg-gradient-to-r from-saffron to-amber-500 p-6 text-center border-b-4 border-amber-600">
+      <h1 class="text-4xl md:text-5xl font-bold cinzel text-white mb-2 drop-shadow-md">International Gita Mahotsav</h1>
+      <h2 class="text-2xl font-bold text-white mt-1">2025</h2>
+      <div class="mt-4 bg-white/20 rounded-xl p-3 inline-block">
+        <h3 class="text-xl font-bold text-white">AskGita</h3>
+      </div>
+    </div>
 
     <!-- Gita Quote Banner -->
-    <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mx-2 rounded-r-lg text-center">
-      <p class="text-lg italic text-gray-800 font-serif">
+    <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mx-6 mt-4 rounded-r-lg">
+      <p class="text-lg italic text-gray-800 font-serif text-center">
         "ज्ञानं तेऽहं सविज्ञानमिदं वक्ष्याम्यशेषतः।<br>
         यज्ज्ञात्वा नेह भूयोऽन्यज्ज्ञातव्यमवशिष्यते॥"
       </p>
       <p class="text-right text-gray-600 mt-1">— श्रीमद्भगवद्गीता, अध्याय 7, श्लोक 2</p>
-      <p class="text-sm text-gray-700 mt-2 font-medium">
+      <p class="text-center text-sm text-gray-700 mt-2 font-medium">
         "I shall now declare to you in full this knowledge with realization, knowing which nothing else remains to be known in this world."
       </p>
     </div>
 
-    <!-- Input Area -->
-    <div class="mt-6">
-      <label class="block text-sm font-medium text-gray-700 mb-2">Ask Your Question</label>
-      <input 
-        id="userInput" 
-        class="w-full rounded-lg border-2 border-gray-300 p-3 text-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-200"
-        placeholder="e.g., What is the message of Chapter 2 of the Gita?"
-      />
-      <div class="flex flex-wrap gap-2 mt-3">
-        <button id="askBtn" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg flex-1">Ask AI</button>
+    <!-- Chat Interface -->
+    <div class="p-6">
+      <!-- Input Area -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Ask Your Question</label>
+        <input 
+          id="userInput" 
+          class="w-full rounded-lg border-2 border-gray-300 p-3 text-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-200"
+          placeholder="e.g., What is the message of Chapter 2 of the Gita? What are the 48 Kos sites in Kurukshetra? What is today's program?"
+        />
+        <div class="flex flex-wrap gap-2 mt-3">
+          <button class="langBtn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition active" data-lang="Hindi">
+            हिंदी
+          </button>
+          <button class="langBtn px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition" data-lang="English">
+            English
+          </button>
+          <button id="voiceBtn" class="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition">
+            <i data-lucide="mic" class="w-4 h-4"></i> Speak
+          </button>
+          <button id="submitBtn" class="flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg transition flex-1">
+            <i data-lucide="send" class="w-4 h-4"></i> Send
+          </button>
+        </div>
+      </div>
+
+      <!-- Welcome Message -->
+      <div class="bg-amber-50 border-2 border-amber-200 rounded-xl p-4 mb-6">
+        <p class="text-gray-800 font-medium">
+          Welcome! Ask about the Bhagavad Gita, Kurukshetra's 48 Kos religious sites, today's International Gita Mahotsav program, or clarify your spiritual doubts through dialogue.
+        </p>
+      </div>
+
+      <!-- Chat Box -->
+      <div id="chatBox" class="bg-gray-50 rounded-xl p-4 h-64 overflow-y-auto border-2 border-gray-200">
+        <!-- Initial message will appear here -->
+      </div>
+
+      <!-- Return to Main -->
+      <div class="mt-4 text-center">
+        <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center justify-center gap-1">
+          <i data-lucide="home" class="w-4 h-4"></i> Return to Main Page
+        </a>
       </div>
     </div>
 
     <!-- Footer -->
-    <div class="border-t-2 border-gray-200 p-4 text-center mt-6">
+    <div class="border-t-2 border-gray-200 p-4 text-center">
       <p class="text-gray-600 text-sm">
         International Gita Mahotsav 2025<br>
         Designed & Maintained by NIC, Kurukshetra
@@ -123,51 +109,90 @@
       <p class="text-center text-gray-500 text-xs mt-2">
         Last Updated: <span id="lastModified"></span>
       </p>
-    </div>
-  </div>
-
-  <!-- AI Response Popup Modal -->
-  <div id="aiModal" class="flex">
-    <div id="aiModalContent">
-      <button id="closeModal">&times;</button>
-      <h4>AI Response</h4>
-      <p id="aiResponseText"></p>
+      
+      <!-- Logos -->
+      <div class="flex flex-wrap justify-center items-center gap-6 mt-3">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Government of Haryana" class="w-12 h-12 object-contain">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="Kurukshetra Development Board" class="w-12 h-12 object-contain">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nicLogo.png" alt="National Informatics Centre" class="w-12 h-12 object-contain">
+      </div>
     </div>
   </div>
 
   <script>
     lucide.createIcons();
 
-    // Set last modified date
+    // Set last modified date and time
     document.getElementById("lastModified").textContent = new Date(document.lastModified).toLocaleString('en-US', {
-      year: 'numeric', month: 'long', day: 'numeric',
-      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
       hour12: false
     });
 
-    // Show AI response in popup
-    const askBtn = document.getElementById("askBtn");
-    const aiModal = document.getElementById("aiModal");
-    const aiResponseText = document.getElementById("aiResponseText");
-    const closeModal = document.getElementById("closeModal");
-
-    askBtn.addEventListener("click", () => {
-      const question = document.getElementById("userInput").value.trim();
-      if(!question) return;
-      // Simulate AI response (replace with your API/n8n call)
-      aiResponseText.innerHTML = `You asked: <b>${question}</b><br><br>Arjuna received the Gita on the battlefield of Kurukshetra, where Lord Krishna imparted teachings on dharma, karma, and moksha.`;
-      aiModal.style.display = "flex";
+    // Language selection
+    let selectedLanguage = 'Hindi';
+    document.querySelectorAll('.langBtn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        selectedLanguage = this.dataset.lang;
+        document.querySelectorAll('.langBtn').forEach(b => b.classList.replace('bg-blue-600', 'bg-gray-600'));
+        this.classList.replace('bg-gray-600', 'bg-blue-600');
+      });
     });
 
-    closeModal.addEventListener("click", () => {
-      aiModal.style.display = "none";
+    // Submit handler
+    document.getElementById('submitBtn').addEventListener('click', async () => {
+      const question = document.getElementById('userInput').value.trim();
+      if (!question) return;
+
+      const chatBox = document.getElementById('chatBox');
+      const userMsg = document.createElement('div');
+      userMsg.className = 'flex mb-3 justify-end';
+      userMsg.innerHTML = `<div class="bg-blue-100 p-2 rounded-lg ml-3 text-gray-800">${question}</div>`;
+      chatBox.appendChild(userMsg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      document.getElementById('userInput').value = '';
+
+      // Simulate AI response (replace with n8n call)
+      setTimeout(() => {
+        const aiMsg = document.createElement('div');
+        aiMsg.className = 'flex mb-3';
+        aiMsg.innerHTML = `
+          <div class="bg-amber-100 p-2 rounded-lg mr-3">
+            <i data-lucide="bot" class="text-amber-700 w-5 h-5"></i>
+          </div>
+          <div class="text-gray-800">
+            Arjuna received the Gita on the battlefield of Kurukshetra, where Lord Krishna imparted teachings on dharma, karma, and moksha.
+          </div>
+        `;
+        chatBox.appendChild(aiMsg);
+        lucide.createIcons();
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 1000);
     });
 
-    // Close modal on click outside content
-    aiModal.addEventListener("click", e => {
-      if(e.target === aiModal) aiModal.style.display = "none";
+    // Voice input
+    let recognition;
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'hi-IN';
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('userInput').value = transcript;
+      };
+    }
+
+    document.getElementById('voiceBtn').addEventListener('click', () => {
+      if (recognition) recognition.start();
     });
   </script>
-
 </body>
 </html>
