@@ -1,168 +1,83 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>AskGita — International Gita Mahotsav 2025</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  body {
-    background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-  }
-  .cinzel { font-family: 'Cinzel', serif; }
-  .saffron { background-color: #FF9933; }
-  .green { background-color: #138808; }
-  .mandala-bg {
-    background-image: radial-gradient(circle at center, rgba(255,193,7,0.05) 0%, transparent 70%),
-                      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%23FF9933' stroke-width='0.5' opacity='0.1'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%23138808' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
-    background-size: 300px;
-  }
-
-  /* Header animation & glow */
-  .header-gradient {
-    background: linear-gradient(90deg, #ff9933, #ffd54f, #138808);
-    background-size: 200% 200%;
-    animation: flow 6s linear infinite;
-    box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
-  }
-  @keyframes flow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  /* Floating sparkles */
-  .spark {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: gold;
-    border-radius: 50%;
-    opacity: 0.7;
-    animation: float 5s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); opacity: 0.7; }
-    50% { transform: translateY(-15px); opacity: 1; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>AskGITA AI Chat</title>
+  <style>
+    body { font-family: Arial; }
+    #chatBtn {
+      position: fixed; bottom: 20px; right: 20px;
+      background: #2563eb; color: white;
+      border: none; border-radius: 50%;
+      width: 60px; height: 60px; font-size: 22px;
+      cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    #chatPopup {
+      display: none; position: fixed;
+      bottom: 90px; right: 20px;
+      width: 320px; height: 420px;
+      background: #fff; border: 2px solid #ddd;
+      border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      overflow: hidden; flex-direction: column;
+    }
+    #chatHeader {
+      background: #2563eb; color: white;
+      padding: 10px; font-weight: bold;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    #chatBox {
+      flex: 1; padding: 10px;
+      overflow-y: auto; background: #f9fafb;
+    }
+    #chatInput {
+      display: flex; border-top: 1px solid #ddd;
+    }
+    #userInput {
+      flex: 1; border: none; padding: 10px;
+    }
+    #sendBtn {
+      background: #2563eb; color: white;
+      border: none; padding: 10px 14px;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 mandala-bg relative">
+<body>
 
-  <!-- Floating sparkles -->
-  <div class="spark" style="top:10%; left:10%; animation-delay:0s;"></div>
-  <div class="spark" style="top:20%; left:80%; animation-delay:1s;"></div>
-  <div class="spark" style="top:40%; left:50%; animation-delay:2s;"></div>
+  <button id="chatBtn">💬</button>
 
-  <!-- Tiranga strip -->
-  <div class="flex h-3 w-full max-w-4xl overflow-hidden rounded-t-3xl shadow-md">
-    <div class="w-1/3 saffron"></div>
-    <div class="w-1/3 bg-white"></div>
-    <div class="w-1/3 green"></div>
-  </div>
-
-  <!-- Main card -->
-  <div class="w-full max-w-4xl bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border-2 border-amber-300">
-
-    <!-- Enhanced Header -->
-    <div class="header-gradient text-center py-8 text-white relative">
-      <h1 class="text-4xl md:text-5xl font-bold cinzel drop-shadow-lg tracking-wide">
-        🌺 International Gita Mahotsav
-      </h1>
-      <h2 class="text-2xl font-semibold mt-1">2025</h2>
-      <div class="mt-4 inline-block bg-white/20 backdrop-blur-sm px-5 py-2 rounded-xl border border-white/30 shadow-inner">
-        <h3 class="text-2xl font-bold text-white">Ask<span class="text-yellow-200">Gita</span></h3>
-      </div>
+  <div id="chatPopup">
+    <div id="chatHeader">
+      AskGITA AI
+      <span style="cursor:pointer;" onclick="toggleChat()">✖</span>
     </div>
-
-    <!-- Gita Quote Banner -->
-    <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mx-6 mt-4 rounded-r-lg">
-      <p class="text-lg italic text-gray-800 font-serif text-center">
-        "ज्ञानं तेऽहं सविज्ञानमिदं वक्ष्याम्यशेषतः।<br>
-        यज्ज्ञात्वा नेह भूयोऽन्यज्ज्ञातव्यमवशिष्यते॥"
-      </p>
-      <p class="text-right text-gray-600 mt-1">— श्रीमद्भगवद्गीता, अध्याय 7, श्लोक 2</p>
-      <p class="text-center text-sm text-gray-700 mt-2 font-medium">
-        "I shall now declare to you in full this knowledge with realization, knowing which nothing else remains to be known in this world."
-      </p>
-    </div>
-
-    <!-- Chat Interface -->
-    <div class="p-6">
-      <label class="block text-sm font-medium text-gray-700 mb-2">Ask Your Question</label>
-      <input id="userInput" class="w-full rounded-lg border-2 border-gray-300 p-3 text-gray-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-200" placeholder="e.g., What is the message of Chapter 2 of the Gita?">
-      
-      <div class="flex flex-wrap gap-2 mt-3">
-        <button class="langBtn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" data-lang="Hindi">हिंदी</button>
-        <button class="langBtn px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700" data-lang="English">English</button>
-        <button id="voiceBtn" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"><i data-lucide="mic" class="w-4 h-4"></i> Speak</button>
-        <button id="submitBtn" class="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg flex-1"><i data-lucide="send" class="w-4 h-4"></i> Send</button>
-      </div>
-
-      <div class="bg-amber-50 border-2 border-amber-200 rounded-xl p-4 mt-6">
-        <p class="text-gray-800 font-medium">
-          Welcome! Ask about the Bhagavad Gita, Kurukshetra’s 48 Kos pilgrimage, or the International Gita Mahotsav program. Explore spiritual wisdom with AskGita.
-        </p>
-      </div>
-
-      <div id="chatBox" class="bg-gray-50 rounded-xl p-4 h-64 overflow-y-auto border-2 border-gray-200 mt-4"></div>
-
-      <div class="mt-4 text-center">
-        <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center justify-center gap-1">
-          <i data-lucide="home" class="w-4 h-4"></i> Return to Main Page
-        </a>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="border-t-2 border-gray-200 p-4 text-center bg-gradient-to-r from-white via-amber-50 to-white">
-      <p class="text-gray-700 text-sm font-medium">International Gita Mahotsav 2025<br>Designed & Maintained by NIC, Kurukshetra</p>
-      <p class="text-xs text-gray-500 mt-1">Last Updated: <span id="lastModified"></span></p>
-      <div class="flex justify-center items-center gap-6 mt-3">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" class="w-12 h-12 object-contain">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" class="w-12 h-12 object-contain">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nicLogo.png" class="w-12 h-12 object-contain">
-      </div>
+    <div id="chatBox"></div>
+    <div id="chatInput">
+      <input id="userInput" placeholder="Ask something...">
+      <button id="sendBtn">Send</button>
     </div>
   </div>
 
-<script>
-lucide.createIcons();
-document.getElementById("lastModified").textContent =
-  new Date(document.lastModified).toLocaleString('en-US', {year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+  <script>
+    const chatPopup = document.getElementById('chatPopup');
+    const chatBox = document.getElementById('chatBox');
+    const userInput = document.getElementById('userInput');
 
-let selectedLanguage = 'Hindi';
-document.querySelectorAll('.langBtn').forEach(btn=>{
-  btn.onclick=function(){
-    selectedLanguage=this.dataset.lang;
-    document.querySelectorAll('.langBtn').forEach(b=>b.classList.replace('bg-blue-600','bg-gray-600'));
-    this.classList.replace('bg-gray-600','bg-blue-600');
-  };
-});
+    function toggleChat() {
+      chatPopup.style.display = chatPopup.style.display === 'flex' ? 'none' : 'flex';
+    }
 
-document.getElementById('submitBtn').onclick=()=>{
-  const q=document.getElementById('userInput').value.trim(); if(!q) return;
-  const box=document.getElementById('chatBox');
-  box.innerHTML+=`<div class='flex mb-3 justify-end'><div class='bg-blue-100 p-2 rounded-lg text-gray-800'>${q}</div></div>`;
-  document.getElementById('userInput').value='';
-  setTimeout(()=>{
-    box.innerHTML+=`<div class='flex mb-3'><div class='bg-amber-100 p-2 rounded-lg mr-3'><i data-lucide='bot' class='text-amber-700 w-5 h-5'></i></div>
-    <div class='text-gray-800'>Lord Krishna’s message teaches equanimity, duty, and devotion — the core path to peace and self-realization.</div></div>`;
-    lucide.createIcons(); box.scrollTop=box.scrollHeight;
-  },1000);
-};
+    document.getElementById('chatBtn').onclick = toggleChat;
 
-let recognition;
-if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){
-  const R=window.SpeechRecognition||window.webkitSpeechRecognition;
-  recognition=new R(); recognition.lang='hi-IN';
-  recognition.onresult=e=>document.getElementById('userInput').value=e.results[0][0].transcript;
-}
-document.getElementById('voiceBtn').onclick=()=>{if(recognition) recognition.start();};
-</script>
+    document.getElementById('sendBtn').onclick = () => {
+      const msg = userInput.value.trim();
+      if (!msg) return;
+      chatBox.innerHTML += `<div><b>You:</b> ${msg}</div>`;
+      userInput.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+      setTimeout(() => chatBox.innerHTML += `<div><b>Bot:</b> Thinking on "${msg}"...</div>`, 500);
+    };
+  </script>
+
 </body>
 </html>
