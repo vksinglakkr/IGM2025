@@ -50,15 +50,16 @@
 
     <!-- Input with Mic Icon -->
     <div class="relative">
-<input 
-  id="userInput" 
+<textarea 
+  id="userInput"
+  rows="2"
   class="w-full rounded-xl border-2 border-amber-400 p-4 pr-12 text-gray-900 text-lg
          bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-100
-         shadow-inner placeholder-gray-500
+         shadow-inner placeholder-gray-500 resize-none
          focus:border-amber-600 focus:ring-4 focus:ring-amber-200 focus:shadow-lg focus:shadow-amber-200/50
-         transition duration-300 ease-in-out"
+         transition duration-300 ease-in-out leading-relaxed"
   placeholder="🌼 Ask something divine... e.g., What is the message of Chapter 2 of the Gita?"
-/>
+></textarea>
       <!-- Mic Icon inside input -->
       <button 
         id="voiceBtn" 
