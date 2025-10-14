@@ -380,7 +380,12 @@
         }, 2000);
       });
     };
-    
+     // If the page was loaded from the browser cache, force a reload
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  });
   // Re-render Lucide icons after DOM load
   lucide.createIcons();
     
