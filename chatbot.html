@@ -380,10 +380,11 @@
         }, 2000);
       });
     };
-     // If the page was loaded from the browser cache, force a reload
-  window.addEventListener("pageshow", function (event) {
-    if (event.persisted) {
-      window.location.reload();
+   window.addEventListener("pageshow", () => {
+    const inputBox = document.getElementById("userInput");
+    if (inputBox) {
+      inputBox.value = ""; // clears any old question
+      inputBox.placeholder = "Ask your question here..."; // reset placeholder text
     }
   });
   // Re-render Lucide icons after DOM load
