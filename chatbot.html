@@ -380,13 +380,7 @@
         }, 2000);
       });
     };
-   window.addEventListener("pageshow", () => {
-    const inputBox = document.getElementById("userInput");
-    if (inputBox) {
-      inputBox.value = ""; // clears any old question
-      inputBox.placeholder = "Ask your question here..."; // reset placeholder text
-    }
-  });
+
   // Re-render Lucide icons after DOM load
   lucide.createIcons();
     
