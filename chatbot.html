@@ -70,7 +70,12 @@
         <i data-lucide="mic" class="w-5 h-5"></i>
       </button>
     </div>
-
+<div class="flex justify-center mt-2">
+  <button id="musicToggle" class="text-sm text-gray-600 hover:text-amber-700 flex items-center gap-1">
+    <i data-lucide="music" class="w-4 h-4"></i>
+    <span id="musicLabel">Play Flute</span>
+  </button>
+</div>
     <!-- Language and Send Buttons -->
     <div class="flex flex-wrap gap-2 mt-2"> <!-- reduced mt -->
       <button class="langBtn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition active" data-lang="Hindi">
@@ -283,7 +288,11 @@
       </div>
     </div>
   </div>
-
+<!-- Gentle Flute Background Music -->
+<audio id="fluteMusic" loop>
+  <source src="https://vksinglakkr.github.io/IGM2025/audio/gentle-flute.mp3" type="audio/mpeg">
+  Your browser does not support audio.
+</audio>
   <script>
     lucide.createIcons();
 
@@ -380,10 +389,32 @@
         }, 2000);
       });
     };
+// Background flute music control
+const fluteMusic = document.getElementById('fluteMusic');
+const musicToggle = document.getElementById('musicToggle');
+const musicLabel = document.getElementById('musicLabel');
 
+musicToggle.addEventListener('click', () => {
+  if (fluteMusic.paused) {
+    fluteMusic.play().catch(e => {
+      console.warn("Audio play blocked by browser autoplay policy:", e);
+      alert("Please interact with the page first, then click to play music.");
+    });
+    musicLabel.textContent = "Pause Flute";
+  } else {
+    fluteMusic.pause();
+    musicLabel.textContent = "Play Flute";
+  }
+});
+
+// Optional: Auto-pause when modal opens
+document.getElementById('aiModal').addEventListener('DOMNodeInserted', () => {
+  if (!fluteMusic.paused) fluteMusic.pause();
+});
   // Re-render Lucide icons after DOM load
   lucide.createIcons();
     
   </script>
+  
 </body>
 </html>
