@@ -33,151 +33,37 @@
 
   <div class="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border-2 border-amber-200">
     
-<!-- --- START: Refined 3D Header (replace your existing header) --- -->
-<style>
-  /* Header local styles (put near the header or in your stylesheet) */
-  .igm-header {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 20px;
-    position: relative;
-    max-width: 1100px;
-    margin: 20px auto;
-    box-shadow: 0 10px 30px rgba(15,23,42,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
-    border: 3px solid rgba(255, 193, 7, 0.12);
-  }
-
-  /* thin saffron-green trims */
-  .igm-header::before,
-  .igm-header::after {
-    content: "";
-    position: absolute;
-    left: 12px;
-    right: 12px;
-    height: 6px;
-    border-radius: 8px;
-    pointer-events: none;
-  }
-  .igm-header::before { top: 6px; background: linear-gradient(90deg,#FF9933,#FFD54F); opacity: 0.95; }
-  .igm-header::after  { bottom: 6px; background: linear-gradient(90deg,#138808,#7CC24A); opacity: 0.95; }
-
-  /* 3D / embossed main heading */
-  .igm-title {
-    font-family: "Cinzel", serif;
-    font-weight: 700;
-    color: #1f2937; /* gray-800 */
-    margin: 0;
-    line-height: 1.05;
-    text-shadow:
-      0 1px 0 #fff,            /* highlight */
-      0 4px 10px rgba(15,23,42,0.25), /* deep shadow */
-      0 0 6px rgba(255,193,7,0.08);   /* faint gold halo */
-    transform: translateZ(0);
-    font-size: 1.6rem; /* compact */
-  }
-
-  /* bilingual secondary line (smaller) */
-  .igm-subtitle {
-    display: block;
-    font-family: "Inter", sans-serif;
-    font-weight: 600;
-    color: #111827; /* darker text */
-    margin-top: 6px;
-    font-size: 1rem;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  }
-
-  /* small powered-by line */
-  .igm-powered {
-    margin-top: 10px;
-    font-size: 0.85rem;
-    color: #374151; /* gray-700 */
-    opacity: 0.9;
-  }
-
-  /* badge with subtle shimmer */
-  .igm-badge {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 8px 14px;
-    border-radius: 12px;
-    background: rgba(255,248,230,0.9);
-    border: 1px solid rgba(255,193,7,0.22);
-    box-shadow: 0 6px 18px rgba(15,23,42,0.08);
-    font-weight: 700;
-    color: #92400e; /* amber-800 */
-    position: relative;
-    overflow: hidden;
-  }
-  .igm-badge::after {
-    content: "";
-    position: absolute;
-    left: -60%;
-    top: -30%;
-    width: 60%;
-    height: 160%;
-    background: linear-gradient(120deg, rgba(255,255,255,0.0), rgba(255,255,255,0.55), rgba(255,255,255,0.0));
-    transform: skewX(-20deg);
-    filter: blur(6px);
-    opacity: 0.0;
-    transition: all 0.9s ease-in-out;
-  }
-  .igm-badge:hover::after { left: 120%; opacity: 0.7; transition: all 1s ease-in-out; }
-
-  /* responsive tweaks */
-  @media (min-width: 768px) {
-    .igm-title { font-size: 2.1rem; }
-    .igm-subtitle { font-size: 1.05rem; }
-    .igm-header { padding: 26px; border-radius: 18px; }
-  }
-</style>
-
-<div class="igm-header">
-  <!-- Left/Right minimal emblem (optional) -->
-  <div class="flex items-center justify-between">
-    <div style="width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:8px; background:linear-gradient(180deg,#fff8e1,#fff1c2); box-shadow:0 4px 10px rgba(0,0,0,0.06);">
-      <!-- small mandala / logo svg (simple saffron dot emblem) -->
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="12" cy="12" r="6" fill="#FF9933"/>
-        <circle cx="12" cy="12" r="2.5" fill="#FFD54F"/>
-      </svg>
-    </div>
-
-    <!-- center textual block -->
-<!-- Elegant 3D Header with Chakra Symbol -->
-<div class="relative bg-white p-5 text-center rounded-2xl shadow-[0_6px_15px_rgba(0,0,0,0.3)] border-4 border-yellow-500">
-  <div class="absolute inset-0 rounded-2xl border border-yellow-300 opacity-70"></div>
+<!-- 🌼 International Gita Mahotsav Header with 3D Effect -->
+<div class="relative bg-white p-6 text-center rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.25)] border-4 border-amber-500 max-w-4xl mx-auto mt-6">
+  <div class="absolute inset-0 rounded-3xl border border-yellow-400 opacity-60"></div>
 
   <!-- Chakra Symbol -->
-  <div class="flex justify-center mb-2">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Ashoka_Chakra.svg" 
-         alt="Chakra Symbol" 
-         class="w-12 h-12 drop-shadow-md">
+  <div class="flex justify-center mb-3">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Ashoka_Chakra.svg"
+         alt="Ashoka Chakra"
+         class="w-14 h-14 drop-shadow-md">
   </div>
 
-  <h1 class="text-3xl md:text-4xl font-extrabold text-amber-700 drop-shadow-[2px_2px_4px_rgba(0,0,0,0.4)] tracking-wide">
-    AskGita <span class="text-black text-2xl">(with AI)</span>
+  <!-- Main Title -->
+  <h1 class="text-3xl md:text-4xl font-extrabold text-amber-800 drop-shadow-[2px_2px_4px_rgba(0,0,0,0.4)] tracking-wide">
+    International Gita Mahotsav <span class="text-black text-2xl">2025</span>
   </h1>
 
-  <p class="text-lg font-semibold text-gray-800 mt-1 drop-shadow-sm">
-    गीता से सम्बंधित प्रश्न पूछें (AI के साथ)
-  </p>
-
-  <p class="text-sm text-gray-600 italic mt-2">
-    AI Chatbot powered by <span class="font-semibold text-amber-700">Groq + Llama 3.3</span>
-  </p>
-</div>
-    <!-- right small emblem to balance -->
-    <div style="width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:8px; background:linear-gradient(180deg,#eef9ee,#e6f6e6); box-shadow:0 4px 10px rgba(0,0,0,0.06);">
-      <!-- small peacock-feather-like SVG simplified -->
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M12 3c4 0 7 3 7 7s-3 7-7 11c-4-4-7-7-7-11s3-7 7-7z" fill="#138808" opacity="0.9"/>
-        <circle cx="12" cy="10" r="2" fill="#FFD54F"/>
-      </svg>
-    </div>
+  <!-- Subsection: AskGita -->
+  <div class="mt-3 bg-amber-50 rounded-xl border-2 border-amber-400 inline-block px-5 py-2 shadow-inner">
+    <h2 class="text-2xl font-bold text-amber-800 drop-shadow-sm">
+      AskGita <span class="text-black text-xl">(with AI)</span>
+    </h2>
+    <p class="text-base font-semibold text-gray-800 mt-1">
+      गीता से सम्बंधित प्रश्न पूछें (AI के साथ)
+    </p>
   </div>
+
+  <!-- Footer Line -->
+  <p class="text-sm text-gray-700 italic mt-3">
+    AI Chatbot powered by <span class="font-semibold text-amber-800">Groq + Llama 3.3</span>
+  </p>
 </div>
-<!-- --- END: Refined 3D Header --- -->
    <!-- Event Dates in Boxes -->
     <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="bg-blue-50 border-l-4 border-l-blue-500 rounded-xl p-4 text-center">
