@@ -70,12 +70,7 @@
         <i data-lucide="mic" class="w-5 h-5"></i>
       </button>
     </div>
-<div class="flex justify-center mt-2">
-  <button id="musicToggle" class="text-sm text-gray-600 hover:text-amber-700 flex items-center gap-1">
-    <i data-lucide="music" class="w-4 h-4"></i>
-    <span id="musicLabel">Play Flute</span>
-  </button>
-</div>
+
     <!-- Language and Send Buttons -->
     <div class="flex flex-wrap gap-2 mt-2"> <!-- reduced mt -->
       <button class="langBtn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition active" data-lang="Hindi">
@@ -96,7 +91,15 @@
 
       <!-- Sample Questions -->
 <div class="mt-0 mb-1 px-6">
-  <label class="block text-sm font-medium text-gray-700 mb-1">Or Select a Ready Question</label>
+<div class="flex items-center justify-between mb-1">
+  <label class="block text-sm font-medium text-gray-700">Or Select a Ready Question</label>
+  <div class="flex items-center">
+    <button id="musicToggle" class="text-sm text-gray-600 hover:text-amber-700 flex items-center gap-1">
+      <i data-lucide="music" class="w-4 h-4"></i>
+      <span id="musicLabel">Play Flute</span>
+    </button>
+  </div>
+</div>
   <div id="sampleQuestions" class="max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-2 space-y-0.5 bg-gray-50">
     
     <div class="flex items-start py-0">
