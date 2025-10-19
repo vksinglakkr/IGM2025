@@ -93,7 +93,7 @@
 
 <div class="mt-0 mb-1 px-6">
     <div class="flex items-center justify-between mb-1">
-        <label for="sampleQuestionSelect" class="block text-sm font-medium text-gray-700">Or Select a Ready Question</label>
+        <label class="block text-sm font-medium text-gray-700">Or Select a Ready Question</label>
         <div class="flex items-center">
             <button id="musicToggle" class="text-sm text-gray-600 hover:text-amber-700 flex items-center gap-1">
                 <i data-lucide="music" class="w-4 h-4"></i>
@@ -102,48 +102,21 @@
         </div>
     </div>
     
-    <select id="sampleQuestionSelect" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md bg-gray-50">
-        <option value="" selected disabled>--- Choose a Category & Question ---</option>
-        
-        <optgroup label="PHILOSOPHICAL_QUERY (Gita Wisdom)">
-            <option value="How can one control anger according to the Bhagavad Gita?">How can one control anger according to the Bhagavad Gita?</option>
-            <option value="What does the Gita say about finding peace of mind?">What does the Gita say about finding peace of mind?</option>
-            <option value="How can a person stay calm in success and failure as per the Gita?">How can a person stay calm in success and failure as per the Gita?</option>
-            <option value="What guidance does the Gita give for overcoming fear and anxiety?">What guidance does the Gita give for overcoming fear and anxiety?</option>
-            <option value="How can one control desires and attachments according to Lord Krishna?">How can one control desires and attachments according to Lord Krishna?</option>
-            <option value="What is the ultimate message of the Bhagavad Gita for a common person?">What is the ultimate message of the Bhagavad Gita for a common person?</option>
-        </optgroup>
+    <div class="space-y-2">
+        <select id="categorySelect" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md bg-gray-50">
+            <option value="" selected disabled>--- Select Main Category ---</option>
+            <option value="PHILOSOPHICAL_QUERY">1. Gita Wisdom / Philosophy</option>
+            <option value="EVENT_QUERY">2. Event Schedule & Activities</option>
+            <option value="FACILITY_QUERY">3. Amenities & Facilities</option>
+            <option value="TRANSPORT_QUERY">4. Transport & Travel</option>
+            <option value="GENERAL_INFO">5. General Festival Info</option>
+            </select>
 
-        <optgroup label="EVENT_QUERY (Schedule)">
-            <option value="What are the dates for the PM/CM/Governor visits?">What are the dates for the PM/CM/Governor visits? (VVIP_Visits)</option>
-            <option value="When is the main Gita Path ceremony scheduled?">When is the main Gita Path ceremony scheduled? (Spiritual_Activities)</option>
-            <option value="What cultural programs are scheduled for tomorrow?">What cultural programs are scheduled for tomorrow? (Cultural_Programs)</option>
-            <option value="Tell me about the art and book exhibitions.">Tell me about the art and book exhibitions. (Exhibitions)</option>
-            <option value="What time is the Deep Daan ceremony today?">What time is the Deep Daan ceremony today? (Religious_Events)</option>
-            <option value="I want to participate in the debate competition.">I want to participate in the debate competition. (Competitions)</option>
-        </optgroup>
-
-        <optgroup label="FACILITY_QUERY (Amenities)">
-            <option value="Where is the nearest parking and is it free?">Where is the nearest parking and is it free? (Parking)</option>
-            <option value="Where can I find the food court or canteen?">Where can I find the food court or canteen? (Food courts)</option>
-            <option value="Are there any medical or first aid facilities near the main stage?">Are there any medical or first aid facilities near the main stage? (Medical facilities)</option>
-            <option value="Where is the Lost and Found counter?">Where is the Lost and Found counter? (Help desks)</option>
-        </optgroup>
-
-        <optgroup label="TRANSPORT_QUERY (Travel)">
-            <option value="What's the best way to reach Kurukshetra from Delhi by train?">What's the best way to reach Kurukshetra from Delhi by train?</option>
-            <option value="Are there shuttle bus services available during the festival?">Are there shuttle bus services available during the festival?</option>
-            <option value="Where is the nearest taxi stand?">Where is the nearest taxi stand? (Local transport)</option>
-        </optgroup>
-        
-        <optgroup label="GENERAL_INFO (Basics)">
-            <option value="What are the dates and timings for the Gita Mahotsav 2025?">What are the dates and timings for the Gita Mahotsav 2025?</option>
-            <option value="What is the official helpline number?">What is the official helpline number? (Contact numbers)</option>
-            <option value="Are there any entry fees for the main fair grounds?">Are there any entry fees for the main fair grounds?</option>
-        </optgroup>
-
-    </select>
-</div>
+        <select id="questionSelect" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md bg-gray-50" disabled>
+            <option value="" selected disabled>--- Select Question ---</option>
+        </select>
+    </div>
+</div></div>
     <!-- Event Dates in Boxes -->
 <div class="px-6 py-3 grid grid-cols-1 md:grid-cols-3 gap-3"> <!-- reduced gaps -->
       <div class="bg-blue-50 border-l-4 border-l-blue-500 rounded-xl p-2 text-center">
