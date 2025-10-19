@@ -28,7 +28,6 @@
 <body class="min-h-screen flex flex-col items-center justify-center p-4 mandala-bg">
 
   <div class="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border-2 border-amber-200">
-    <!-- Om Symbol Header -->
     <div class="relative bg-white p-6 text-center rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.25)] border-4 border-amber-500 max-w-4xl mx-auto mt-1">
       <div class="absolute inset-0 rounded-3xl border border-yellow-400 opacity-60"></div>
       <h1 class="text-6xl md:text-6xl font-extrabold text-amber-800 drop-shadow-[2px_2px_4px_rgba(0,0,0,0.4)] tracking-wide">
@@ -41,15 +40,10 @@
       </div>
     </div>
 
-<!-- Chat Interface -->
-<div class="p-4 pt-3 pb-2"> <!-- reduced padding -->
-  <!-- Input Area -->
-  <div class="mb-1"> <!-- reduced bottom margin -->
-    <label class="block text-base font-semibold text-amber-800 mb-1">
+<div class="p-4 pt-3 pb-2"> <div class="mb-1"> <label class="block text-base font-semibold text-amber-800 mb-1">
       Ask Question ... 
     </label>
 
-    <!-- Input with Mic Icon -->
     <div class="relative">
 <textarea 
   id="userInput"
@@ -63,7 +57,6 @@
 ></textarea>
 
 
-      <!-- Mic Icon inside input -->
       <button 
         id="voiceBtn" 
         class="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-green-600"
@@ -73,9 +66,7 @@
       </button>
     </div>
 
-    <!-- Language and Send Buttons -->
-    <div class="flex flex-wrap gap-2 mt-2"> <!-- reduced mt -->
-      <button class="langBtn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition active" data-lang="Hindi">
+    <div class="flex flex-wrap gap-2 mt-2"> <button class="langBtn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition active" data-lang="Hindi">
         हिंदी
       </button>
       <button class="langBtn px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition" data-lang="English">
@@ -110,16 +101,19 @@
             <option value="FACILITY_QUERY">3. Amenities & Facilities</option>
             <option value="TRANSPORT_QUERY">4. Transport & Travel</option>
             <option value="GENERAL_INFO">5. General Festival Info</option>
-            </select>
+            <option value="TOURISM_QUERY">6. Tourist Places & Sightseeing</option>
+            <option value="ACCOMMODATION_QUERY">7. Accommodation & Stay</option>
+            <option value="COMPETITION_QUERY">8. Competitions & Registration</option>
+            <option value="EMERGENCY_QUERY">9. Emergency & Helpline</option>
+            <option value="FAQ_QUERY">10. Common Questions (FAQ)</option>
+        </select>
 
         <select id="questionSelect" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md bg-gray-50" disabled>
             <option value="" selected disabled>--- Select Question ---</option>
         </select>
     </div>
-</div></div>
-    <!-- Event Dates in Boxes -->
-<div class="px-6 py-3 grid grid-cols-1 md:grid-cols-3 gap-3"> <!-- reduced gaps -->
-      <div class="bg-blue-50 border-l-4 border-l-blue-500 rounded-xl p-2 text-center">
+</div>
+<div class="px-6 py-3 grid grid-cols-1 md:grid-cols-3 gap-3"> <div class="bg-blue-50 border-l-4 border-l-blue-500 rounded-xl p-2 text-center">
         <p class="font-bold text-gray-800">Exhibition</p>
         <p class="text-sm text-gray-700">15 Nov – 5 Dec 2025</p>
       </div>
@@ -133,7 +127,6 @@
       </div>
     </div>
 
-    <!-- Gita Quote Banner -->
     <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mx-6 mt-2 rounded-r-lg">
       <p class="text-lg italic text-gray-800 font-serif text-center">
         "ज्ञानं तेऽहं सविज्ञानमिदं वक्ष्याम्यशेषतः।<br>
@@ -145,7 +138,6 @@
       </p>
     </div>
 
-      <!-- Return to Main -->
       <div class="mt-4 text-center">
         <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center justify-center gap-1">
           <i data-lucide="home" class="w-4 h-4"></i> Return to Main Page
@@ -153,7 +145,6 @@
       </div>
     </div>
 
-    <!-- Footer -->
     <div class="border-t-2 border-gray-200 p-4 text-center">
       <p class="text-sm text-gray-700 italic mt-3">
         AI Chatbot powered by <span class="font-semibold text-amber-800">Groq + Llama 3.3</span>
@@ -174,7 +165,6 @@
     </div>
   </div>
 
-  <!-- AI Response Modal (MUST be BEFORE script) -->
   <div id="aiModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 fade-in">
       <div class="flex justify-between items-center border-b px-5 py-3 bg-blue-700 text-white rounded-t-2xl">
@@ -204,12 +194,78 @@
       </div>
     </div>
   </div>
-<!-- Gentle Flute Background Music -->
 <audio id="fluteMusic" loop>
   <source src="https://vksinglakkr.github.io/IGM2025/audio/gentle-flute.mp3" type="audio/mpeg">
   Your browser does not support audio.
 </audio>
   <script>
+    
+// =================================================================================================================
+// NEW: Structured Question Data
+// =================================================================================================================
+const categoryQuestions = {
+    'PHILOSOPHICAL_QUERY': [
+        "How can one control anger according to the Bhagavad Gita?",
+        "What does the Gita say about finding peace of mind?",
+        "How can a person stay calm in success and failure as per the Gita?",
+        "What guidance does the Gita give for overcoming fear and anxiety?",
+        "How can one control desires and attachments according to Lord Krishna?",
+        "What is the ultimate message of the Bhagavad Gita for a common person?",
+    ],
+    'EVENT_QUERY': [
+        "What are the dates for the PM/CM/Governor visits? (VVIP_Visits)",
+        "When is the main Gita Path ceremony scheduled? (Spiritual_Activities)",
+        "What cultural programs are scheduled for tomorrow? (Cultural_Programs)",
+        "Tell me about the art and book exhibitions. (Exhibitions)",
+        "What time is the Deep Daan ceremony today? (Religious_Events)",
+        "I want to participate in the debate competition. (Competitions)",
+    ],
+    'FACILITY_QUERY': [
+        "Where is the nearest parking and is it free?",
+        "Where can I find the food court or canteen?",
+        "Are there any medical or first aid facilities near the main stage?",
+        "Where is the Lost and Found counter?",
+    ],
+    'TRANSPORT_QUERY': [
+        "What's the best way to reach Kurukshetra from Delhi by train?",
+        "Are there shuttle bus services available during the festival?",
+        "Where is the nearest taxi stand?",
+    ],
+    'GENERAL_INFO': [
+        "What are the dates and timings for the Gita Mahotsav 2025?",
+        "What is the official helpline number?",
+        "Are there any entry fees for the main fair grounds?",
+    ],
+    'TOURISM_QUERY': [
+        "What are the timings for Jyotisar and Brahma Sarovar?",
+        "Can you suggest a sightseeing tour itinerary for the day?",
+        "What is the historical significance of Krishna Museum?",
+    ],
+    'ACCOMMODATION_QUERY': [
+        "Are there budget hotels available near the venue?",
+        "How can I book a room in a nearby Dharamshala?",
+        "Where can I find information on homestays?",
+    ],
+    'COMPETITION_QUERY': [
+        "How do I register for the Gita Chanting competition?",
+        "What are the eligibility criteria for the essay contest?",
+        "What is the prize information for the painting contest?",
+    ],
+    'EMERGENCY_QUERY': [
+        "What are the emergency contact numbers for the festival?",
+        "Where is the police station or medical emergency center located?",
+        "I have lost my child, where should I report it?",
+    ],
+    'FAQ_QUERY': [
+        "What is the Gita Mahotsav?",
+        "What are the general rules and regulations for visitors?",
+        "What is the predicted weather forecast for the next week?",
+    ]
+};
+// =================================================================================================================
+// END NEW DATA
+// =================================================================================================================
+
     lucide.createIcons();
 
     // Set last modified date and time
@@ -223,12 +279,58 @@
       hour12: false
     });
 
-    // Sample question selection
+    // Sample question selection (REPLACED with dynamic logic below)
+    /*
     document.querySelectorAll('input[name="sampleQ"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         document.getElementById('userInput').value = e.target.value;
       });
     });
+    */
+
+// =================================================================================================================
+// NEW: Dynamic Dropdown Logic
+// =================================================================================================================
+    const categorySelect = document.getElementById('categorySelect');
+    const questionSelect = document.getElementById('questionSelect');
+    const userQueryInput = document.getElementById('userInput'); // Ensure this ID matches your textarea
+
+    function populateQuestions(category) {
+        // Clear existing options
+        questionSelect.innerHTML = '<option value="" selected disabled>--- Select Question ---</option>';
+        questionSelect.disabled = true;
+
+        if (category && categoryQuestions[category]) {
+            const questions = categoryQuestions[category];
+            questions.forEach(q => {
+                const option = document.createElement('option');
+                option.value = q;
+                option.textContent = q;
+                questionSelect.appendChild(option);
+            });
+            questionSelect.disabled = false;
+        }
+    }
+
+    // 1. When a CATEGORY is selected: Update the Questions dropdown
+    if (categorySelect) {
+        categorySelect.addEventListener('change', () => {
+            const selectedCategory = categorySelect.value;
+            populateQuestions(selectedCategory);
+            // Clear the main input field when a new category is selected
+            if (userQueryInput) userQueryInput.value = '';
+        });
+    }
+
+    // 2. When a QUESTION is selected: Populate the main user input field
+    if (questionSelect && userQueryInput) {
+        questionSelect.addEventListener('change', () => {
+            userQueryInput.value = questionSelect.value;
+        });
+    }
+// =================================================================================================================
+// END NEW Dynamic Dropdown Logic
+// =================================================================================================================
 
     // Language selection
     let selectedLanguage = 'Hindi';
