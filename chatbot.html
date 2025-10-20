@@ -23,87 +23,32 @@
     background-size: 300px;
   }
 
-  /* TTS Animation Styles */
-  .wave-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    height: 40px;
-  }
-
-  .wave-bar {
-    width: 4px;
-    background: linear-gradient(to top, #FF9933, #138808);
-    border-radius: 4px;
-    animation: wave 1.2s ease-in-out infinite;
-  }
-
-  .wave-bar:nth-child(1) { animation-delay: 0s; }
-  .wave-bar:nth-child(2) { animation-delay: 0.1s; }
-  .wave-bar:nth-child(3) { animation-delay: 0.2s; }
-  .wave-bar:nth-child(4) { animation-delay: 0.3s; }
-  .wave-bar:nth-child(5) { animation-delay: 0.4s; }
-
-  @keyframes wave {
-    0%, 100% { height: 10px; }
-    50% { height: 40px; }
-  }
-
-  .tts-controls {
-    background: linear-gradient(135deg, #FFF5E6 0%, #FFE4B3 100%);
-    border: 2px solid #FF9933;
-  }
-
-  .voice-select {
-    background: white;
-    border: 2px solid #FFB84D;
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 14px;
-  }
-
-  .speaking-indicator {
-    display: none;
-    align-items: center;
-    gap: 8px;
+  /* TTS Simple Styles */
+  .tts-btn {
     padding: 8px 16px;
-    background: linear-gradient(90deg, #FF9933 0%, #FFB84D 100%);
-    color: white;
-    border-radius: 20px;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(255, 153, 51, 0.4);
-  }
-
-  .speaking-indicator.active {
-    display: flex;
-  }
-
-  .speed-control {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .speed-btn {
-    padding: 4px 12px;
-    border-radius: 6px;
-    border: 2px solid #FFB84D;
-    background: white;
-    font-size: 12px;
+    border-radius: 8px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
 
-  .speed-btn:hover {
-    background: #FFF5E6;
+  .tts-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
-  .speed-btn.active {
-    background: #FF9933;
-    color: white;
-    border-color: #FF9933;
+  .tts-btn.speaking {
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
   }
 </style>
 
@@ -258,58 +203,16 @@
         </button>
       </div>
 
-      <!-- TTS Controls Section -->
-      <div class="tts-controls p-4 border-b">
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <div class="flex items-center gap-2">
-            <button id="playTTS" class="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition font-semibold shadow-md">
-              <i data-lucide="volume-2" class="w-4 h-4"></i>
-              <span>Play</span>
-            </button>
-            <button id="pauseTTS" class="flex items-center gap-2 px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg transition font-semibold shadow-md" disabled>
-              <i data-lucide="pause" class="w-4 h-4"></i>
-              <span>Pause</span>
-            </button>
-            <button id="stopTTS" class="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition font-semibold shadow-md" disabled>
-              <i data-lucide="square" class="w-4 h-4"></i>
-              <span>Stop</span>
-            </button>
-          </div>
-
-          <div class="speed-control">
-            <span class="text-sm font-semibold text-gray-700">Speed:</span>
-            <button class="speed-btn" data-speed="0.75">0.75x</button>
-            <button class="speed-btn active" data-speed="1">1x</button>
-            <button class="speed-btn" data-speed="1.25">1.25x</button>
-            <button class="speed-btn" data-speed="1.5">1.5x</button>
-          </div>
-        </div>
-
-        <!-- Speaking Indicator with Animation -->
-        <div id="speakingIndicator" class="speaking-indicator mt-3">
-          <div class="wave-container">
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-          </div>
-          <span>Speaking...</span>
-        </div>
-
-        <!-- Voice Selection -->
-        <div class="mt-3">
-          <label class="text-sm font-semibold text-gray-700 mr-2">Voice:</label>
-          <select id="voiceSelect" class="voice-select">
-            <option value="">Loading voices...</option>
-          </select>
-        </div>
-      </div>
-
       <div class="p-5 max-h-[60vh] overflow-y-auto">
         <p class="font-semibold text-gray-700 mb-2">Question:</p>
         <pre id="modalQuestion" class="whitespace-pre-wrap text-gray-800 mb-4 bg-blue-50 p-3 rounded-lg"></pre>
-        <p class="font-semibold text-gray-700 mb-2">Answer:</p>
+        <p class="font-semibold text-gray-700 mb-2 flex items-center justify-between">
+          <span>Answer:</span>
+          <button id="ttsToggle" class="tts-btn bg-amber-600 hover:bg-amber-700 text-white">
+            <i data-lucide="volume-2" class="w-4 h-4"></i>
+            <span id="ttsLabel">Listen</span>
+          </button>
+        </p>
         <pre id="modalAnswer" class="whitespace-pre-wrap text-gray-800 bg-amber-50 p-3 rounded-lg"></pre>
       </div>
       <div class="border-t p-4 flex justify-end gap-3">
@@ -446,115 +349,46 @@ const categoryQuestions = {
       });
     });
 
-    // ===== TEXT-TO-SPEECH FUNCTIONALITY =====
+    // ===== SIMPLE TEXT-TO-SPEECH =====
     let ttsUtterance = null;
-    let ttsVoices = [];
-    let currentSpeed = 1;
+    let isSpeaking = false;
 
-    function loadVoices() {
-        ttsVoices = speechSynthesis.getVoices();
-        const voiceSelect = document.getElementById('voiceSelect');
-        voiceSelect.innerHTML = '';
-        
-        const hindiVoices = ttsVoices.filter(v => v.lang.startsWith('hi'));
-        const englishVoices = ttsVoices.filter(v => v.lang.startsWith('en'));
-        
-        if (hindiVoices.length > 0) {
-            const hindiGroup = document.createElement('optgroup');
-            hindiGroup.label = 'Hindi Voices';
-            hindiVoices.forEach((voice, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.textContent = voice.name;
-                hindiGroup.appendChild(option);
-            });
-            voiceSelect.appendChild(hindiGroup);
-        }
-        
-        if (englishVoices.length > 0) {
-            const englishGroup = document.createElement('optgroup');
-            englishGroup.label = 'English Voices';
-            englishVoices.forEach((voice, index) => {
-                const option = document.createElement('option');
-                option.value = ttsVoices.indexOf(voice);
-                option.textContent = voice.name;
-                englishGroup.appendChild(option);
-            });
-            voiceSelect.appendChild(englishGroup);
-        }
-    }
-
-    if (speechSynthesis.onvoiceschanged !== undefined) {
-        speechSynthesis.onvoiceschanged = loadVoices;
-    }
-    loadVoices();
-
-    document.getElementById('playTTS').addEventListener('click', () => {
+    document.getElementById('ttsToggle').addEventListener('click', () => {
+        const ttsBtn = document.getElementById('ttsToggle');
+        const ttsLabel = document.getElementById('ttsLabel');
         const answerText = document.getElementById('modalAnswer').textContent;
-        if (answerText && answerText !== 'Thinking...') {
-            if (speechSynthesis.paused) {
-                speechSynthesis.resume();
-            } else {
-                speechSynthesis.cancel();
-                ttsUtterance = new SpeechSynthesisUtterance(answerText);
-                
-                const selectedVoiceIndex = document.getElementById('voiceSelect').value;
-                if (selectedVoiceIndex) {
-                    ttsUtterance.voice = ttsVoices[selectedVoiceIndex];
-                }
-                
-                ttsUtterance.rate = currentSpeed;
-                ttsUtterance.pitch = 1;
-                ttsUtterance.volume = 1;
-                
-                ttsUtterance.onstart = () => {
-                    document.getElementById('speakingIndicator').classList.add('active');
-                    document.getElementById('playTTS').disabled = true;
-                    document.getElementById('pauseTTS').disabled = false;
-                    document.getElementById('stopTTS').disabled = false;
-                };
-                
-                ttsUtterance.onend = () => {
-                    document.getElementById('speakingIndicator').classList.remove('active');
-                    document.getElementById('playTTS').disabled = false;
-                    document.getElementById('pauseTTS').disabled = true;
-                    document.getElementById('stopTTS').disabled = true;
-                };
-                
-                speechSynthesis.speak(ttsUtterance);
-            }
-        }
-    });
-
-    document.getElementById('pauseTTS').addEventListener('click', () => {
-        if (speechSynthesis.speaking) {
-            speechSynthesis.pause();
-            document.getElementById('speakingIndicator').classList.remove('active');
-        }
-    });
-
-    document.getElementById('stopTTS').addEventListener('click', () => {
-        speechSynthesis.cancel();
-        document.getElementById('speakingIndicator').classList.remove('active');
-        document.getElementById('playTTS').disabled = false;
-        document.getElementById('pauseTTS').disabled = true;
-        document.getElementById('stopTTS').disabled = true;
-    });
-
-    document.querySelectorAll('.speed-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            currentSpeed = parseFloat(this.dataset.speed);
+        
+        if (!answerText || answerText === 'Thinking...') return;
+        
+        if (isSpeaking) {
+            // Stop speaking
+            speechSynthesis.cancel();
+            isSpeaking = false;
+            ttsBtn.classList.remove('speaking');
+            ttsLabel.textContent = 'Listen';
+        } else {
+            // Start speaking
+            speechSynthesis.cancel();
+            ttsUtterance = new SpeechSynthesisUtterance(answerText);
+            ttsUtterance.rate = 1;
+            ttsUtterance.pitch = 1;
             
-            if (ttsUtterance && speechSynthesis.speaking) {
-                const currentText = ttsUtterance.text;
-                speechSynthesis.cancel();
-                setTimeout(() => {
-                    document.getElementById('playTTS').click();
-                }, 100);
-            }
-        });
+            ttsUtterance.onstart = () => {
+                isSpeaking = true;
+                ttsBtn.classList.add('speaking');
+                ttsLabel.textContent = 'Stop';
+            };
+            
+            ttsUtterance.onend = () => {
+                isSpeaking = false;
+                ttsBtn.classList.remove('speaking');
+                ttsLabel.textContent = 'Listen';
+            };
+            
+            speechSynthesis.speak(ttsUtterance);
+        }
+        
+        lucide.createIcons();
     });
 
     document.getElementById('submitBtn').addEventListener('click', async () => {
@@ -581,10 +415,8 @@ const categoryQuestions = {
 
         const data = await response.json();
         document.getElementById('modalAnswer').textContent = data.answer || data.error || 'No response received.';
-        document.getElementById('playTTS').disabled = false;
       } catch (error) {
         document.getElementById('modalAnswer').textContent = 'Connection failed: ' + error.message;
-        document.getElementById('playTTS').disabled = false;
       }
       
       lucide.createIcons();
