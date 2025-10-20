@@ -597,3 +597,60 @@ const categoryQuestions = {
       recognition.continuous = false;
       recognition.interimResults = false;
       recognition.lang = 'hi-IN';
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('userInput').value = transcript;
+      };
+    }
+
+    document.getElementById('voiceBtn').addEventListener('click', () => {
+      if (recognition) recognition.start();
+    });
+
+    document.getElementById('closeBtn').onclick = () => {
+      speechSynthesis.cancel();
+      document.getElementById('aiModal').classList.add('hidden');
+    };
+    
+    document.getElementById('closeModal').onclick = () => {
+      speechSynthesis.cancel();
+      document.getElementById('aiModal').classList.add('hidden');
+    };
+    
+    document.getElementById('copyBtn').onclick = () => {
+      const text = document.getElementById('modalAnswer').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = document.getElementById('copyBtn').innerHTML;
+        document.getElementById('copyBtn').innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Copied!';
+        lucide.createIcons();
+        setTimeout(() => {
+          document.getElementById('copyBtn').innerHTML = original;
+          lucide.createIcons();
+        }, 2000);
+      });
+    };
+
+    const fluteMusic = document.getElementById('fluteMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicLabel = document.getElementById('musicLabel');
+
+    musicToggle.addEventListener('click', () => {
+      if (fluteMusic.paused) {
+        fluteMusic.play().catch(e => {
+          console.warn("Audio play blocked by browser autoplay policy:", e);
+          alert("Please interact with the page first, then click to play music.");
+        });
+        musicLabel.textContent = "Pause Flute";
+      } else {
+        fluteMusic.pause();
+        musicLabel.textContent = "Play Flute";
+      }
+    });
+
+    lucide.createIcons();
+    
+  </script>
+  
+</body>
+</html>
