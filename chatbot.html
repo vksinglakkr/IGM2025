@@ -391,37 +391,40 @@ const categoryQuestions = {
         lucide.createIcons();
     });
 
-    document.getElementById('submitBtn').addEventListener('click', async () => {
-      const question = document.getElementById('userInput').value.trim();
-      if (!question) return;
+document.getElementById('submitBtn').addEventListener('click', async () => {
+  const question = document.getElementById('userInput').value.trim();
+  if (!question) return;
 
-      speechSynthesis.cancel();
+  // Stop any ongoing speech
+  speechSynthesis.cancel();
+  isSpeaking = false;
+  document.getElementById('ttsToggle').classList.remove('speaking');
+  document.getElementById('ttsLabel').textContent = 'Listen';
 
-      document.getElementById('modalQuestion').textContent = question;
-      document.getElementById('modalAnswer').textContent = 'Thinking...';
-      document.getElementById('aiModal').classList.remove('hidden');
-      document.getElementById('playTTS').disabled = true;
+  // Show modal with loading state
+  document.getElementById('modalQuestion').textContent = question;
+  document.getElementById('modalAnswer').textContent = 'Thinking...';
+  document.getElementById('aiModal').classList.remove('hidden');
 
-      try {
-        const response = await fetch('https://aarvisingla1609.app.n8n.cloud/webhook/ask-gita', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            question: question,
-            language: selectedLanguage,
-            mobNo: 'anonymous'
-          })
-        });
-
-        const data = await response.json();
-        document.getElementById('modalAnswer').textContent = data.answer || data.error || 'No response received.';
-      } catch (error) {
-        document.getElementById('modalAnswer').textContent = 'Connection failed: ' + error.message;
-      }
-      
-      lucide.createIcons();
+  try {
+    const response = await fetch('https://aarvisingla1609.app.n8n.cloud/webhook/ask-gita', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        question: question,
+        language: selectedLanguage,
+        mobNo: 'anonymous'
+      })
     });
 
+    const data = await response.json();
+    document.getElementById('modalAnswer').textContent = data.answer || data.error || 'No response received.';
+  } catch (error) {
+    document.getElementById('modalAnswer').textContent = 'Connection failed: ' + error.message;
+  }
+  
+  lucide.createIcons();
+});
     let recognition;
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
