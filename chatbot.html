@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -529,6 +528,29 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   document.getElementById('modalAnswer').textContent = 'Thinking...';
   document.getElementById('aiModal').classList.remove('hidden');
 
+  // Capture device and browser info
+  const deviceType = /Mobile|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'Mobile' : 
+                     /Tablet|iPad/i.test(navigator.userAgent) ? 'Tablet' : 'Desktop';
+  const browserMatch = navigator.userAgent.match(/(Firefox|Chrome|Safari|Edge|Opera|OPR)/i);
+  const browser = browserMatch ? browserMatch[0].replace('OPR', 'Opera') : 'Unknown';
+
+  // Get geolocation (optional - requires user permission)
+  let geoLocation = { latitude: 'Not Available', longitude: 'Not Available' };
+  try {
+    if (navigator.geolocation) {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, { 
+          timeout: 3000,
+          enableHighAccuracy: false 
+        });
+      });
+      geoLocation.latitude = position.coords.latitude.toFixed(6);
+      geoLocation.longitude = position.coords.longitude.toFixed(6);
+    }
+  } catch (error) {
+    console.log('Geolocation not available');
+  }
+
   try {
     const response = await fetch('https://vksinglakkrgroq1.app.n8n.cloud/webhook/ask-gita', {
       method: 'POST',
@@ -536,7 +558,13 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
       body: JSON.stringify({
         question: question,
         language: selectedLanguage,
-        mobNo: 'anonymous'
+        mobNo: 'anonymous',
+        deviceType: deviceType,
+        browser: browser,
+        latitude: geoLocation.latitude,
+        longitude: geoLocation.longitude,
+        timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+        userAgent: navigator.userAgent
       })
     });
 
