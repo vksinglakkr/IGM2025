@@ -6,24 +6,28 @@
   <title>IGM Saathi – International Gita Mahotsav 2025</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
  <style>
   body {
-    background: linear-gradient(135deg, #e0f7ff 0%, #c0e7ff 100%);
-    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    font-family: 'Poppins', sans-serif;
   }
 
-  .saffron { background-color: #FF9933; }
-  .white { background-color: #FFFFFF; }
-  .green { background-color: #138808; }
-  .cinzel { font-family: 'Cinzel', serif; }
+  .devanagari {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+  }
 
   .mandala-bg {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%23FF9933' stroke-width='0.5' opacity='0.1'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%23138808' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%23FF6B35' stroke-width='0.5' opacity='0.08'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%23006B7D' stroke-width='0.5' opacity='0.08'/%3E%3C/svg%3E");
     background-size: 300px;
   }
 
-  /* TTS Simple Styles */
+  .gradient-border {
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, #FF6B35, #D4A574) border-box;
+    border: 3px solid transparent;
+  }
+
   .tts-btn {
     padding: 8px 16px;
     border-radius: 8px;
@@ -50,193 +54,227 @@
     0%, 100% { opacity: 1; }
     50% { opacity: 0.7; }
   }
+
+  .lang-toggle {
+    display: inline-flex;
+    background: #f3f4f6;
+    border-radius: 10px;
+    padding: 3px;
+  }
+
+  .lang-toggle button {
+    padding: 6px 16px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .lang-toggle button.active {
+    background: #1e40af;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
 </style>
 
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4 mandala-bg">
 
-  <div class="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border-2 border-amber-200">
-    <div class="relative bg-white p-6 text-center rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.25)] border-4 border-amber-500 max-w-4xl mx-auto mt-1">
-      <div class="absolute inset-0 rounded-3xl border border-yellow-400 opacity-60"></div>
-      <h1 class="text-4xl md:text-4xl font-extrabold text-amber-800 drop-shadow-[2px_2px_4px_rgba(0,0,0,0.4)] tracking-wide">
-        ✨ IGM Saathi ✨ <span class="text-black text-2xl"></span>
-      </h1>
-     <h6 class="text-[0.7rem] sm:text-xs md:text-sm text-amber-800 drop-shadow-[2px_2px_4px_rgba(0,0,0,0.4)] tracking-tight leading-tight px-2">
-  -- Your IGM Companion --
-</h6>
-      <div class="mt-3 bg-amber-50 rounded-xl border-2 border-amber-400 inline-block px-5 py-2 shadow-inner">
-        <h2 class="text-1xl font-bold text-amber-800 drop-shadow-sm">
-          International Gita Mahotsav - 2025 <span class="text-black text-xl"></span>
-        </h2>
-      </div>
-    </div>
-
-<div class="p-4 pt-3 pb-2"> <div class="mb-1"> <label class="block text-base font-semibold text-amber-800 mb-1">
-      Ask Question ... 
-    </label>
-
-    <div class="relative">
-<textarea 
-  id="userInput"
-  rows="2"
-  class="w-full rounded-xl border-2 border-amber-400 p-3 pr-12 text-gray-900 text-lg
-         bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-100
-         shadow-inner placeholder-gray-500 resize-none
-         focus:border-amber-600 focus:ring-4 focus:ring-amber-200 focus:shadow-lg focus:shadow-amber-200/50
-         transition duration-300 ease-in-out leading-snug min-h-[72px]"
-  placeholder="Ask anything..."
-></textarea>
-
-      <button 
-        id="voiceBtn" 
-        class="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-green-600"
-        title="Speak your question"
-      >
-        <i data-lucide="mic" class="w-5 h-5"></i>
-      </button>
-    </div>
-
-    <div class="flex flex-wrap gap-2 mt-2"> <button class="langBtn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition active" data-lang="Hindi">
-        हिंदी
-      </button>
-      <button class="langBtn px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition" data-lang="English">
-        English
-      </button>
-      <button 
-        id="submitBtn" 
-        class="flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg transition flex-1"
-      >
-        <i data-lucide="send" class="w-4 h-4"></i> Send
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="mt-0 mb-1 px-6">
-    <div class="flex items-center justify-between mb-1">
-        <label class="block text-sm font-medium text-gray-700">Or Select a Ready Question</label>
-        <div class="flex items-center">
-            <button id="musicToggle" class="text-sm text-gray-600 hover:text-amber-700 flex items-center gap-1">
-                <i data-lucide="music" class="w-4 h-4"></i>
-                <span id="musicLabel">Play Flute</span>
-            </button>
+  <div class="w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden gradient-border">
+    <!-- Header Section -->
+    <div class="relative bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 p-8 text-center">
+      <div class="flex justify-end mb-2">
+        <div class="lang-toggle">
+          <button class="langBtn active" data-lang="Hindi">हिंदी</button>
+          <button class="langBtn" data-lang="English">English</button>
         </div>
-    </div>
-    
-    <div class="space-y-2">
-        <select id="categorySelect" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md bg-gray-50">
-            <option value="" selected disabled>--- Select Main Category ---</option>
-            <option value="PHILOSOPHICAL_QUERY">1. Gita Wisdom / Philosophy</option>
-            <option value="EVENT_QUERY">2. Event Schedule & Activities</option>
-            <option value="FACILITY_QUERY">3. Amenities & Facilities</option>
-            <option value="TRANSPORT_QUERY">4. Transport & Travel</option>
-            <option value="GENERAL_INFO">5. General Festival Info</option>
-            <option value="TOURISM_QUERY">6. Tourist Places & Sightseeing</option>
-            <option value="ACCOMMODATION_QUERY">7. Accommodation & Stay</option>
-            <option value="COMPETITION_QUERY">8. Competitions & Registration</option>
-            <option value="EMERGENCY_QUERY">9. Emergency & Helpline</option>
-            <option value="FAQ_QUERY">10. Common Questions (FAQ)</option>
-        </select>
-
-        <select id="questionSelect" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md bg-gray-50" disabled>
-            <option value="" selected disabled>--- Select Question ---</option>
-        </select>
-    </div>
-</div>
-<div class="px-6 py-3 grid grid-cols-1 md:grid-cols-3 gap-3"> <div class="bg-blue-50 border-l-4 border-l-blue-500 rounded-xl p-2 text-center">
-        <p class="font-bold text-gray-800">Exhibition</p>
-        <p class="text-sm text-gray-700">15 Nov – 5 Dec 2025</p>
       </div>
-      <div class="bg-amber-50 border-l-4 border-l-amber-500 rounded-xl p-2 text-center">
-        <p class="font-bold text-gray-800">Daily Quiz</p>
-        <p class="text-sm text-gray-700">4 – 14 Nov 2025</p>
-      </div>
-      <div class="bg-green-50 border-l-4 border-l-green-500 rounded-xl p-2 text-center">
-        <p class="font-bold text-gray-800">Cultural Programs</p>
-        <p class="text-sm text-gray-700">24 Nov – 1 Dec 2025</p>
+      
+      <h1 class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-orange-600 via-amber-600 to-orange-700 bg-clip-text text-transparent drop-shadow-sm mb-2">
+        IGM Saathi
+      </h1>
+      <p class="text-sm text-gray-600 font-medium">Gita Wisdom & Mahotsav Guide</p>
+      
+      <div class="mt-4 inline-block">
+        <div class="bg-white rounded-2xl border-2 border-orange-400 px-6 py-3 shadow-lg">
+          <h2 class="text-xl font-bold text-gray-800">
+            International Gita Mahotsav 2025
+          </h2>
+        </div>
       </div>
     </div>
 
-    <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mx-6 mt-2 rounded-r-lg">
-      <p class="text-lg italic text-gray-800 font-serif text-center">
-        "ज्ञानं तेऽहं सविज्ञानमिदं वक्ष्याम्यशेषतः।<br>
-        यज्ज्ञात्वा नेह भूयोऽन्यज्ज्ञातव्यमवशिष्यते॥"
-      </p>
-      <p class="text-right text-gray-600 mt-1">– श्रीमद्भगवद्गीता, अध्याय 7, श्लोक 2</p>
-      <p class="text-center text-sm text-gray-700 mt-2 font-medium">
-        "I shall now declare to you in full this knowledge with realization, knowing which nothing else remains to be known in this world."
-      </p>
-    </div>
+    <!-- Main Content -->
+    <div class="p-6">
+      <!-- Question Input -->
+      <div class="mb-6">
+        <div class="relative">
+          <textarea 
+            id="userInput"
+            rows="2"
+            class="w-full rounded-2xl border-2 border-gray-300 p-4 pr-14 text-gray-900 text-base
+                   bg-white shadow-sm placeholder-gray-400 resize-none
+                   focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:shadow-lg
+                   transition duration-200 leading-relaxed min-h-[80px]"
+            placeholder="Ask anything about Gita or IGM 2025..."
+          ></textarea>
+          <button 
+            id="voiceBtn" 
+            class="absolute top-4 right-4 text-gray-400 hover:text-orange-600 transition"
+            title="Speak your question"
+          >
+            <i data-lucide="mic" class="w-6 h-6"></i>
+          </button>
+        </div>
 
-      <div class="mt-4 text-center">
-        <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center justify-center gap-1">
+        <!-- Send Button -->
+        <button 
+          id="submitBtn" 
+          class="w-full mt-3 flex items-center justify-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-4 rounded-2xl transition font-semibold text-lg shadow-lg hover:shadow-xl"
+        >
+          <i data-lucide="send" class="w-5 h-5"></i> Send Question
+        </button>
+      </div>
+
+      <!-- Quick Questions Section -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-3">
+          <label class="text-base font-semibold text-gray-800">Quick Questions</label>
+          <button id="musicToggle" class="text-sm text-gray-600 hover:text-orange-600 flex items-center gap-1.5 transition">
+            <i data-lucide="music" class="w-4 h-4"></i>
+            <span id="musicLabel">Play Flute</span>
+          </button>
+        </div>
+        
+        <div class="space-y-3">
+          <select id="categorySelect" class="block w-full px-4 py-3 text-base border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 rounded-xl bg-white shadow-sm transition">
+            <option value="" selected disabled>Select Topic</option>
+            <option value="PHILOSOPHICAL_QUERY">Gita Wisdom</option>
+            <option value="EVENT_QUERY">Events & Schedule</option>
+            <option value="FACILITY_QUERY">Facilities</option>
+            <option value="TRANSPORT_QUERY">Transport & Travel</option>
+            <option value="GENERAL_INFO">General Info</option>
+            <option value="TOURISM_QUERY">Tourist Places</option>
+            <option value="ACCOMMODATION_QUERY">Accommodation</option>
+            <option value="COMPETITION_QUERY">Competitions</option>
+            <option value="EMERGENCY_QUERY">Emergency Help</option>
+            <option value="FAQ_QUERY">Common Questions</option>
+          </select>
+
+          <select id="questionSelect" class="block w-full px-4 py-3 text-base border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 rounded-xl bg-white shadow-sm transition" disabled>
+            <option value="" selected disabled>Select Question</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Event Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-600 rounded-2xl p-4 shadow-sm hover:shadow-md transition">
+          <div class="flex items-center gap-2 mb-1">
+            <i data-lucide="image" class="w-5 h-5 text-blue-600"></i>
+            <p class="font-bold text-gray-800">Exhibition</p>
+          </div>
+          <p class="text-sm text-gray-700">15 Nov – 5 Dec 2025</p>
+        </div>
+        <div class="bg-gradient-to-br from-amber-50 to-amber-100 border-l-4 border-amber-600 rounded-2xl p-4 shadow-sm hover:shadow-md transition">
+          <div class="flex items-center gap-2 mb-1">
+            <i data-lucide="award" class="w-5 h-5 text-amber-600"></i>
+            <p class="font-bold text-gray-800">Daily Quiz</p>
+          </div>
+          <p class="text-sm text-gray-700">4 – 14 Nov 2025</p>
+        </div>
+        <div class="bg-gradient-to-br from-green-50 to-green-100 border-l-4 border-green-600 rounded-2xl p-4 shadow-sm hover:shadow-md transition">
+          <div class="flex items-center gap-2 mb-1">
+            <i data-lucide="music" class="w-5 h-5 text-green-600"></i>
+            <p class="font-bold text-gray-800">Cultural Programs</p>
+          </div>
+          <p class="text-sm text-gray-700">24 Nov – 1 Dec 2025</p>
+        </div>
+      </div>
+
+      <!-- Gita Quote -->
+      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-indigo-600 p-6 rounded-2xl shadow-sm">
+        <p class="text-xl devanagari text-gray-800 text-center leading-relaxed mb-3">
+          "ज्ञानं तेऽहं सविज्ञानमिदं वक्ष्याम्यशेषतः।<br>
+          यज्ज्ञात्वा नेह भूयोऽन्यज्ज्ञातव्यमवशिष्यते॥"
+        </p>
+        <p class="text-right text-gray-600 text-sm mb-3 devanagari">— श्रीमद्भगवद्गीता, अध्याय 7, श्लोक 2</p>
+        <p class="text-center text-sm text-gray-700 font-medium leading-relaxed">
+          "I shall now declare to you in full this knowledge with realization, knowing which nothing else remains to be known in this world."
+        </p>
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center justify-center gap-2 font-medium transition">
           <i data-lucide="home" class="w-4 h-4"></i> Return to Main Page
         </a>
       </div>
     </div>
 
-    <div class="border-t-2 border-gray-200 p-4 text-center">
-      <p class="text-sm text-gray-700 italic mt-3">
-        AI Chatbot powered by <span class="font-semibold text-amber-800">Groq + Llama 3.3</span>
+    <!-- Footer -->
+    <div class="border-t-2 border-gray-100 p-6 text-center bg-gray-50">
+      <p class="text-sm text-gray-700 mb-3">
+        AI Chatbot powered by <span class="font-semibold text-orange-600">Groq + Llama 3.3</span>
       </p>
 
-      <p class="text-gray-600 text-sm">
+      <p class="text-gray-600 text-sm mb-2">
         International Gita Mahotsav 2025<br>
         Designed & Maintained by NIC, Kurukshetra
       </p>
-      <p class="text-center text-gray-500 text-xs mt-2">
+      <p class="text-gray-500 text-xs mb-4">
         Last Updated: <span id="lastModified"></span>
       </p>
-      <div class="flex flex-wrap justify-center items-center gap-6 mt-3">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Government of Haryana" class="w-12 h-12 object-contain">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="Kurukshetra Development Board" class="w-12 h-12 object-contain">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nicLogo.png" alt="National Informatics Centre" class="w-12 h-12 object-contain">
+      <div class="flex flex-wrap justify-center items-center gap-6">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Government of Haryana" class="w-12 h-12 object-contain opacity-80 hover:opacity-100 transition">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="Kurukshetra Development Board" class="w-12 h-12 object-contain opacity-80 hover:opacity-100 transition">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nicLogo.png" alt="National Informatics Centre" class="w-12 h-12 object-contain opacity-80 hover:opacity-100 transition">
       </div>
     </div>
   </div>
 
+  <!-- Modal -->
   <div id="aiModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 fade-in">
-      <div class="flex justify-between items-center border-b px-5 py-3 bg-blue-700 text-white rounded-t-2xl">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full mx-4">
+      <div class="flex justify-between items-center border-b px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-t-3xl">
         <h2 class="text-lg font-semibold flex items-center gap-2">
           <i data-lucide="message-circle" class="w-5 h-5"></i> AI Response
         </h2>
-        <button id="closeModal" class="hover:text-gray-200">
-          <i data-lucide="x" class="w-5 h-5"></i>
+        <button id="closeModal" class="hover:text-gray-200 transition">
+          <i data-lucide="x" class="w-6 h-6"></i>
         </button>
       </div>
 
-      <div class="p-5 max-h-[60vh] overflow-y-auto">
+      <div class="p-6 max-h-[60vh] overflow-y-auto">
         <p class="font-semibold text-gray-700 mb-2">Question:</p>
-        <pre id="modalQuestion" class="whitespace-pre-wrap text-gray-800 mb-4 bg-blue-50 p-3 rounded-lg"></pre>
+        <pre id="modalQuestion" class="whitespace-pre-wrap text-gray-800 mb-4 bg-blue-50 p-4 rounded-xl"></pre>
         <p class="font-semibold text-gray-700 mb-2 flex items-center justify-between">
           <span>Answer:</span>
-          <button id="ttsToggle" class="tts-btn bg-amber-600 hover:bg-amber-700 text-white">
+          <button id="ttsToggle" class="tts-btn bg-orange-600 hover:bg-orange-700 text-white">
             <i data-lucide="volume-2" class="w-4 h-4"></i>
             <span id="ttsLabel">Listen</span>
           </button>
         </p>
-        <pre id="modalAnswer" class="whitespace-pre-wrap text-gray-800 bg-amber-50 p-3 rounded-lg"></pre>
+        <pre id="modalAnswer" class="whitespace-pre-wrap text-gray-800 bg-amber-50 p-4 rounded-xl leading-relaxed"></pre>
       </div>
-      <div class="border-t p-4 flex justify-end gap-3">
-        <button id="copyBtn" class="flex items-center gap-1 px-4 py-2 border rounded-lg hover:bg-gray-100 transition">
+      <div class="border-t p-5 flex justify-end gap-3">
+        <button id="copyBtn" class="flex items-center gap-2 px-5 py-2.5 border-2 border-gray-300 rounded-xl hover:bg-gray-50 transition font-medium">
           <i data-lucide="copy" class="w-4 h-4"></i> Copy
         </button>
-        <a href="index.html" class="flex items-center gap-1 px-4 py-2 border rounded-lg hover:bg-gray-100 transition">
-          <i data-lucide="home" class="w-4 h-4"></i> Main Page
+        <a href="index.html" class="flex items-center gap-2 px-5 py-2.5 border-2 border-gray-300 rounded-xl hover:bg-gray-50 transition font-medium">
+          <i data-lucide="home" class="w-4 h-4"></i> Home
         </a>
-        <button id="closeBtn" class="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800 transition">
+        <button id="closeBtn" class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2.5 rounded-xl hover:from-blue-700 hover:to-blue-800 transition font-medium">
           Close
         </button>
       </div>
     </div>
   </div>
-<audio id="fluteMusic" loop>
-  <source src="https://vksinglakkr.github.io/IGM2025/audio/gentle-flute.mp3" type="audio/mpeg">
-  Your browser does not support audio.
-</audio>
+
+  <audio id="fluteMusic" loop>
+    <source src="https://vksinglakkr.github.io/IGM2025/audio/gentle-flute.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
-    
 const categoryQuestions = {
     'PHILOSOPHICAL_QUERY': [
         "How can one control anger according to the Bhagavad Gita?",
@@ -247,12 +285,12 @@ const categoryQuestions = {
         "What is the ultimate message of the Bhagavad Gita for a common person?",
     ],
     'EVENT_QUERY': [
-        "What are the dates for the PM/CM/Governor visits? (VVIP_Visits)",
-        "When is the main Gita Path ceremony scheduled? (Spiritual_Activities)",
-        "What cultural programs are scheduled for tomorrow? (Cultural_Programs)",
-        "Tell me about the art and book exhibitions. (Exhibitions)",
-        "What time is the Deep Daan ceremony today? (Religious_Events)",
-        "I want to participate in the debate competition. (Competitions)",
+        "What are the dates for the PM/CM/Governor visits?",
+        "When is the main Gita Path ceremony scheduled?",
+        "What cultural programs are scheduled for tomorrow?",
+        "Tell me about the art and book exhibitions.",
+        "What time is the Deep Daan ceremony today?",
+        "I want to participate in the debate competition.",
     ],
     'FACILITY_QUERY': [
         "Where is the nearest parking and is it free?",
@@ -305,7 +343,6 @@ const categoryQuestions = {
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-      second: '2-digit',
       hour12: false
     });
 
@@ -314,7 +351,7 @@ const categoryQuestions = {
     const userQueryInput = document.getElementById('userInput');
 
     function populateQuestions(category) {
-        questionSelect.innerHTML = '<option value="" selected disabled>--- Select Question ---</option>';
+        questionSelect.innerHTML = '<option value="" selected disabled>Select Question</option>';
         questionSelect.disabled = true;
 
         if (category && categoryQuestions[category]) {
@@ -347,12 +384,11 @@ const categoryQuestions = {
     document.querySelectorAll('.langBtn').forEach(btn => {
       btn.addEventListener('click', function() {
         selectedLanguage = this.dataset.lang;
-        document.querySelectorAll('.langBtn').forEach(b => b.classList.replace('bg-blue-600', 'bg-gray-600'));
-        this.classList.replace('bg-gray-600', 'bg-blue-600');
+        document.querySelectorAll('.langBtn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
       });
     });
 
-    // ===== SIMPLE TEXT-TO-SPEECH =====
     let ttsUtterance = null;
     let isSpeaking = false;
 
@@ -364,13 +400,11 @@ const categoryQuestions = {
         if (!answerText || answerText === 'Thinking...') return;
         
         if (isSpeaking) {
-            // Stop speaking
             speechSynthesis.cancel();
             isSpeaking = false;
             ttsBtn.classList.remove('speaking');
             ttsLabel.textContent = 'Listen';
         } else {
-            // Start speaking
             speechSynthesis.cancel();
             ttsUtterance = new SpeechSynthesisUtterance(answerText);
             ttsUtterance.rate = 1;
@@ -398,13 +432,11 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   const question = document.getElementById('userInput').value.trim();
   if (!question) return;
 
-  // Stop any ongoing speech
   speechSynthesis.cancel();
   isSpeaking = false;
   document.getElementById('ttsToggle').classList.remove('speaking');
   document.getElementById('ttsLabel').textContent = 'Listen';
 
-  // Show modal with loading state
   document.getElementById('modalQuestion').textContent = question;
   document.getElementById('modalAnswer').textContent = 'Thinking...';
   document.getElementById('aiModal').classList.remove('hidden');
@@ -428,6 +460,7 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   
   lucide.createIcons();
 });
+
     let recognition;
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -476,7 +509,7 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
     musicToggle.addEventListener('click', () => {
       if (fluteMusic.paused) {
         fluteMusic.play().catch(e => {
-          console.warn("Audio play blocked by browser autoplay policy:", e);
+          console.warn("Audio play blocked:", e);
           alert("Please interact with the page first, then click to play music.");
         });
         musicLabel.textContent = "Pause Flute";
@@ -487,8 +520,6 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
     });
 
     lucide.createIcons();
-    
   </script>
-  
 </body>
 </html>
