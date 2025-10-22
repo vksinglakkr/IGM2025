@@ -473,53 +473,76 @@
   </div>
 
   <!-- Premium Modal -->
-  <div id="aiModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full mx-4 modal-enter">
-      <div class="flex justify-between items-center border-b-2 px-8 py-5 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white rounded-t-3xl">
-        <h2 class="text-xl font-bold flex items-center gap-3">
-          <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <div id="aiModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-lg flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-4xl w-full mx-4 modal-enter overflow-hidden">
+      <!-- Modal Header -->
+      <div class="flex justify-between items-center px-6 py-5 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white">
+        <h2 class="text-2xl font-bold flex items-center gap-3">
+          <svg class="icon w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
           </svg>
           AI Response
         </h2>
-        <button id="closeModal" class="hover:text-gray-200 transition-all hover:scale-110">
-          <svg class="icon w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button id="closeModal" class="hover:bg-white/20 p-2 rounded-full transition-all hover:scale-110">
+          <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
         </button>
       </div>
 
-      <div class="p-8 max-h-[60vh] overflow-y-auto">
-        <p class="font-bold text-gray-800 mb-3 text-lg">Question:</p>
-        <pre id="modalQuestion" class="whitespace-pre-wrap text-gray-800 mb-6 bg-blue-50 p-5 rounded-2xl font-medium leading-relaxed"></pre>
-        
-        <div class="flex items-center justify-between mb-3">
-          <p class="font-bold text-gray-800 text-lg">Answer:</p>
-          <button id="ttsToggle" class="tts-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg">
-            <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+      <!-- Modal Body -->
+      <div class="p-6 max-h-[65vh] overflow-y-auto bg-gray-50">
+        <!-- Question Section -->
+        <div class="mb-6">
+          <div class="flex items-center gap-2 mb-3">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            <span id="ttsLabel">Listen</span>
-          </button>
+            <p class="font-bold text-gray-900 text-xl">Question:</p>
+          </div>
+          <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-5 rounded-2xl border-l-4 border-blue-500 shadow-sm">
+            <pre id="modalQuestion" class="whitespace-pre-wrap text-gray-800 font-medium leading-relaxed text-base"></pre>
+          </div>
         </div>
-        <pre id="modalAnswer" class="whitespace-pre-wrap text-gray-800 bg-amber-50 p-5 rounded-2xl leading-relaxed font-medium"></pre>
+        
+        <!-- Answer Section -->
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+              </svg>
+              <p class="font-bold text-gray-900 text-xl">Answer:</p>
+            </div>
+            <button id="ttsToggle" class="tts-btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg">
+              <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+              </svg>
+              <span id="ttsLabel">Listen</span>
+            </button>
+          </div>
+          <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-2xl border-l-4 border-orange-500 shadow-sm">
+            <pre id="modalAnswer" class="whitespace-pre-wrap text-gray-800 leading-loose font-medium text-base devanagari"></pre>
+          </div>
+        </div>
       </div>
       
-      <div class="border-t-2 p-6 flex justify-end gap-4">
-        <button id="copyBtn" class="flex items-center gap-2 px-6 py-3 border-2 border-gray-300 rounded-2xl hover:bg-gray-50 transition-all font-semibold hover:scale-105">
-          <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <!-- Modal Footer -->
+      <div class="border-t-2 border-gray-200 p-5 bg-white flex flex-wrap justify-end gap-3">
+        <button id="copyBtn" class="flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-300 rounded-2xl hover:bg-gray-50 transition-all font-semibold hover:scale-105 shadow-sm">
+          <svg class="icon w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
           </svg>
-          Copy
+          <span class="text-gray-700">Copy</span>
         </button>
-        <a href="index.html" class="flex items-center gap-2 px-6 py-3 border-2 border-gray-300 rounded-2xl hover:bg-gray-50 transition-all font-semibold hover:scale-105">
-          <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a href="index.html" class="flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-300 rounded-2xl hover:bg-gray-50 transition-all font-semibold hover:scale-105 shadow-sm">
+          <svg class="icon w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
           </svg>
-          Home
-        </a>
-        <button id="closeBtn" class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-3 rounded-2xl hover:from-blue-700 hover:to-blue-800 transition-all font-bold shadow-lg hover:scale-105">
-          Close
+          <span class="text-gray-700">Home</span>
+        </button>
+        <button id="closeBtn" class="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-3 rounded-2xl hover:from-blue-700 hover:to-blue-800 transition-all font-bold shadow-lg hover:scale-105">
+          <span>Close</span>
         </button>
       </div>
     </div>
