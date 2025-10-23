@@ -590,6 +590,8 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
 });
 
 let recognition;
+let isRecording = false;
+
 if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   recognition = new SpeechRecognition();
@@ -597,11 +599,49 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
   recognition.interimResults = false;
   recognition.lang = 'hi-IN';
 
+  recognition.onstart = () => {
+    isRecording = true;
+    const voiceBtn = document.getElementById('voiceBtn');
+    voiceBtn.classList.add('recording');
+    voiceBtn.title = 'Recording... Click to stop';
+  };
+
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
     document.getElementById('userInput').value = transcript;
   };
+
+  recognition.onend = () => {
+    isRecording = false;
+    const voiceBtn = document.getElementById('voiceBtn');
+    voiceBtn.classList.remove('recording');
+    voiceBtn.title = 'Click to speak';
+  };
+
+  recognition.onerror = (event) => {
+    console.error('Speech recognition error:', event.error);
+    isRecording = false;
+    const voiceBtn = document.getElementById('voiceBtn');
+    voiceBtn.classList.remove('recording');
+    voiceBtn.title = 'Click to speak';
+    if (event.error !== 'no-speech') {
+      alert('Voice recognition failed. Please try again.');
+    }
+  };
 }
+
+document.getElementById('voiceBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  if (recognition) {
+    if (isRecording) {
+      recognition.stop();
+    } else {
+      recognition.start();
+    }
+  } else {
+    alert('Voice recognition is not supported in your browser.');
+  }
+});
 
 document.getElementById('voiceBtn').addEventListener('click', () => {
   if (recognition) recognition.start();
