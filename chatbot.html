@@ -500,15 +500,24 @@ document.getElementById('ttsToggle').addEventListener('click', () => {
   if (!answerText || answerText === 'Thinking...') return;
   
   if (isSpeaking) {
+    // Stop speaking
     speechSynthesis.cancel();
     isSpeaking = false;
     ttsBtn.classList.remove('speaking');
     ttsLabel.textContent = 'Listen';
   } else {
+    // Start speaking
     speechSynthesis.cancel();
     ttsUtterance = new SpeechSynthesisUtterance(answerText);
-    ttsUtterance.rate = 1;
+    ttsUtterance.rate = 0.9;
     ttsUtterance.pitch = 1;
+    ttsUtterance.volume = 1;
+    
+    // Use default voice or first available voice
+    const voices = speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      ttsUtterance.voice = voices[0];
+    }
     
     ttsUtterance.onstart = () => {
       isSpeaking = true;
@@ -522,7 +531,26 @@ document.getElementById('ttsToggle').addEventListener('click', () => {
       ttsLabel.textContent = 'Listen';
     };
     
-    speechSynthesis.speak(ttsUtterance);
+    ttsUtterance.onerror = (e) => {
+      console.error('TTS Error:', e);
+      isSpeaking = false;
+      ttsBtn.classList.remove('speaking');
+      ttsLabel.textContent = 'Listen';
+      alert('Speech failed. Please try again.');
+    };
+    
+    // For mobile - ensure voices are loaded
+    if (speechSynthesis.getVoices().length === 0) {
+      speechSynthesis.addEventListener('voiceschanged', () => {
+        const voices = speechSynthesis.getVoices();
+        if (voices.length > 0) {
+          ttsUtterance.voice = voices[0];
+        }
+        speechSynthesis.speak(ttsUtterance);
+      }, { once: true });
+    } else {
+      speechSynthesis.speak(ttsUtterance);
+    }
   }
 });
 
