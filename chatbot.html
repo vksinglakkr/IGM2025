@@ -42,6 +42,20 @@
     background-size: 200% auto;
     animation: shimmer 3s linear infinite;
   }
+   /* Mic Button States */
+  .mic-btn {
+    transition: all 0.3s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mic-btn.recording {
+    background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+    border-color: #dc2626 !important;
+    animation: pulseRec 1.5s ease-in-out infinite;
+  }
+  @keyframes pulseRec {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+    50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+  }
   @keyframes shimmer { to { background-position: 200% center; } }
   .header-glow { position: relative; }
   .header-glow::before {
@@ -207,15 +221,15 @@
                    transition-all duration-300 leading-relaxed font-semibold"
             placeholder="🕉️ Ask anything about Gita or IGM 2025..."
           ></textarea>
-          <button 
-            id="voiceBtn" 
-            class="absolute bottom-4 right-4 text-orange-500 hover:text-orange-700 transition-all duration-300 hover:scale-110 bg-white rounded-full p-2 shadow-lg border-2 border-orange-300"
-            title="Speak your question"
-          >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-            </svg>
-          </button>
+<button 
+  id="voiceBtn" 
+  class="mic-btn absolute bottom-4 right-4 text-orange-500 hover:text-orange-700 transition-all duration-300 hover:scale-110 bg-white rounded-full p-3 shadow-lg border-2 border-orange-300"
+  title="Click to speak"
+>
+  <svg id="micIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+  </svg>
+</button> 
         </div>
 
         <button 
