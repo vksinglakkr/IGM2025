@@ -697,8 +697,35 @@ document.querySelectorAll('.langBtn').forEach(btn => {
 
 let ttsUtterance = null;
 let isSpeaking = false;
+let voicesLoaded = false;
+// Ensure voices are loaded (critical for iOS)
+function loadVoices() {
+  return new Promise((resolve) => {
+    let voices = speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      voicesLoaded = true;
+      resolve(voices);
+    } else {
+      speechSynthesis.addEventListener('voiceschanged', () => {
+        voices = speechSynthesis.getVoices();
+        voicesLoaded = true;
+        resolve(voices);
+      }, { once: true });
+      
+      // Fallback timeout for iOS
+      setTimeout(() => {
+        voices = speechSynthesis.getVoices();
+        voicesLoaded = true;
+        resolve(voices);
+      }, 1000);
+    }
+  });
+}
 
-document.getElementById('ttsToggle').addEventListener('click', () => {
+// Load voices on page load
+loadVoices();
+    
+document.getElementById('ttsToggle').addEventListener('click', async () => {
   const ttsBtn = document.getElementById('ttsToggle');
   const ttsLabel = document.getElementById('ttsLabel');
   const answerText = document.getElementById('modalAnswer').textContent;
@@ -710,49 +737,89 @@ document.getElementById('ttsToggle').addEventListener('click', () => {
     isSpeaking = false;
     ttsBtn.classList.remove('speaking');
     ttsLabel.textContent = 'Listen';
+    return;
+  }
+  
+  // Ensure voices are loaded
+  const voices = await loadVoices();
+  
+  // Cancel any ongoing speech
+  speechSynthesis.cancel();
+  
+  // Small delay for iOS (helps prevent issues)
+  await new Promise(resolve => setTimeout(resolve, 100));
+  
+  ttsUtterance = new SpeechSynthesisUtterance(answerText);
+  
+  // iOS-friendly settings
+  ttsUtterance.rate = 0.85; // Slightly slower for better compatibility
+  ttsUtterance.pitch = 1;
+  ttsUtterance.volume = 1;
+  
+  // Try to find Hindi voice, fallback to default
+  let selectedVoice = null;
+  
+  // Look for Hindi voices (hi-IN)
+  const hindiVoices = voices.filter(voice => 
+    voice.lang.startsWith('hi') || 
+    voice.lang === 'hi-IN' ||
+    voice.name.toLowerCase().includes('hindi')
+  );
+  
+  if (hindiVoices.length > 0) {
+    selectedVoice = hindiVoices[0];
+    console.log('Using Hindi voice:', selectedVoice.name);
   } else {
-    speechSynthesis.cancel();
-    ttsUtterance = new SpeechSynthesisUtterance(answerText);
-    ttsUtterance.rate = 0.9;
-    ttsUtterance.pitch = 1;
-    ttsUtterance.volume = 1;
+    // Fallback to first available voice
+    selectedVoice = voices[0];
+    console.log('Hindi voice not found, using:', selectedVoice?.name || 'default');
     
-    const voices = speechSynthesis.getVoices();
-    if (voices.length > 0) {
-      ttsUtterance.voice = voices[0];
+    // Alert user on iOS if no Hindi voice
+    if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      alert('Hindi voice not available. Using default voice. To enable Hindi, go to Settings > Accessibility > Spoken Content > Voices > Hindi.');
     }
+  }
+  
+  if (selectedVoice) {
+    ttsUtterance.voice = selectedVoice;
+  }
+  
+  ttsUtterance.onstart = () => {
+    isSpeaking = true;
+    ttsBtn.classList.add('speaking');
+    ttsLabel.textContent = 'Stop';
+  };
+  
+  ttsUtterance.onend = () => {
+    isSpeaking = false;
+    ttsBtn.classList.remove('speaking');
+    ttsLabel.textContent = 'Listen';
+  };
+  
+  ttsUtterance.onerror = (e) => {
+    console.error('TTS Error:', e);
+    isSpeaking = false;
+    ttsBtn.classList.remove('speaking');
+    ttsLabel.textContent = 'Listen';
     
-    ttsUtterance.onstart = () => {
-      isSpeaking = true;
-      ttsBtn.classList.add('speaking');
-      ttsLabel.textContent = 'Stop';
-    };
-    
-    ttsUtterance.onend = () => {
-      isSpeaking = false;
-      ttsBtn.classList.remove('speaking');
-      ttsLabel.textContent = 'Listen';
-    };
-    
-    ttsUtterance.onerror = (e) => {
-      console.error('TTS Error:', e);
-      isSpeaking = false;
-      ttsBtn.classList.remove('speaking');
-      ttsLabel.textContent = 'Listen';
-      alert('Speech failed. Please try again.');
-    };
-    
-    if (speechSynthesis.getVoices().length === 0) {
-      speechSynthesis.addEventListener('voiceschanged', () => {
-        const voices = speechSynthesis.getVoices();
-        if (voices.length > 0) {
-          ttsUtterance.voice = voices[0];
-        }
-        speechSynthesis.speak(ttsUtterance);
-      }, { once: true });
+    // More specific error messages
+    let errorMsg = 'Speech failed. ';
+    if (e.error === 'not-allowed') {
+      errorMsg += 'Please enable speech in browser settings.';
+    } else if (e.error === 'language-unavailable') {
+      errorMsg += 'Hindi voice not available on your device.';
     } else {
-      speechSynthesis.speak(ttsUtterance);
+      errorMsg += 'Please try again.';
     }
+    alert(errorMsg);
+  };
+  
+  // iOS requires immediate speech after user interaction
+  try {
+    speechSynthesis.speak(ttsUtterance);
+  } catch (error) {
+    console.error('Speech synthesis failed:', error);
+    alert('Text-to-speech is not available on your device.');
   }
 });
 
