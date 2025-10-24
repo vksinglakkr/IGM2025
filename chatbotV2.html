@@ -380,7 +380,7 @@
 
         <div class="mb-8 slide-fade-enter" id="quickQuestionsSection">
           <div class="flex items-center justify-between mb-4">
-            <label class="text-lg font-bold text-gray-800">Quick Help 👇</label>
+            <label class="text-lg font-bold text-gray-800">or use Quick Questions</label>
             <button id="musicToggle" class="text-sm text-gray-600 hover:text-orange-600 flex items-center gap-2 transition-all hover:scale-105 font-semibold">
               <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
               <span id="musicLabel">Play Flute</span>
@@ -451,12 +451,13 @@
 
     <div class="border-t-2 border-gray-100 p-8 text-center bg-gradient-to-b from-gray-50 to-white">
       <p class="text-sm text-gray-700 mb-4 font-medium">AI Chatbot powered by <span class="font-bold text-orange-600">Groq + Llama 3.3</span></p>
-      <p class="text-gray-700 text-base mb-3 font-semibold">International Gita Mahotsav 2025<br><span class="text-sm font-normal text-gray-600">Designed & Maintained by District Administration, Kurukshetra</span></p>
+      <p class="text-gray-700 text-base mb-3 font-semibold">International Gita Mahotsav 2025<br><span class="text-sm font-normal text-gray-600">Designed & Maintained by NIC, Kurukshetra</span></p>
       <p class="text-gray-500 text-xs mb-6">Last Updated: <span id="lastModified"></span></p>
       <div class="flex flex-wrap justify-center items-center gap-8">
         <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Haryana" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
         <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="KDB" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
-     </div>
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nicLogo.png" alt="NIC" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
+      </div>
     </div>
   </div>
 
@@ -523,7 +524,7 @@
   <script>
 // Category questions for different query types
 const gitaQuestions = {
-  'PHILOSOPHICAL_AI_QUERY': [
+  'PHILOSOPHICAL_QUERY': [
     "How can one control anger according to the Bhagavad Gita?",
     "What does the Gita say about finding peace of mind?",
     "How can a person stay calm in success and failure as per the Gita?",
@@ -620,7 +621,7 @@ function selectQueryType(type) {
 function populateCategoriesForGita() {
   const categorySelect = document.getElementById('categorySelect');
   categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
-  categorySelect.innerHTML += '<option value="PHILOSOPHICAL_AI_QUERY">🕉️ Gita Wisdom</option>';
+  categorySelect.innerHTML += '<option value="PHILOSOPHICAL_QUERY">🕉️ Gita Wisdom</option>';
   categorySelect.disabled = false;
   document.getElementById('questionSelect').innerHTML = '<option value="" selected disabled>Select Question</option>';
   document.getElementById('questionSelect').disabled = true;
@@ -803,7 +804,7 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   }
 
   try {
-    const webhookUrl = 'https://vksinglakkrgroq1.app.n8n.cloud/webhook/ask-gitaV2';
+    const webhookUrl = 'https://vksinglakkrgroq1.app.n8n.cloud/webhook/ask-gita';
 
     const response = await fetch(webhookUrl, {
       method: 'POST',
