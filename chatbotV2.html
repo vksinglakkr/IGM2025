@@ -191,18 +191,39 @@
   #userInput::placeholder {
     font-size: 13px;
     color: #b5b5b5;
-    font-weight: 500;
+    font-weight: 400;
+    opacity: 0.8;
   }
   #userInput {
     font-size: 17px !important;
     font-weight: 600 !important;
     color: #1f2937 !important;
+    line-height: 1.5;
+    vertical-align: bottom;
   }
   
-  /* Fix textarea width to prevent gray area on right */
+  /* Fix textarea width and alignment */
   #userInput {
-    width: 100%;
-    box-sizing: border-box;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: block;
+  }
+  
+  /* Mobile optimization */
+  @media (max-width: 768px) {
+    #userInput {
+      font-size: 16px !important;
+      padding: 12px !important;
+      padding-bottom: 48px !important;
+      min-height: 100px;
+    }
+    #userInput::placeholder {
+      font-size: 12px;
+    }
+    .mic-btn {
+      bottom: 8px !important;
+      right: 8px !important;
+    }
   }
   
   .icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; }
@@ -343,7 +364,7 @@
                      bg-gradient-to-br from-white to-orange-50 shadow-2xl resize-none
                      focus:border-orange-500 focus:ring-4 focus:ring-orange-200 focus:shadow-2xl
                      transition-all duration-300 leading-relaxed"
-              placeholder="🕉️ Type your question here..."
+              placeholder="Type your question here..."
             ></textarea>
             <button
               id="voiceBtn"
@@ -581,13 +602,13 @@ function selectQueryType(type) {
     gitaRadio.parentElement.classList.add('selected');
     eventRadio.parentElement.classList.remove('selected');
     populateCategoriesForGita();
-    userInput.placeholder = '🕉️ Ask about life, peace, karma, dharma, controlling emotions, finding purpose...\nExample: "How can I find peace of mind?" or "What does Gita say about anger?"';
+    userInput.placeholder = 'Ask your question... e.g., "How to find inner peace?"';
   } else {
     eventRadio.checked = true;
     eventRadio.parentElement.classList.add('selected');
     gitaRadio.parentElement.classList.remove('selected');
     populateCategoriesForEvent();
-    userInput.placeholder = '🎪 Ask about events, timings, facilities, transport, accommodation, places to visit...\nExample: "What are today\'s events?" or "Where is the nearest parking?"';
+    userInput.placeholder = 'Ask your question... e.g., "Where is parking?" or "Today\'s events?"';
   }
   
   questionSection.style.display = 'block';
