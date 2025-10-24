@@ -130,6 +130,9 @@
     transition: all 0.3s;
     margin-bottom: 12px;
   }
+  .radio-option:last-child {
+    margin-bottom: 0;
+  }
   .radio-option:hover {
     border-color: #f59e0b;
     transform: translateX(4px);
@@ -167,6 +170,21 @@
   .radio-icon {
     font-size: 32px;
     margin-right: 8px;
+  }
+  
+  /* Progressive Disclosure Animation */
+  .slide-fade-enter {
+    animation: slideFadeIn 0.5s ease-out;
+  }
+  @keyframes slideFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   .icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; }
@@ -270,7 +288,7 @@
     </div>
 
     <div class="p-8">
-      <!-- Query Type Selection -->
+      <!-- Query Type Selection - Always Visible -->
       <div class="query-type-selector">
         <h3 class="text-xl font-bold text-gray-900 mb-4 text-center flex items-center justify-center gap-2">
           <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -296,56 +314,59 @@
         </div>
       </div>
 
-      <div class="mb-8">
-        <div class="relative">
-          <textarea 
-            id="userInput"
-            rows="3"
-            class="w-full rounded-2xl border-4 border-orange-400 p-6 pb-14 text-gray-900 text-lg
-                   bg-gradient-to-br from-white to-orange-50 shadow-2xl placeholder-gray-600 resize-none
-                   focus:border-orange-500 focus:ring-4 focus:ring-orange-200 focus:shadow-2xl
-                   transition-all duration-300 leading-relaxed font-semibold"
-            placeholder="🕉️ Type your question here..."
-          ></textarea>
-          <button 
-            id="voiceBtn" 
-            class="mic-btn absolute bottom-4 right-4 text-orange-500 hover:text-orange-700 transition-all duration-300 hover:scale-110 bg-white rounded-full p-3 shadow-lg border-2 border-orange-300"
-            title="Click to speak"
-          >
-            <svg id="micIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-            </svg>
-          </button> 
+      <!-- Question Input Section - Hidden Initially -->
+      <div id="questionSection" style="display: none;">
+        <div class="mb-8 slide-fade-enter">
+          <div class="relative">
+            <textarea 
+              id="userInput"
+              rows="3"
+              class="w-full rounded-2xl border-4 border-orange-400 p-6 pb-14 text-gray-900 text-lg
+                     bg-gradient-to-br from-white to-orange-50 shadow-2xl placeholder-gray-600 resize-none
+                     focus:border-orange-500 focus:ring-4 focus:ring-orange-200 focus:shadow-2xl
+                     transition-all duration-300 leading-relaxed font-semibold"
+              placeholder="🕉️ Type your question here..."
+            ></textarea>
+            <button 
+              id="voiceBtn" 
+              class="mic-btn absolute bottom-4 right-4 text-orange-500 hover:text-orange-700 transition-all duration-300 hover:scale-110 bg-white rounded-full p-3 shadow-lg border-2 border-orange-300"
+              title="Click to speak"
+            >
+              <svg id="micIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+              </svg>
+            </button> 
+          </div>
         </div>
-      </div>
 
-      <div class="mb-8" id="quickQuestionsSection">
-        <div class="flex items-center justify-between mb-4">
-          <label class="text-lg font-bold text-gray-800">or use Quick Questions</label>
-          <button id="musicToggle" class="text-sm text-gray-600 hover:text-orange-600 flex items-center gap-2 transition-all hover:scale-105 font-semibold">
-            <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
-            <span id="musicLabel">Play Flute</span>
-          </button>
+        <div class="mb-8 slide-fade-enter" id="quickQuestionsSection">
+          <div class="flex items-center justify-between mb-4">
+            <label class="text-lg font-bold text-gray-800">or use Quick Questions</label>
+            <button id="musicToggle" class="text-sm text-gray-600 hover:text-orange-600 flex items-center gap-2 transition-all hover:scale-105 font-semibold">
+              <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+              <span id="musicLabel">Play Flute</span>
+            </button>
+          </div>
+          <div class="space-y-4">
+            <select id="categorySelect" class="block w-full px-5 py-4 text-base border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-blue-500 focus:border-blue-500 rounded-2xl bg-white shadow-md transition-all duration-300 font-medium">
+              <option value="" selected disabled>Select Topic</option>
+            </select>
+            <select id="questionSelect" class="block w-full px-5 py-4 text-base border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-blue-500 focus:border-blue-500 rounded-2xl bg-white shadow-md transition-all duration-300 font-medium" disabled>
+              <option value="" selected disabled>Select Question</option>
+            </select>
+          </div>
         </div>
-        <div class="space-y-4">
-          <select id="categorySelect" class="block w-full px-5 py-4 text-base border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-blue-500 focus:border-blue-500 rounded-2xl bg-white shadow-md transition-all duration-300 font-medium">
-            <option value="" selected disabled>Select Topic</option>
-          </select>
-          <select id="questionSelect" class="block w-full px-5 py-4 text-base border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-blue-500 focus:border-blue-500 rounded-2xl bg-white shadow-md transition-all duration-300 font-medium" disabled>
-            <option value="" selected disabled>Select Question</option>
-          </select>
-        </div>
-      </div>
 
-      <button 
-        id="submitBtn" 
-        class="w-full mt-4 btn-primary flex items-center justify-center gap-3 text-xl"
-      >
-        <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-        </svg>
-        Submit
-      </button>
+        <button 
+          id="submitBtn" 
+          class="w-full mt-4 btn-primary flex items-center justify-center gap-3 text-xl slide-fade-enter"
+        >
+          <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+          </svg>
+          Submit
+        </button>
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 mt-8">
         <div class="event-card bg-gradient-to-br from-blue-50 to-blue-100 border-l-6 border-blue-600 shadow-lg">
@@ -534,6 +555,7 @@ function selectQueryType(type) {
   selectedQueryType = type;
   const gitaRadio = document.getElementById('gitaRadio');
   const eventRadio = document.getElementById('eventRadio');
+  const questionSection = document.getElementById('questionSection');
   
   if (type === 'gita') {
     gitaRadio.checked = true;
@@ -546,6 +568,14 @@ function selectQueryType(type) {
     gitaRadio.parentElement.classList.remove('selected');
     populateCategoriesForEvent();
   }
+  
+  // Show question section with animation
+  questionSection.style.display = 'block';
+  
+  // Scroll to question section smoothly
+  setTimeout(() => {
+    questionSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 100);
 }
 
 // Populate categories based on query type
@@ -556,6 +586,7 @@ function populateCategoriesForGita() {
   categorySelect.disabled = false;
   document.getElementById('questionSelect').innerHTML = '<option value="" selected disabled>Select Question</option>';
   document.getElementById('questionSelect').disabled = true;
+  document.getElementById('userInput').value = '';
 }
 
 function populateCategoriesForEvent() {
@@ -573,6 +604,7 @@ function populateCategoriesForEvent() {
   categorySelect.disabled = false;
   document.getElementById('questionSelect').innerHTML = '<option value="" selected disabled>Select Question</option>';
   document.getElementById('questionSelect').disabled = true;
+  document.getElementById('userInput').value = '';
 }
 
 const lastModifiedDate = new Date(document.lastModified);
