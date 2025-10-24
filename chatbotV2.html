@@ -556,17 +556,22 @@ function selectQueryType(type) {
   const gitaRadio = document.getElementById('gitaRadio');
   const eventRadio = document.getElementById('eventRadio');
   const questionSection = document.getElementById('questionSection');
+  const userInput = document.getElementById('userInput');
   
   if (type === 'gita') {
     gitaRadio.checked = true;
     gitaRadio.parentElement.classList.add('selected');
     eventRadio.parentElement.classList.remove('selected');
     populateCategoriesForGita();
+    // Change placeholder for Gita queries
+    userInput.placeholder = '🕉️ Ask about life, peace, karma, dharma, controlling emotions, finding purpose...\nExample: "How can I find peace of mind?" or "What does Gita say about anger?"';
   } else {
     eventRadio.checked = true;
     eventRadio.parentElement.classList.add('selected');
     gitaRadio.parentElement.classList.remove('selected');
     populateCategoriesForEvent();
+    // Change placeholder for Event queries
+    userInput.placeholder = '🎪 Ask about events, timings, facilities, transport, accommodation, places to visit...\nExample: "What are today\'s events?" or "Where is the nearest parking?"';
   }
   
   // Show question section with animation
@@ -766,7 +771,7 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
 
   try {
     // Single webhook - queryType will be used in n8n workflow for IF condition
-    const webhookUrl = 'https://vksinglakkrgroq1.app.n8n.cloud/webhook/ask-gitaV2';
+    const webhookUrl = 'https://vksinglakkrgroq1.app.n8n.cloud/webhook/ask-gita';
 
     const response = await fetch(webhookUrl, {
       method: 'POST',
