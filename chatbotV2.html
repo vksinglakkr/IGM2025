@@ -324,7 +324,7 @@
       id="userInput"
       rows="3"
       class="w-full rounded-2xl border-4 border-orange-400 p-6 pb-14 text-gray-900 text-sm
-             bg-gradient-to-br from-white to-orange-50 shadow-2xl placeholder-gray-400 resize-none
+             bg-gradient-to-br from-white to-orange-50 shadow-2xl placeholder-gray-200 resize-none
              focus:border-orange-500 focus:ring-4 focus:ring-orange-200 focus:shadow-2xl
              transition-all duration-300 leading-relaxed font-semibold"
       placeholder="🕉️ Type your question here..."
@@ -577,14 +577,14 @@ function selectQueryType(type) {
     eventRadio.parentElement.classList.remove('selected');
     populateCategoriesForGita();
     // Change placeholder for Gita queries
-    userInput.placeholder = '🕉️ Ask about life, peace, karma, dharma, controlling emotions, finding purpose...\nExample: "How can I find peace of mind?" or "What does Gita say about anger?"';
+    userInput.placeholder = 'Ask about life, peace, karma, dharma, controlling emotions, finding purpose...\nExample: "How can I find peace of mind?" or "What does Gita say about anger?"';
   } else {
     eventRadio.checked = true;
     eventRadio.parentElement.classList.add('selected');
     gitaRadio.parentElement.classList.remove('selected');
     populateCategoriesForEvent();
     // Change placeholder for Event queries
-    userInput.placeholder = '🎪 Ask about events, timings, facilities, transport, accommodation, places to visit...\nExample: "What are today\'s events?" or "Where is the nearest parking?"';
+    userInput.placeholder = 'Ask about events, timings, facilities, transport, accommodation, places to visit...\nExample: "What are today\'s events?" or "Where is the nearest parking?"';
   }
   
   // Show question section with animation
