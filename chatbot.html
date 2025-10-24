@@ -219,7 +219,7 @@
                    bg-gradient-to-br from-white to-orange-50 shadow-2xl placeholder-gray-600 resize-none
                    focus:border-orange-500 focus:ring-4 focus:ring-orange-200 focus:shadow-2xl
                    transition-all duration-300 leading-relaxed font-semibold"
-            placeholder="🕉️ A. Ask anything about Gita or IGM 2025..."
+            placeholder="🕉️ Ask anything about Gita or IGM 2025..."
           ></textarea>
 <button 
   id="voiceBtn" 
@@ -232,20 +232,9 @@
 </button> 
         </div>
 
-        <button 
-          id="submitBtn" 
-          class="w-full mt-4 btn-primary flex items-center justify-center gap-3 text-xl"
-        >
-          <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-          </svg>
-          Submit
-        </button>
-      </div>
-
       <div class="mb-8">
         <div class="flex items-center justify-between mb-4">
-          <label class="text-lg font-bold text-gray-800">B. Quick Questions</label>
+          <label class="text-lg font-bold text-gray-800">or you may use Quick Questions</label>
           <button id="musicToggle" class="text-sm text-gray-600 hover:text-orange-600 flex items-center gap-2 transition-all hover:scale-105 font-semibold">
             <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
             <span id="musicLabel">Play Flute</span>
@@ -269,6 +258,16 @@
             <option value="" selected disabled>Select Question</option>
           </select>
         </div>
+      </div>
+        <button 
+          id="submitBtn" 
+          class="w-full mt-4 btn-primary flex items-center justify-center gap-3 text-xl"
+        >
+          <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+          </svg>
+          Submit
+        </button>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -594,7 +593,7 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   }
 
   try {
-    const response = await fetch('https://vksinglakkrgroq1.app.n8n.cloud/webhook', {
+    const response = await fetch('https://vksinglakkrgroq1.app.n8n.cloud/webhook/ask-gita', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
