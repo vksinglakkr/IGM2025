@@ -115,7 +115,7 @@
   border: 3px solid #f59e0b;
   border-radius: 20px;
   padding: 16px 14px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
 }
 
@@ -220,14 +220,14 @@
     margin-right: 6px;
   }
   
- .radio-label-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #1f2937;
-  line-height: 1.3;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
+  .radio-label-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
 
   .radio-label-desc {
     font-size: 11px;
@@ -284,6 +284,10 @@
     color: #1f2937 !important;
     line-height: 1.5;
     vertical-align: bottom;
+  }
+  
+  /* Fix textarea width and alignment */
+  #userInput {
     width: 100% !important;
     box-sizing: border-box !important;
     display: block;
@@ -343,7 +347,7 @@
     background: linear-gradient(135deg, #eff6ff, #dbeafe);
     border-left: 6px solid #3b82f6;
     border-radius: 24px;
-    padding: 24px;
+    padding: 24px 28px;
     box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
     position: relative;
     overflow: hidden;
@@ -407,7 +411,7 @@
     </div>
 
     <div class="p-6">
-      <!-- Query Type Selection -->
+      <!-- Query Type Selection - Always Visible -->
       <div class="query-type-selector">
         <h3 class="text-xl font-bold text-gray-900 mb-3 text-center flex items-center justify-center gap-2">
           <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -433,9 +437,9 @@
         </div>
       </div>
 
-      <!-- Question Input Section -->
+      <!-- Question Input Section - Hidden Initially -->
       <div id="questionSection" style="display: none;">
-        <div class="mb-6 slide-fade-enter">
+        <div class="mb-5 slide-fade-enter">
           <div class="relative">
             <textarea
               id="userInput"
@@ -458,7 +462,7 @@
           </div>
         </div>
 
-        <div class="mb-6 slide-fade-enter" id="quickQuestionsSection">
+        <div class="mb-5 slide-fade-enter" id="quickQuestionsSection">
           <div class="flex items-center justify-between mb-4">
             <label class="text-lg font-bold text-gray-800">Quick Help 👇</label>
             <button id="musicToggle" class="text-sm text-gray-600 hover:text-orange-600 flex items-center gap-2 transition-all hover:scale-105 font-semibold">
@@ -487,7 +491,7 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 mt-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-5 mt-5">
         <div class="event-card bg-gradient-to-br from-blue-50 to-blue-100 border-l-6 border-blue-600 shadow-lg">
           <div class="flex items-center gap-3 mb-2">
             <svg class="icon w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
@@ -511,7 +515,7 @@
         </div>
       </div>
 
-      <div class="quote-section mb-6">
+      <div class="quote-section mb-5">
         <p class="text-2xl devanagari text-gray-900 text-center leading-relaxed mb-4 relative z-10 font-semibold">
           "ज्ञानं तेऽहं सविज्ञानमिदं वक्ष्याम्यशेषतः।<br>यज्ज्ञात्वा नेह भूयोऽन्यज्ज्ञातव्यमवशिष्यते॥"
         </p>
@@ -529,10 +533,10 @@
       </div>
     </div>
 
-    <div class="border-t-2 border-gray-100 p-8 text-center bg-gradient-to-b from-gray-50 to-white">
+    <div class="border-t-2 border-gray-100 p-5 text-center bg-gradient-to-b from-gray-50 to-white">
       <p class="text-sm text-gray-700 mb-4 font-medium">AI Chatbot powered by <span class="font-bold text-orange-600">Groq + Llama 3.3</span></p>
       <p class="text-gray-700 text-base mb-3 font-semibold">International Gita Mahotsav 2025<br><span class="text-sm font-normal text-gray-600">Designed & Maintained by District Administration, Kurukshetra</span></p>
-      <p class="text-gray-500 text-xs mb-6">Last Updated: <span id="lastModified"></span></p>
+      <p class="text-gray-500 text-xs mb-5">Last Updated: <span id="lastModified"></span></p>
       <div class="flex flex-wrap justify-center items-center gap-8">
         <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Haryana" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
         <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="KDB" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
@@ -778,7 +782,7 @@ document.querySelectorAll('.langBtn').forEach(btn => {
 let ttsUtterance = null;
 let isSpeaking = false;
 let voicesLoaded = false;
-let manualStop = false; // Add this flag
+let manualStop = false;
 
 // Ensure voices are loaded (critical for iOS)
 function loadVoices() {
@@ -794,7 +798,6 @@ function loadVoices() {
         resolve(voices);
       }, { once: true });
       
-      // Fallback timeout for iOS
       setTimeout(() => {
         voices = speechSynthesis.getVoices();
         voicesLoaded = true;
@@ -804,7 +807,6 @@ function loadVoices() {
   });
 }
 
-// Load voices on page load
 loadVoices();    
 document.getElementById('ttsToggle').addEventListener('click', async () => {
   const ttsBtn = document.getElementById('ttsToggle');
@@ -814,8 +816,7 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   if (!answerText || answerText === 'Thinking...') return;
   
   if (isSpeaking) {
-    // User manually stopped
-    manualStop = true; // Set flag before canceling
+    manualStop = true;
     speechSynthesis.cancel();
     isSpeaking = false;
     ttsBtn.classList.remove('speaking');
@@ -823,29 +824,17 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
     return;
   }
   
-  // Reset manual stop flag
   manualStop = false;
-  
-  // Ensure voices are loaded
   const voices = await loadVoices();
-  
-  // Cancel any ongoing speech
   speechSynthesis.cancel();
-  
-  // Small delay for iOS (helps prevent issues)
   await new Promise(resolve => setTimeout(resolve, 100));
   
   ttsUtterance = new SpeechSynthesisUtterance(answerText);
-  
-  // iOS-friendly settings
   ttsUtterance.rate = 0.85;
   ttsUtterance.pitch = 1;
   ttsUtterance.volume = 1;
   
-  // Try to find Hindi voice, fallback to default
   let selectedVoice = null;
-  
-  // Look for Hindi voices (hi-IN)
   const hindiVoices = voices.filter(voice => 
     voice.lang.startsWith('hi') || 
     voice.lang === 'hi-IN' ||
@@ -856,11 +845,9 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
     selectedVoice = hindiVoices[0];
     console.log('Using Hindi voice:', selectedVoice.name);
   } else {
-    // Fallback to first available voice
     selectedVoice = voices[0];
     console.log('Hindi voice not found, using:', selectedVoice?.name || 'default');
     
-    // Alert user on iOS if no Hindi voice (only once)
     if (/iPhone|iPad|iPod/i.test(navigator.userAgent) && !sessionStorage.getItem('hindiVoiceWarned')) {
       alert('Hindi voice not available. Using default voice. To enable Hindi, go to Settings > Accessibility > Spoken Content > Voices > Hindi.');
       sessionStorage.setItem('hindiVoiceWarned', 'true');
@@ -878,7 +865,6 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   };
   
   ttsUtterance.onend = () => {
-    // Only update UI if not manually stopped
     if (!manualStop) {
       isSpeaking = false;
       ttsBtn.classList.remove('speaking');
@@ -889,9 +875,8 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   ttsUtterance.onerror = (e) => {
     console.error('TTS Error:', e);
     
-    // Don't show error if user manually stopped
     if (manualStop) {
-      manualStop = false; // Reset flag
+      manualStop = false;
       return;
     }
     
@@ -899,10 +884,8 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
     ttsBtn.classList.remove('speaking');
     ttsLabel.textContent = 'Listen';
     
-    // More specific error messages for actual errors
     let errorMsg = 'Speech failed. ';
     if (e.error === 'canceled' || e.error === 'interrupted') {
-      // Silently ignore canceled/interrupted errors
       return;
     } else if (e.error === 'not-allowed') {
       errorMsg += 'Please enable speech in browser settings.';
@@ -914,7 +897,6 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
     alert(errorMsg);
   };
   
-  // iOS requires immediate speech after user interaction
   try {
     speechSynthesis.speak(ttsUtterance);
   } catch (error) {
