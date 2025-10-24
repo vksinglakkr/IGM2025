@@ -42,7 +42,6 @@
     background-size: 200% auto;
     animation: shimmer 3s linear infinite;
   }
-   /* Mic Button States */
   .mic-btn {
     transition: all 0.3s;
     -webkit-tap-highlight-color: transparent;
@@ -109,6 +108,67 @@
     box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
     transform: scale(1.05);
   }
+  
+  /* Radio Button Styles */
+  .query-type-selector {
+    background: linear-gradient(135deg, #fef3c7, #fed7aa);
+    border: 3px solid #f59e0b;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+  }
+  .radio-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background: white;
+    border: 3px solid #e5e7eb;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 12px;
+  }
+  .radio-option:hover {
+    border-color: #f59e0b;
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.2);
+  }
+  .radio-option input[type="radio"] {
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+    cursor: pointer;
+    accent-color: #f59e0b;
+  }
+  .radio-option.selected {
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+    transform: scale(1.02);
+  }
+  .radio-label {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .radio-label-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 4px;
+  }
+  .radio-label-desc {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.4;
+  }
+  .radio-icon {
+    font-size: 32px;
+    margin-right: 8px;
+  }
+  
   .icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; }
   .btn-primary {
     background: linear-gradient(135deg, #ff6b35, #f59e0b);
@@ -210,6 +270,32 @@
     </div>
 
     <div class="p-8">
+      <!-- Query Type Selection -->
+      <div class="query-type-selector">
+        <h3 class="text-xl font-bold text-gray-900 mb-4 text-center flex items-center justify-center gap-2">
+          <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          What would you like to ask about?
+        </h3>
+        
+        <div class="radio-option" onclick="selectQueryType('gita')">
+          <input type="radio" name="queryType" id="gitaRadio" value="gita">
+          <span class="radio-icon">🕉️</span>
+          <label for="gitaRadio" class="radio-label cursor-pointer">
+            <span class="radio-label-title">Gita Guidance (गीता मार्गदर्शन)</span>
+            <span class="radio-label-desc">Life wisdom, spiritual questions, peace of mind, handling emotions</span>
+          </label>
+        </div>
+        
+        <div class="radio-option" onclick="selectQueryType('event')">
+          <input type="radio" name="queryType" id="eventRadio" value="event">
+          <span class="radio-icon">🎪</span>
+          <label for="eventRadio" class="radio-label cursor-pointer">
+            <span class="radio-label-title">Festival Information (महोत्सव की जानकारी)</span>
+            <span class="radio-label-desc">Events, schedule, facilities, transport, accommodation, tourist places</span>
+          </label>
+        </div>
+      </div>
+
       <div class="mb-8">
         <div class="relative">
           <textarea 
@@ -219,22 +305,23 @@
                    bg-gradient-to-br from-white to-orange-50 shadow-2xl placeholder-gray-600 resize-none
                    focus:border-orange-500 focus:ring-4 focus:ring-orange-200 focus:shadow-2xl
                    transition-all duration-300 leading-relaxed font-semibold"
-            placeholder="🕉️ Ask anything about Gita or IGM 2025..."
+            placeholder="🕉️ Type your question here..."
           ></textarea>
-<button 
-  id="voiceBtn" 
-  class="mic-btn absolute bottom-4 right-4 text-orange-500 hover:text-orange-700 transition-all duration-300 hover:scale-110 bg-white rounded-full p-3 shadow-lg border-2 border-orange-300"
-  title="Click to speak"
->
-  <svg id="micIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-  </svg>
-</button> 
+          <button 
+            id="voiceBtn" 
+            class="mic-btn absolute bottom-4 right-4 text-orange-500 hover:text-orange-700 transition-all duration-300 hover:scale-110 bg-white rounded-full p-3 shadow-lg border-2 border-orange-300"
+            title="Click to speak"
+          >
+            <svg id="micIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+            </svg>
+          </button> 
         </div>
+      </div>
 
-      <div class="mb-8">
+      <div class="mb-8" id="quickQuestionsSection">
         <div class="flex items-center justify-between mb-4">
-          <label class="text-lg font-bold text-gray-800">or you may use Quick Questions</label>
+          <label class="text-lg font-bold text-gray-800">or use Quick Questions</label>
           <button id="musicToggle" class="text-sm text-gray-600 hover:text-orange-600 flex items-center gap-2 transition-all hover:scale-105 font-semibold">
             <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
             <span id="musicLabel">Play Flute</span>
@@ -243,34 +330,24 @@
         <div class="space-y-4">
           <select id="categorySelect" class="block w-full px-5 py-4 text-base border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-blue-500 focus:border-blue-500 rounded-2xl bg-white shadow-md transition-all duration-300 font-medium">
             <option value="" selected disabled>Select Topic</option>
-            <option value="PHILOSOPHICAL_QUERY">🕉️ Gita Wisdom</option>
-            <option value="EVENT_QUERY">📅 Events & Schedule</option>
-            <option value="FACILITY_QUERY">🏢 Facilities</option>
-            <option value="TRANSPORT_QUERY">🚗 Transport & Travel</option>
-            <option value="GENERAL_INFO">ℹ️ General Info</option>
-            <option value="TOURISM_QUERY">🏛️ Tourist Places</option>
-            <option value="ACCOMMODATION_QUERY">🏨 Accommodation</option>
-            <option value="COMPETITION_QUERY">🏆 Competitions</option>
-            <option value="EMERGENCY_QUERY">🚨 Emergency Help</option>
-            <option value="FAQ_QUERY">❓ Common Questions</option>
           </select>
           <select id="questionSelect" class="block w-full px-5 py-4 text-base border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-blue-500 focus:border-blue-500 rounded-2xl bg-white shadow-md transition-all duration-300 font-medium" disabled>
             <option value="" selected disabled>Select Question</option>
           </select>
         </div>
       </div>
-        <button 
-          id="submitBtn" 
-          class="w-full mt-4 btn-primary flex items-center justify-center gap-3 text-xl"
-        >
-          <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-          </svg>
-          Submit
-        </button>
-      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <button 
+        id="submitBtn" 
+        class="w-full mt-4 btn-primary flex items-center justify-center gap-3 text-xl"
+      >
+        <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+        </svg>
+        Submit
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 mt-8">
         <div class="event-card bg-gradient-to-br from-blue-50 to-blue-100 border-l-6 border-blue-600 shadow-lg">
           <div class="flex items-center gap-3 mb-2">
             <svg class="icon w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
@@ -385,7 +462,8 @@
   </audio>
 
   <script>
-const categoryQuestions = {
+// Category questions for different query types
+const gitaQuestions = {
   'PHILOSOPHICAL_QUERY': [
     "How can one control anger according to the Bhagavad Gita?",
     "What does the Gita say about finding peace of mind?",
@@ -393,7 +471,10 @@ const categoryQuestions = {
     "What guidance does the Gita give for overcoming fear and anxiety?",
     "How can one control desires and attachments according to Lord Krishna?",
     "What is the ultimate message of the Bhagavad Gita for a common person?"
-  ],
+  ]
+};
+
+const eventQuestions = {
   'EVENT_QUERY': [
     "What are the dates for the PM/CM/Governor visits?",
     "When is the main Gita Path ceremony scheduled?",
@@ -445,6 +526,55 @@ const categoryQuestions = {
   ]
 };
 
+let selectedQueryType = '';
+let selectedLanguage = 'Hindi';
+
+// Radio button selection handler
+function selectQueryType(type) {
+  selectedQueryType = type;
+  const gitaRadio = document.getElementById('gitaRadio');
+  const eventRadio = document.getElementById('eventRadio');
+  
+  if (type === 'gita') {
+    gitaRadio.checked = true;
+    gitaRadio.parentElement.classList.add('selected');
+    eventRadio.parentElement.classList.remove('selected');
+    populateCategoriesForGita();
+  } else {
+    eventRadio.checked = true;
+    eventRadio.parentElement.classList.add('selected');
+    gitaRadio.parentElement.classList.remove('selected');
+    populateCategoriesForEvent();
+  }
+}
+
+// Populate categories based on query type
+function populateCategoriesForGita() {
+  const categorySelect = document.getElementById('categorySelect');
+  categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
+  categorySelect.innerHTML += '<option value="PHILOSOPHICAL_QUERY">🕉️ Gita Wisdom</option>';
+  categorySelect.disabled = false;
+  document.getElementById('questionSelect').innerHTML = '<option value="" selected disabled>Select Question</option>';
+  document.getElementById('questionSelect').disabled = true;
+}
+
+function populateCategoriesForEvent() {
+  const categorySelect = document.getElementById('categorySelect');
+  categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
+  categorySelect.innerHTML += '<option value="EVENT_QUERY">📅 Events & Schedule</option>';
+  categorySelect.innerHTML += '<option value="FACILITY_QUERY">🏢 Facilities</option>';
+  categorySelect.innerHTML += '<option value="TRANSPORT_QUERY">🚗 Transport & Travel</option>';
+  categorySelect.innerHTML += '<option value="GENERAL_INFO">ℹ️ General Info</option>';
+  categorySelect.innerHTML += '<option value="TOURISM_QUERY">🛕 Tourist Places</option>';
+  categorySelect.innerHTML += '<option value="ACCOMMODATION_QUERY">🏨 Accommodation</option>';
+  categorySelect.innerHTML += '<option value="COMPETITION_QUERY">🏆 Competitions</option>';
+  categorySelect.innerHTML += '<option value="EMERGENCY_QUERY">🚨 Emergency Help</option>';
+  categorySelect.innerHTML += '<option value="FAQ_QUERY">❓ Common Questions</option>';
+  categorySelect.disabled = false;
+  document.getElementById('questionSelect').innerHTML = '<option value="" selected disabled>Select Question</option>';
+  document.getElementById('questionSelect').disabled = true;
+}
+
 const lastModifiedDate = new Date(document.lastModified);
 document.getElementById("lastModified").textContent = lastModifiedDate.toLocaleDateString('en-US', {
   year: 'numeric', month: 'long', day: 'numeric'
@@ -459,8 +589,16 @@ const userQueryInput = document.getElementById('userInput');
 function populateQuestions(category) {
   questionSelect.innerHTML = '<option value="" selected disabled>Select Question</option>';
   questionSelect.disabled = true;
-  if (category && categoryQuestions[category]) {
-    categoryQuestions[category].forEach(q => {
+  
+  let questions = [];
+  if (selectedQueryType === 'gita' && gitaQuestions[category]) {
+    questions = gitaQuestions[category];
+  } else if (selectedQueryType === 'event' && eventQuestions[category]) {
+    questions = eventQuestions[category];
+  }
+  
+  if (questions.length > 0) {
+    questions.forEach(q => {
       const option = document.createElement('option');
       option.value = q;
       option.textContent = q;
@@ -479,7 +617,6 @@ questionSelect.addEventListener('change', () => {
   userQueryInput.value = questionSelect.value;
 });
 
-let selectedLanguage = 'Hindi';
 document.querySelectorAll('.langBtn').forEach(btn => {
   btn.addEventListener('click', function() {
     selectedLanguage = this.dataset.lang;
@@ -499,20 +636,17 @@ document.getElementById('ttsToggle').addEventListener('click', () => {
   if (!answerText || answerText === 'Thinking...') return;
   
   if (isSpeaking) {
-    // Stop speaking
     speechSynthesis.cancel();
     isSpeaking = false;
     ttsBtn.classList.remove('speaking');
     ttsLabel.textContent = 'Listen';
   } else {
-    // Start speaking
     speechSynthesis.cancel();
     ttsUtterance = new SpeechSynthesisUtterance(answerText);
     ttsUtterance.rate = 0.9;
     ttsUtterance.pitch = 1;
     ttsUtterance.volume = 1;
     
-    // Use default voice or first available voice
     const voices = speechSynthesis.getVoices();
     if (voices.length > 0) {
       ttsUtterance.voice = voices[0];
@@ -538,7 +672,6 @@ document.getElementById('ttsToggle').addEventListener('click', () => {
       alert('Speech failed. Please try again.');
     };
     
-    // For mobile - ensure voices are loaded
     if (speechSynthesis.getVoices().length === 0) {
       speechSynthesis.addEventListener('voiceschanged', () => {
         const voices = speechSynthesis.getVoices();
@@ -555,7 +688,16 @@ document.getElementById('ttsToggle').addEventListener('click', () => {
 
 document.getElementById('submitBtn').addEventListener('click', async () => {
   const question = document.getElementById('userInput').value.trim();
-  if (!question) return;
+  
+  if (!selectedQueryType) {
+    alert('Please select either "Gita Guidance" or "Festival Information" first!');
+    return;
+  }
+  
+  if (!question) {
+    alert('Please enter your question!');
+    return;
+  }
 
   const mainContainer = document.querySelector('.container-main');
   if (mainContainer) mainContainer.style.visibility = 'hidden';
@@ -569,13 +711,11 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   document.getElementById('modalAnswer').textContent = 'Thinking...';
   document.getElementById('aiModal').classList.remove('hidden');
 
-  // Capture device and browser info
   const deviceType = /Mobile|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'Mobile' : 
                      /Tablet|iPad/i.test(navigator.userAgent) ? 'Tablet' : 'Desktop';
   const browserMatch = navigator.userAgent.match(/(Firefox|Chrome|Safari|Edge|Opera|OPR)/i);
   const browser = browserMatch ? browserMatch[0].replace('OPR', 'Opera') : 'Unknown';
 
-  // Get geolocation (optional - requires user permission)
   let geoLocation = { latitude: 'Not Available', longitude: 'Not Available' };
   try {
     if (navigator.geolocation) {
@@ -593,12 +733,18 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   }
 
   try {
-    const response = await fetch('https://vksinglakkrgroq1.app.n8n.cloud/webhook/ask-gita', {
+    // Determine webhook URL based on query type
+    const webhookUrl = selectedQueryType === 'gita' 
+      ? 'https://vksinglakkrgroq1.app.n8n.cloud/webhook/gita-query'
+      : 'https://vksinglakkrgroq1.app.n8n.cloud/webhook/event-query';
+
+    const response = await fetch(webhookUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         question: question,
         language: selectedLanguage,
+        queryType: selectedQueryType,
         mobNo: 'anonymous',
         deviceType: deviceType,
         browser: browser,
@@ -668,10 +814,6 @@ document.getElementById('voiceBtn').addEventListener('click', (e) => {
   } else {
     alert('Voice recognition is not supported in your browser.');
   }
-});
-
-document.getElementById('voiceBtn').addEventListener('click', () => {
-  if (recognition) recognition.start();
 });
 
 document.getElementById('closeBtn').onclick = () => {
