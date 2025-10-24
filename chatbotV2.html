@@ -698,6 +698,8 @@ document.querySelectorAll('.langBtn').forEach(btn => {
 let ttsUtterance = null;
 let isSpeaking = false;
 let voicesLoaded = false;
+let manualStop = false; // Add this flag
+
 // Ensure voices are loaded (critical for iOS)
 function loadVoices() {
   return new Promise((resolve) => {
@@ -723,8 +725,7 @@ function loadVoices() {
 }
 
 // Load voices on page load
-loadVoices();
-    
+loadVoices();    
 document.getElementById('ttsToggle').addEventListener('click', async () => {
   const ttsBtn = document.getElementById('ttsToggle');
   const ttsLabel = document.getElementById('ttsLabel');
@@ -733,12 +734,17 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   if (!answerText || answerText === 'Thinking...') return;
   
   if (isSpeaking) {
+    // User manually stopped
+    manualStop = true; // Set flag before canceling
     speechSynthesis.cancel();
     isSpeaking = false;
     ttsBtn.classList.remove('speaking');
     ttsLabel.textContent = 'Listen';
     return;
   }
+  
+  // Reset manual stop flag
+  manualStop = false;
   
   // Ensure voices are loaded
   const voices = await loadVoices();
@@ -752,7 +758,7 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   ttsUtterance = new SpeechSynthesisUtterance(answerText);
   
   // iOS-friendly settings
-  ttsUtterance.rate = 0.85; // Slightly slower for better compatibility
+  ttsUtterance.rate = 0.85;
   ttsUtterance.pitch = 1;
   ttsUtterance.volume = 1;
   
@@ -774,9 +780,10 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
     selectedVoice = voices[0];
     console.log('Hindi voice not found, using:', selectedVoice?.name || 'default');
     
-    // Alert user on iOS if no Hindi voice
-    if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    // Alert user on iOS if no Hindi voice (only once)
+    if (/iPhone|iPad|iPod/i.test(navigator.userAgent) && !sessionStorage.getItem('hindiVoiceWarned')) {
       alert('Hindi voice not available. Using default voice. To enable Hindi, go to Settings > Accessibility > Spoken Content > Voices > Hindi.');
+      sessionStorage.setItem('hindiVoiceWarned', 'true');
     }
   }
   
@@ -791,20 +798,33 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   };
   
   ttsUtterance.onend = () => {
-    isSpeaking = false;
-    ttsBtn.classList.remove('speaking');
-    ttsLabel.textContent = 'Listen';
+    // Only update UI if not manually stopped
+    if (!manualStop) {
+      isSpeaking = false;
+      ttsBtn.classList.remove('speaking');
+      ttsLabel.textContent = 'Listen';
+    }
   };
   
   ttsUtterance.onerror = (e) => {
     console.error('TTS Error:', e);
+    
+    // Don't show error if user manually stopped
+    if (manualStop) {
+      manualStop = false; // Reset flag
+      return;
+    }
+    
     isSpeaking = false;
     ttsBtn.classList.remove('speaking');
     ttsLabel.textContent = 'Listen';
     
-    // More specific error messages
+    // More specific error messages for actual errors
     let errorMsg = 'Speech failed. ';
-    if (e.error === 'not-allowed') {
+    if (e.error === 'canceled' || e.error === 'interrupted') {
+      // Silently ignore canceled/interrupted errors
+      return;
+    } else if (e.error === 'not-allowed') {
       errorMsg += 'Please enable speech in browser settings.';
     } else if (e.error === 'language-unavailable') {
       errorMsg += 'Hindi voice not available on your device.';
@@ -822,7 +842,7 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
     alert('Text-to-speech is not available on your device.');
   }
 });
-
+    
 document.getElementById('submitBtn').addEventListener('click', async () => {
   const question = document.getElementById('userInput').value.trim();
   
