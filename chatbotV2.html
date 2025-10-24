@@ -765,10 +765,8 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   }
 
   try {
-    // Determine webhook URL based on query type
-    const webhookUrl = selectedQueryType === 'gita' 
-      ? 'https://vksinglakkrgroq1.app.n8n.cloud/webhook/gita-query'
-      : 'https://vksinglakkrgroq1.app.n8n.cloud/webhook/event-query';
+    // Single webhook - queryType will be used in n8n workflow for IF condition
+    const webhookUrl = 'https://vksinglakkrgroq1.app.n8n.cloud/webhook/ask-gita';
 
     const response = await fetch(webhookUrl, {
       method: 'POST',
@@ -776,7 +774,7 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
       body: JSON.stringify({
         question: question,
         language: selectedLanguage,
-        queryType: selectedQueryType,
+        queryType: selectedQueryType === 'gita' ? 'PHILOSOPHICAL_INFO_QUERY' : 'PRACTICAL_AI_QUERY',
         mobNo: 'anonymous',
         deviceType: deviceType,
         browser: browser,
