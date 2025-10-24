@@ -523,7 +523,7 @@
   <script>
 // Category questions for different query types
 const gitaQuestions = {
-  'PHILOSOPHICAL_QUERY': [
+  'PHILOSOPHICAL_AI_QUERY': [
     "How can one control anger according to the Bhagavad Gita?",
     "What does the Gita say about finding peace of mind?",
     "How can a person stay calm in success and failure as per the Gita?",
@@ -620,7 +620,7 @@ function selectQueryType(type) {
 function populateCategoriesForGita() {
   const categorySelect = document.getElementById('categorySelect');
   categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
-  categorySelect.innerHTML += '<option value="PHILOSOPHICAL_QUERY">🕉️ Gita Wisdom</option>';
+  categorySelect.innerHTML += '<option value="PHILOSOPHICAL_AI_QUERY">🕉️ Gita Wisdom</option>';
   categorySelect.disabled = false;
   document.getElementById('questionSelect').innerHTML = '<option value="" selected disabled>Select Question</option>';
   document.getElementById('questionSelect').disabled = true;
@@ -811,7 +811,7 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
       body: JSON.stringify({
         question: question,
         language: selectedLanguage,
-        queryType: selectedQueryType === 'gita' ? 'PHILOSOPHICAL_INFO_QUERY' : 'PRACTICAL_AI_QUERY',
+        queryType: selectedQueryType === 'gita' ? 'PHILOSOPHICAL_AI_QUERY' : 'PRACTICAL_INFO_QUERY',
         mobNo: 'anonymous',
         deviceType: deviceType,
         browser: browser,
