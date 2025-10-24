@@ -109,69 +109,147 @@
     transform: scale(1.05);
   }
   
-  /* Radio Button Styles */
+/* Radio Button Styles */
+.query-type-selector {
+  background: linear-gradient(135deg, #fef3c7, #fed7aa);
+  border: 3px solid #f59e0b;
+  border-radius: 20px;
+  padding: 20px 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+}
+
+.radio-option {
+  position: relative;
+  display: flex;
+  align-items: flex-start; /* Changed from center to flex-start */
+  padding: 14px 16px;
+  background: white;
+  border: 3px solid #e5e7eb;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 12px;
+  min-height: 80px; /* Ensure consistent height */
+}
+
+.radio-option:last-child {
+  margin-bottom: 0;
+}
+
+.radio-option:hover {
+  border-color: #f59e0b;
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.2);
+}
+
+.radio-option input[type="radio"] {
+  width: 22px;
+  height: 22px;
+  min-width: 22px; /* Prevent shrinking */
+  margin-right: 12px;
+  margin-top: 2px; /* Align with first line of text */
+  cursor: pointer;
+  accent-color: #f59e0b;
+  flex-shrink: 0; /* Prevent radio from shrinking */
+}
+
+.radio-option.selected {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+  transform: scale(1.02);
+}
+
+.radio-icon {
+  font-size: 28px; /* Slightly smaller for mobile */
+  min-width: 36px; /* Fixed width */
+  margin-right: 8px;
+  flex-shrink: 0; /* Prevent icon from shrinking */
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.radio-label {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0; /* Allow text to wrap properly */
+  gap: 2px;
+}
+
+.radio-label-title {
+  font-size: 16px; /* Reduced from 18px */
+  font-weight: 700;
+  color: #1f2937;
+  line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto; /* Enable hyphenation if needed */
+}
+
+.radio-label-desc {
+  font-size: 12px; /* Reduced from 13px */
+  color: #6b7280;
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Mobile optimization */
+@media (max-width: 640px) {
   .query-type-selector {
-    background: linear-gradient(135deg, #fef3c7, #fed7aa);
-    border: 3px solid #f59e0b;
-    border-radius: 20px;
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
-  }
-  .radio-option {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 16px 20px;
-    background: white;
-    border: 3px solid #e5e7eb;
-    border-radius: 16px;
-    cursor: pointer;
-    transition: all 0.3s;
-    margin-bottom: 12px;
-  }
-  .radio-option:last-child {
-    margin-bottom: 0;
-  }
-  .radio-option:hover {
-    border-color: #f59e0b;
-    transform: translateX(4px);
-    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.2);
-  }
-  .radio-option input[type="radio"] {
-    width: 24px;
-    height: 24px;
-    margin-right: 16px;
-    cursor: pointer;
-    accent-color: #f59e0b;
-  }
-  .radio-option.selected {
-    border-color: #f59e0b;
-    background: linear-gradient(135deg, #fffbeb, #fef3c7);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
-    transform: scale(1.02);
-  }
-  .radio-label {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  .radio-label-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 4px;
-  }
-  .radio-label-desc {
-    font-size: 13px;
-    color: #6b7280;
-    line-height: 1.4;
-  }
-  .radio-icon {
-    font-size: 32px;
-    margin-right: 8px;
+    padding: 16px 12px;
   }
   
+  .radio-option {
+    padding: 12px 12px;
+    min-height: 85px;
+  }
+  
+  .radio-option input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    margin-right: 10px;
+  }
+  
+  .radio-icon {
+    font-size: 24px;
+    min-width: 32px;
+    margin-right: 6px;
+  }
+  
+  .radio-label-title {
+    font-size: 15px;
+    line-height: 1.25;
+  }
+  
+  .radio-label-desc {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 380px) {
+  .radio-option {
+    padding: 10px;
+  }
+  
+  .radio-icon {
+    font-size: 22px;
+    min-width: 28px;
+  }
+  
+  .radio-label-title {
+    font-size: 14px;
+  }
+  
+  .radio-label-desc {
+    font-size: 10.5px;
+  }
+}  
   /* Progressive Disclosure Animation */
   .slide-fade-enter {
     animation: slideFadeIn 0.5s ease-out;
