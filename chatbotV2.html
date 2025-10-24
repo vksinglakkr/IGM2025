@@ -316,17 +316,30 @@
 
       <!-- Question Input Section - Hidden Initially -->
       <div id="questionSection" style="display: none;">
-        <div class="mb-2 slide-fade-enter">
+        <div class="mb-8 slide-fade-enter">
           <div class="relative">
-            <textarea 
-              id="userInput"
-              rows="3"
-              class="w-full rounded-2xl border-4 border-orange-400 p-6 pb-14 text-gray-900 text-sm
-                     bg-gradient-to-br from-white to-orange-50 shadow-2xl placeholder-gray-600 resize-none
-                     focus:border-orange-500 focus:ring-4 focus:ring-orange-200 focus:shadow-2xl
-                     transition-all duration-300 leading-relaxed font-semibold"
-              placeholder="🕉️ Type your question here..."
-            ></textarea>
+           <div class="mb-8 slide-fade-enter">
+  <div class="relative">
+    <textarea
+      id="userInput"
+      rows="3"
+      class="w-full rounded-2xl border-4 border-orange-400 p-6 pb-14 text-gray-900 text-sm
+             bg-gradient-to-br from-white to-orange-50 shadow-2xl placeholder-gray-400 resize-none
+             focus:border-orange-500 focus:ring-4 focus:ring-orange-200 focus:shadow-2xl
+             transition-all duration-300 leading-relaxed font-semibold"
+      placeholder="🕉️ Type your question here..."
+    ></textarea>
+    <button
+      id="voiceBtn"
+      class="mic-btn absolute bottom-4 right-4 text-orange-500 hover:text-orange-700 transition-all duration-300 hover:scale-110 bg-white rounded-full p-3 shadow-lg border-2 border-orange-300"
+      title="Click to speak"
+    >
+      <svg id="micIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+      </svg>
+    </button>
+  </div>
+</div>
             <button 
               id="voiceBtn" 
               class="mic-btn absolute bottom-4 right-4 text-orange-500 hover:text-orange-700 transition-all duration-300 hover:scale-110 bg-white rounded-full p-3 shadow-lg border-2 border-orange-300"
