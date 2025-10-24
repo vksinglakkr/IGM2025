@@ -190,13 +190,19 @@
   /* Custom textarea styling - Placeholder smaller, Typed text larger */
   #userInput::placeholder {
     font-size: 13px;
-    color: #9ca3af;
+    color: #b5b5b5;
     font-weight: 500;
   }
   #userInput {
     font-size: 17px !important;
     font-weight: 600 !important;
     color: #1f2937 !important;
+  }
+  
+  /* Fix textarea width to prevent gray area on right */
+  #userInput {
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; }
