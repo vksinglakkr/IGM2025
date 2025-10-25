@@ -109,154 +109,69 @@
     transform: scale(1.05);
   }
   
-/* Radio Button Styles */
-.query-type-selector {
-  background: linear-gradient(135deg, #fef3c7, #fed7aa);
-  border: 3px solid #f59e0b;
-  border-radius: 20px;
-  padding: 20px 16px;
-  margin-bottom: 24px;
-  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
-}
-
-.radio-option {
-  position: relative;
-  display: flex;
-  align-items: flex-start; /* Changed from center to flex-start */
-  padding: 14px 16px;
-  background: white;
-  border: 3px solid #e5e7eb;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all 0.3s;
-  margin-bottom: 12px;
-  min-height: 80px; /* Ensure consistent height */
-}
-
-.radio-option:last-child {
-  margin-bottom: 0;
-}
-
-.radio-option:hover {
-  border-color: #f59e0b;
-  transform: translateX(4px);
-  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.2);
-}
-
-.radio-option input[type="radio"] {
-  width: 22px;
-  height: 22px;
-  min-width: 22px; /* Prevent shrinking */
-  margin-right: 12px;
-  margin-top: 2px; /* Align with first line of text */
-  cursor: pointer;
-  accent-color: #f59e0b;
-  flex-shrink: 0; /* Prevent radio from shrinking */
-}
-
-.radio-option.selected {
-  border-color: #f59e0b;
-  background: linear-gradient(135deg, #fffbeb, #fef3c7);
-  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
-  transform: scale(1.02);
-}
-
-.radio-icon {
-  font-size: 28px; /* Slightly smaller for mobile */
-  min-width: 36px; /* Fixed width */
-  margin-right: 8px;
-  flex-shrink: 0; /* Prevent icon from shrinking */
-  line-height: 1;
-  margin-top: 2px;
-}
-
-.radio-label {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0; /* Allow text to wrap properly */
-  gap: 2px;
-}
-
-.radio-label-title {
-  font-size: 16px; /* Reduced from 18px */
-  font-weight: 700;
-  color: #1f2937;
-  line-height: 1.3;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto; /* Enable hyphenation if needed */
-}
-
-.radio-label-desc {
-  font-size: 12px; /* Reduced from 13px */
-  color: #6b7280;
-  line-height: 1.4;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-/* Mobile optimization */
-@media (max-width: 640px) {
+  /* Radio Button Styles */
   .query-type-selector {
-    padding: 16px 12px;
+    background: linear-gradient(135deg, #fef3c7, #fed7aa);
+    border: 3px solid #f59e0b;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
   }
-  
   .radio-option {
-    padding: 12px 12px;
-    min-height: 85px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background: white;
+    border: 3px solid #e5e7eb;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 12px;
   }
-  
+  .radio-option:last-child {
+    margin-bottom: 0;
+  }
+  .radio-option:hover {
+    border-color: #f59e0b;
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.2);
+  }
   .radio-option input[type="radio"] {
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    margin-right: 10px;
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+    cursor: pointer;
+    accent-color: #f59e0b;
   }
-  
-  .radio-icon {
-    font-size: 24px;
-    min-width: 32px;
-    margin-right: 6px;
+  .radio-option.selected {
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+    transform: scale(1.02);
   }
-  
- .radio-label-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #1f2937;
-  line-height: 1.3;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-  .radio-label-desc {
-    font-size: 11px;
-    line-height: 1.35;
+  .radio-label {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
-}
-
-/* Very small screens */
-@media (max-width: 360px) {
   .radio-label-title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 4px;
   }
-}
-  
-  .radio-icon {
-    font-size: 22px;
-    min-width: 28px;
-  }
-  
-  .radio-label-title {
-    font-size: 14px;
-  }
-  
   .radio-label-desc {
-    font-size: 10.5px;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.4;
   }
-}  
+  .radio-icon {
+    font-size: 32px;
+    margin-right: 8px;
+  }
+  
   /* Progressive Disclosure Animation */
   .slide-fade-enter {
     animation: slideFadeIn 0.5s ease-out;
@@ -337,7 +252,7 @@
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255, 107, 53, 0.5); }
   .event-card {
     border-radius: 20px;
-    padding: 20px;
+    padding: 16px;
     transition: all 0.3s;
     cursor: pointer;
     position: relative;
@@ -348,7 +263,7 @@
     background: linear-gradient(135deg, #eff6ff, #dbeafe);
     border-left: 6px solid #3b82f6;
     border-radius: 24px;
-    padding: 32px;
+    padding: 24px;
     box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
     position: relative;
     overflow: hidden;
@@ -389,7 +304,7 @@
   <div class="om-symbol om-bottom-left devanagari">ॐ</div>
 
   <div class="container-main w-full max-w-5xl glass-card rounded-3xl shadow-2xl overflow-hidden">
-    <div class="relative bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 p-2 pb-.001 text-center header-glow">
+    <div class="relative bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 p-5 text-center header-glow">
       <div class="flex justify-end mb-2">
         <div class="lang-toggle">
           <button class="langBtn active" data-lang="Hindi">हिंदी</button>
@@ -411,12 +326,12 @@
       </div>
     </div>
 
-    <div class="p-2">
+    <div class="p-6 md:p-8">
       <!-- Query Type Selection - Always Visible -->
       <div class="query-type-selector">
         <h3 class="text-xl font-bold text-gray-900 mb-4 text-center flex items-center justify-center gap-2">
           <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          Area of interest?
+          What would you like to ask about?
         </h3>
         
         <div class="radio-option" onclick="selectQueryType('gita')">
@@ -440,7 +355,7 @@
 
       <!-- Question Input Section - Hidden Initially -->
       <div id="questionSection" style="display: none;">
-        <div class="mb-8 slide-fade-enter">
+        <div class="mb-6 slide-fade-enter">
           <div class="relative">
             <textarea
               id="userInput"
@@ -463,9 +378,9 @@
           </div>
         </div>
 
-        <div class="mb-8 slide-fade-enter" id="quickQuestionsSection">
-          <div class="flex items-center justify-between mb-4">
-            <label class="text-lg font-bold text-gray-800">Quick Help 👇</label>
+        <div class="mb-6 slide-fade-enter" id="quickQuestionsSection">
+          <div class="flex items-center justify-between mb-3">
+            <label class="text-lg font-bold text-gray-800">or use Quick Questions</label>
             <button id="musicToggle" class="text-sm text-gray-600 hover:text-orange-600 flex items-center gap-2 transition-all hover:scale-105 font-semibold">
               <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
               <span id="musicLabel">Play Flute</span>
@@ -483,7 +398,7 @@
 
         <button 
           id="submitBtn" 
-          class="w-full mt-4 btn-primary flex items-center justify-center gap-3 text-xl slide-fade-enter"
+          class="w-full mt-3 btn-primary flex items-center justify-center gap-3 text-xl slide-fade-enter"
         >
           <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
@@ -492,31 +407,31 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 mb-2 mt-2">
-        <div class="event-card bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-600 shadow-lg">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 mt-6">
+        <div class="event-card bg-gradient-to-br from-blue-50 to-blue-100 border-l-6 border-blue-600 shadow-lg">
           <div class="flex items-center gap-3 mb-2">
-            <svg class="icon w-8 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <svg class="icon w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             <p class="font-bold text-gray-900 text-lg">Craft Fair</p>
           </div>
           <p class="text-sm text-gray-700 font-semibold ml-11">15 Nov – 5 Dec 2025</p>
         </div>
-        <div class="event-card bg-gradient-to-br from-amber-50 to-amber-100 border-l-4 border-amber-600 shadow-lg">
+        <div class="event-card bg-gradient-to-br from-amber-50 to-amber-100 border-l-6 border-amber-600 shadow-lg">
           <div class="flex items-center gap-3 mb-2">
-            <svg class="icon w-8 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+            <svg class="icon w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
             <p class="font-bold text-gray-900 text-lg">Daily Quiz</p>
           </div>
           <p class="text-sm text-gray-700 font-semibold ml-11">4 – 14 Nov 2025</p>
         </div>
-        <div class="event-card bg-gradient-to-br from-green-50 to-green-100 border-l-4 border-green-600 shadow-lg">
+        <div class="event-card bg-gradient-to-br from-green-50 to-green-100 border-l-6 border-green-600 shadow-lg">
           <div class="flex items-center gap-3 mb-2">
-            <svg class="icon w-8 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+            <svg class="icon w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
             <p class="font-bold text-gray-900 text-lg">Cultural Programs</p>
           </div>
           <p class="text-sm text-gray-700 font-semibold ml-11">24 Nov – 1 Dec 2025</p>
         </div>
       </div>
 
-      <div class="quote-section mb-8">
+      <div class="quote-section mb-6">
         <p class="text-2xl devanagari text-gray-900 text-center leading-relaxed mb-4 relative z-10 font-semibold">
           "ज्ञानं तेऽहं सविज्ञानमिदं वक्ष्याम्यशेषतः।<br>यज्ज्ञात्वा नेह भूयोऽन्यज्ज्ञातव्यमवशिष्यते॥"
         </p>
@@ -536,11 +451,12 @@
 
     <div class="border-t-2 border-gray-100 p-8 text-center bg-gradient-to-b from-gray-50 to-white">
       <p class="text-sm text-gray-700 mb-4 font-medium">AI Chatbot powered by <span class="font-bold text-orange-600">Groq + Llama 3.3</span></p>
-      <p class="text-gray-700 text-base mb-3 font-semibold">International Gita Mahotsav 2025<br><span class="text-sm font-normal text-gray-600">Designed & Maintained by District Administration, Kurukshetra</span></p>
+      <p class="text-gray-700 text-base mb-3 font-semibold">International Gita Mahotsav 2025<br><span class="text-sm font-normal text-gray-600">Designed & Maintained by NIC, Kurukshetra</span></p>
       <p class="text-gray-500 text-xs mb-6">Last Updated: <span id="lastModified"></span></p>
       <div class="flex flex-wrap justify-center items-center gap-8">
         <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Haryana" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
         <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="KDB" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/nicLogo.png" alt="NIC" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
       </div>
     </div>
   </div>
@@ -782,36 +698,8 @@ document.querySelectorAll('.langBtn').forEach(btn => {
 
 let ttsUtterance = null;
 let isSpeaking = false;
-let voicesLoaded = false;
-let manualStop = false; // Add this flag
 
-// Ensure voices are loaded (critical for iOS)
-function loadVoices() {
-  return new Promise((resolve) => {
-    let voices = speechSynthesis.getVoices();
-    if (voices.length > 0) {
-      voicesLoaded = true;
-      resolve(voices);
-    } else {
-      speechSynthesis.addEventListener('voiceschanged', () => {
-        voices = speechSynthesis.getVoices();
-        voicesLoaded = true;
-        resolve(voices);
-      }, { once: true });
-      
-      // Fallback timeout for iOS
-      setTimeout(() => {
-        voices = speechSynthesis.getVoices();
-        voicesLoaded = true;
-        resolve(voices);
-      }, 1000);
-    }
-  });
-}
-
-// Load voices on page load
-loadVoices();    
-document.getElementById('ttsToggle').addEventListener('click', async () => {
+document.getElementById('ttsToggle').addEventListener('click', () => {
   const ttsBtn = document.getElementById('ttsToggle');
   const ttsLabel = document.getElementById('ttsLabel');
   const answerText = document.getElementById('modalAnswer').textContent;
@@ -819,115 +707,56 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   if (!answerText || answerText === 'Thinking...') return;
   
   if (isSpeaking) {
-    // User manually stopped
-    manualStop = true; // Set flag before canceling
     speechSynthesis.cancel();
     isSpeaking = false;
     ttsBtn.classList.remove('speaking');
     ttsLabel.textContent = 'Listen';
-    return;
-  }
-  
-  // Reset manual stop flag
-  manualStop = false;
-  
-  // Ensure voices are loaded
-  const voices = await loadVoices();
-  
-  // Cancel any ongoing speech
-  speechSynthesis.cancel();
-  
-  // Small delay for iOS (helps prevent issues)
-  await new Promise(resolve => setTimeout(resolve, 100));
-  
-  ttsUtterance = new SpeechSynthesisUtterance(answerText);
-  
-  // iOS-friendly settings
-  ttsUtterance.rate = 0.85;
-  ttsUtterance.pitch = 1;
-  ttsUtterance.volume = 1;
-  
-  // Try to find Hindi voice, fallback to default
-  let selectedVoice = null;
-  
-  // Look for Hindi voices (hi-IN)
-  const hindiVoices = voices.filter(voice => 
-    voice.lang.startsWith('hi') || 
-    voice.lang === 'hi-IN' ||
-    voice.name.toLowerCase().includes('hindi')
-  );
-  
-  if (hindiVoices.length > 0) {
-    selectedVoice = hindiVoices[0];
-    console.log('Using Hindi voice:', selectedVoice.name);
   } else {
-    // Fallback to first available voice
-    selectedVoice = voices[0];
-    console.log('Hindi voice not found, using:', selectedVoice?.name || 'default');
+    speechSynthesis.cancel();
+    ttsUtterance = new SpeechSynthesisUtterance(answerText);
+    ttsUtterance.rate = 0.9;
+    ttsUtterance.pitch = 1;
+    ttsUtterance.volume = 1;
     
-    // Alert user on iOS if no Hindi voice (only once)
-    if (/iPhone|iPad|iPod/i.test(navigator.userAgent) && !sessionStorage.getItem('hindiVoiceWarned')) {
-      alert('Hindi voice not available. Using default voice. To enable Hindi, go to Settings > Accessibility > Spoken Content > Voices > Hindi.');
-      sessionStorage.setItem('hindiVoiceWarned', 'true');
+    const voices = speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      ttsUtterance.voice = voices[0];
     }
-  }
-  
-  if (selectedVoice) {
-    ttsUtterance.voice = selectedVoice;
-  }
-  
-  ttsUtterance.onstart = () => {
-    isSpeaking = true;
-    ttsBtn.classList.add('speaking');
-    ttsLabel.textContent = 'Stop';
-  };
-  
-  ttsUtterance.onend = () => {
-    // Only update UI if not manually stopped
-    if (!manualStop) {
+    
+    ttsUtterance.onstart = () => {
+      isSpeaking = true;
+      ttsBtn.classList.add('speaking');
+      ttsLabel.textContent = 'Stop';
+    };
+    
+    ttsUtterance.onend = () => {
       isSpeaking = false;
       ttsBtn.classList.remove('speaking');
       ttsLabel.textContent = 'Listen';
-    }
-  };
-  
-  ttsUtterance.onerror = (e) => {
-    console.error('TTS Error:', e);
+    };
     
-    // Don't show error if user manually stopped
-    if (manualStop) {
-      manualStop = false; // Reset flag
-      return;
-    }
+    ttsUtterance.onerror = (e) => {
+      console.error('TTS Error:', e);
+      isSpeaking = false;
+      ttsBtn.classList.remove('speaking');
+      ttsLabel.textContent = 'Listen';
+      alert('Speech failed. Please try again.');
+    };
     
-    isSpeaking = false;
-    ttsBtn.classList.remove('speaking');
-    ttsLabel.textContent = 'Listen';
-    
-    // More specific error messages for actual errors
-    let errorMsg = 'Speech failed. ';
-    if (e.error === 'canceled' || e.error === 'interrupted') {
-      // Silently ignore canceled/interrupted errors
-      return;
-    } else if (e.error === 'not-allowed') {
-      errorMsg += 'Please enable speech in browser settings.';
-    } else if (e.error === 'language-unavailable') {
-      errorMsg += 'Hindi voice not available on your device.';
+    if (speechSynthesis.getVoices().length === 0) {
+      speechSynthesis.addEventListener('voiceschanged', () => {
+        const voices = speechSynthesis.getVoices();
+        if (voices.length > 0) {
+          ttsUtterance.voice = voices[0];
+        }
+        speechSynthesis.speak(ttsUtterance);
+      }, { once: true });
     } else {
-      errorMsg += 'Please try again.';
+      speechSynthesis.speak(ttsUtterance);
     }
-    alert(errorMsg);
-  };
-  
-  // iOS requires immediate speech after user interaction
-  try {
-    speechSynthesis.speak(ttsUtterance);
-  } catch (error) {
-    console.error('Speech synthesis failed:', error);
-    alert('Text-to-speech is not available on your device.');
   }
 });
-    
+
 document.getElementById('submitBtn').addEventListener('click', async () => {
   const question = document.getElementById('userInput').value.trim();
   
@@ -975,7 +804,7 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   }
 
   try {
-    const webhookUrl = 'https://vksinglakkrgroq1.app.n8n.cloud/webhook/ask-gitaV2';
+    const webhookUrl = 'https://vksinglakkrgroq1.app.n8n.cloud/webhook/ask-gita';
 
     const response = await fetch(webhookUrl, {
       method: 'POST',
@@ -995,7 +824,12 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
     });
 
     const data = await response.json();
-    document.getElementById('modalAnswer').textContent = data.answer || data.error || 'No response received.';
+    const aiResponse = data.answer || data.error || 'No response received.';
+    
+    // Add disclaimer to the response
+    const disclaimer = "\n\n───────────────────────\n⚠️ Disclaimer: This is an AI-generated response for guidance purposes only. Please verify important information from official sources.";
+    
+    document.getElementById('modalAnswer').textContent = aiResponse + disclaimer;
   } catch (error) {
     document.getElementById('modalAnswer').textContent = 'Connection failed: ' + error.message;
   }
