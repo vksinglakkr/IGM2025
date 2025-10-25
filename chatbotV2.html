@@ -534,15 +534,41 @@
       </div>
     </div>
 
-    <div class="border-t-2 border-gray-100 p-8 text-center bg-gradient-to-b from-gray-50 to-white">
-      <p class="text-sm text-gray-700 mb-4 font-medium">AI Chatbot powered by <span class="font-bold text-orange-600">Groq + Llama 3.3</span></p>
-      <p class="text-gray-700 text-base mb-3 font-semibold">International Gita Mahotsav 2025<br><span class="text-sm font-normal text-gray-600">Designed & Maintained by District Administration, Kurukshetra</span></p>
-      <p class="text-gray-500 text-xs mb-6">Last Updated: <span id="lastModified"></span></p>
-      <div class="flex flex-wrap justify-center items-center gap-8">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Haryana" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="KDB" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
-      </div>
+<div class="border-t border-gray-200/50 p-10 text-center bg-gradient-to-b from-white via-gray-50/30 to-white relative overflow-hidden">
+  <!-- Subtle background accent -->
+  <div class="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-purple-500/5 to-blue-500/5 pointer-events-none"></div>
+  
+  <div class="relative z-10">
+    <!-- AI Branding - Hero statement -->
+    <div class="mb-6">
+      <p class="text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Powered by Advanced AI</p>
+      <p class="text-2xl font-bold bg-gradient-to-r from-orange-600 via-red-500 to-purple-600 bg-clip-text text-transparent">
+        Groq + Llama 3.3
+      </p>
+      <p class="text-xs text-gray-500 mt-1 italic">Lightning-fast inference • State-of-the-art accuracy</p>
     </div>
+    
+    <!-- Timestamp -->
+    <p class="text-gray-400 text-xs mb-8 font-mono">
+      Last Updated: <span id="lastModified" class="text-gray-600"></span>
+    </p>
+    
+    <!-- Logos with elegant spacing -->
+    <div class="flex justify-center items-center gap-12 pt-4">
+      <img 
+        src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" 
+        alt="Haryana Government" 
+        class="w-14 h-14 object-contain opacity-70 hover:opacity-100 transition-all duration-300 hover:scale-110 filter hover:drop-shadow-lg"
+      >
+      <div class="w-px h-12 bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+      <img 
+        src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" 
+        alt="Kurukshetra Development Board" 
+        class="w-14 h-14 object-contain opacity-70 hover:opacity-100 transition-all duration-300 hover:scale-110 filter hover:drop-shadow-lg"
+      >
+    </div>
+  </div>
+</div>
   </div>
 
   <div id="aiModal" class="hidden fixed inset-0 flex items-center justify-center p-2" style="z-index: 9999; background: rgba(0,0,0,0.92);">
