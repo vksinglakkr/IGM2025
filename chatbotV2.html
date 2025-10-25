@@ -257,6 +257,106 @@
     font-size: 10.5px;
   }
 }  
+   /* Container */
+.cards-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Mobile: Horizontal scrolling */
+.cards-wrapper {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  padding-bottom: 1rem; /* Space for scrollbar */
+  scrollbar-width: thin; /* Firefox */
+}
+
+/* Hide scrollbar on mobile for cleaner look */
+.cards-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.cards-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cards-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+/* Card styling */
+.event-card {
+  flex: 0 0 85%; /* 85% width on mobile - shows partial next card */
+  min-width: 280px;
+  max-width: 320px;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Tablet: 2 cards per view */
+@media (min-width: 640px) {
+  .event-card {
+    flex: 0 0 45%; /* 45% width on tablets */
+    max-width: 350px;
+  }
+}
+
+/* Desktop: Grid layout */
+@media (min-width: 768px) {
+  .cards-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+  
+  .event-card {
+    flex: none;
+    min-width: auto;
+    max-width: none;
+  }
+}
+
+/* Large Desktop: More spacing */
+@media (min-width: 1024px) {
+  .cards-wrapper {
+    gap: 2rem;
+  }
+}
+
+/* Hover effect on desktop */
+@media (min-width: 768px) {
+  .event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+}
+
+/* Touch feedback on mobile */
+@media (max-width: 767px) {
+  .event-card:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Border styling */
+.border-l-6 {
+  border-left-width: 6px;
+}
+
+/* Icon sizing fix for mobile */
+.icon {
+  min-width: 2rem;
+  min-height: 2rem;
+}
+
   /* Progressive Disclosure Animation */
   .slide-fade-enter {
     animation: slideFadeIn 0.5s ease-out;
@@ -383,6 +483,7 @@
   .om-top-right { top: 50px; right: 50px; transform: rotate(15deg); }
   .om-bottom-left { bottom: 50px; left: 50px; transform: rotate(-15deg); }
 </style>
+  
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
   <div class="om-symbol om-top-right devanagari">ॐ</div>
@@ -492,15 +593,15 @@
         </button>
       </div>
 
-<!-- Responsive Event Cards Section -->
-<div class="mb-8 mt-4">
-  <!-- Desktop: Grid layout (3 columns) -->
-  <!-- Mobile: Horizontal scroll -->
-  <div class="hidden md:grid md:grid-cols-3 gap-6">
+<!-- Container with horizontal scroll on mobile, grid on desktop -->
+<div class="cards-container mb-8 mt-4">
+  <!-- Wrapper for horizontal scroll -->
+  <div class="cards-wrapper">
+    
     <!-- Card 1: Craft Fair -->
     <div class="event-card bg-gradient-to-br from-blue-50 to-blue-100 border-l-6 border-blue-600 shadow-lg">
       <div class="flex items-center gap-3 mb-2">
-        <svg class="icon w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="icon w-8 h-8 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
         </svg>
         <p class="font-bold text-gray-900 text-lg">Craft Fair</p>
@@ -511,25 +612,27 @@
     <!-- Card 2: Daily Quiz -->
     <div class="event-card bg-gradient-to-br from-amber-50 to-amber-100 border-l-6 border-amber-600 shadow-lg">
       <div class="flex items-center gap-3 mb-2">
-        <svg class="icon w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806
-      <div class="quote-section mb-8">
-        <p class="text-2xl devanagari text-gray-900 text-center leading-relaxed mb-4 relative z-10 font-semibold">
-          "ज्ञानं तेऽहं सविज्ञानमिदं वक्ष्याम्यशेषतः।<br>यज्ज्ञात्वा नेह भूयोऽन्यज्ज्ञातव्यमवशिष्यते॥"
-        </p>
-        <p class="text-right text-gray-600 text-sm mb-4 devanagari font-medium">— श्रीमद्भगवद्गीता, अध्याय 7, श्लोक 2</p>
-        <p class="text-center text-base text-gray-800 font-medium leading-relaxed italic">
-          "I shall now declare to you in full this knowledge with realization,<br>knowing which nothing else remains to be known in this world."
-        </p>
+        <svg class="icon w-8 h-8 text-amber-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+        </svg>
+        <p class="font-bold text-gray-900 text-lg">Daily Quiz</p>
       </div>
-
-      <div class="text-center">
-        <a href="https://internationalgitamahotsav.in/" id="mainReturnLink" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold transition-all hover:scale-105">
-          <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-          Return to Main Page
-        </a>
-      </div>
+      <p class="text-sm text-gray-700 font-semibold ml-11">4 – 14 Nov 2025</p>
     </div>
+
+    <!-- Card 3: Cultural Programs -->
+    <div class="event-card bg-gradient-to-br from-green-50 to-green-100 border-l-6 border-green-600 shadow-lg">
+      <div class="flex items-center gap-3 mb-2">
+        <svg class="icon w-8 h-8 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+        </svg>
+        <p class="font-bold text-gray-900 text-lg">Cultural Programs</p>
+      </div>
+      <p class="text-sm text-gray-700 font-semibold ml-11">24 Nov – 1 Dec 2025</p>
+    </div>
+
+  </div>
+</div>
 
     <div class="border-t-2 border-gray-100 p-8 text-center bg-gradient-to-b from-gray-50 to-white">
       <p class="text-sm text-gray-700 mb-4 font-medium">AI Chatbot powered by <span class="font-bold text-orange-600">Groq + Llama 3.3</span></p>
