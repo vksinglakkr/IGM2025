@@ -998,7 +998,7 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
     const aiResponse = data.answer || data.error || 'No response received.';
     
     // Add disclaimer to the response
-    const disclaimer = "\n\n───────────────────────\n⚠️ Disclaimer: This is an AI-generated response for guidance purposes only. Please verify important information from official sources.";
+    const disclaimer = "\n───────────────────────\n⚠️ Disclaimer: This is an AI-generated response for guidance purposes only. Please verify important information from official sources.";
     
     document.getElementById('modalAnswer').textContent = aiResponse + disclaimer;
   } catch (error) {
