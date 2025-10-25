@@ -538,39 +538,42 @@
   <!-- Subtle background accent -->
   <div class="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-purple-500/5 to-blue-500/5 pointer-events-none"></div>
   
-  <div class="relative z-10">
-    <!-- AI Branding - Hero statement -->
-    <div class="mb-6">
-      <p class="text-xs uppercase tracking-widest text-gray-400 mb-2 font-semibold">Powered by Advanced AI</p>
-      <p class="text-2xl font-bold bg-gradient-to-r from-orange-600 via-red-500 to-purple-600 bg-clip-text text-transparent">
-        Groq + Llama 3.3
-      </p>
-      <p class="text-xs text-gray-500 mt-1 italic">Lightning-fast inference • State-of-the-art accuracy</p>
-    </div>
+<div class="border-t border-gray-200 py-8 px-6 text-center bg-gradient-to-b from-white to-gray-50/50">
+  <div class="max-w-4xl mx-auto">
     
-    <!-- Timestamp -->
-    <p class="text-gray-400 text-xs mb-8 font-mono">
-      Last Updated: <span id="lastModified" class="text-gray-600"></span>
-    </p>
-    
-    <!-- Logos with elegant spacing -->
-    <div class="flex justify-center items-center gap-12 pt-4">
+    <!-- Main Identity - Logos First -->
+    <div class="flex justify-center items-center gap-10 mb-6">
       <img 
         src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" 
         alt="Haryana Government" 
-        class="w-14 h-14 object-contain opacity-70 hover:opacity-100 transition-all duration-300 hover:scale-110 filter hover:drop-shadow-lg"
+        class="w-16 h-16 object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
       >
-      <div class="w-px h-12 bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
       <img 
         src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" 
         alt="Kurukshetra Development Board" 
-        class="w-14 h-14 object-contain opacity-70 hover:opacity-100 transition-all duration-300 hover:scale-110 filter hover:drop-shadow-lg"
+        class="w-16 h-16 object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
       >
     </div>
+    
+    <!-- Elegant Divider -->
+    <div class="w-32 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mx-auto mb-6"></div>
+    
+    <!-- AI Attribution - Subtle -->
+    <p class="text-sm text-gray-600 mb-3">
+      Intelligent Chatbot Assistant
+    </p>
+    <p class="text-xs text-gray-500">
+      Powered by <span class="font-semibold text-gray-700">Groq</span> + <span class="font-semibold text-gray-700">Llama 3.3</span>
+    </p>
+    
+    <!-- Timestamp -->
+    <p class="text-xs text-gray-400 mt-6 font-light">
+      Last Updated: <span id="lastModified" class="text-gray-500"></span>
+    </p>
+    
   </div>
-</div>
-  </div>
-
+</div> 
+  
   <div id="aiModal" class="hidden fixed inset-0 flex items-center justify-center p-2" style="z-index: 9999; background: rgba(0,0,0,0.92);">
     <div class="bg-white rounded-3xl shadow-2xl w-full mx-2 modal-enter overflow-hidden" style="max-width: 850px; max-height: 92vh;">
       <div class="flex justify-between items-center px-5 py-4 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
