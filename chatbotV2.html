@@ -109,7 +109,6 @@
     transform: scale(1.05);
   }
   
-/* Radio Button Styles */
 .query-type-selector {
   background: linear-gradient(135deg, #fef3c7, #fed7aa);
   border: 3px solid #f59e0b;
@@ -122,7 +121,7 @@
 .radio-option {
   position: relative;
   display: flex;
-  align-items: flex-start; /* Changed from center to flex-start */
+  align-items: flex-start;
   padding: 14px 16px;
   background: white;
   border: 3px solid #e5e7eb;
@@ -130,7 +129,7 @@
   cursor: pointer;
   transition: all 0.3s;
   margin-bottom: 12px;
-  min-height: 80px; /* Ensure consistent height */
+  min-height: 80px;
 }
 
 .radio-option:last-child {
@@ -146,12 +145,12 @@
 .radio-option input[type="radio"] {
   width: 22px;
   height: 22px;
-  min-width: 22px; /* Prevent shrinking */
+  min-width: 22px;
   margin-right: 12px;
-  margin-top: 2px; /* Align with first line of text */
+  margin-top: 2px;
   cursor: pointer;
   accent-color: #f59e0b;
-  flex-shrink: 0; /* Prevent radio from shrinking */
+  flex-shrink: 0;
 }
 
 .radio-option.selected {
@@ -162,10 +161,10 @@
 }
 
 .radio-icon {
-  font-size: 28px; /* Slightly smaller for mobile */
-  min-width: 36px; /* Fixed width */
+  font-size: 28px;
+  min-width: 36px;
   margin-right: 8px;
-  flex-shrink: 0; /* Prevent icon from shrinking */
+  flex-shrink: 0;
   line-height: 1;
   margin-top: 2px;
 }
@@ -174,29 +173,28 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-width: 0; /* Allow text to wrap properly */
+  min-width: 0;
   gap: 2px;
 }
 
 .radio-label-title {
-  font-size: 16px; /* Reduced from 18px */
+  font-size: 16px;
   font-weight: 700;
   color: #1f2937;
   line-height: 1.3;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: auto; /* Enable hyphenation if needed */
+  hyphens: auto;
 }
 
 .radio-label-desc {
-  font-size: 12px; /* Reduced from 13px */
+  font-size: 12px;
   color: #6b7280;
   line-height: 1.4;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-/* Mobile optimization */
 @media (max-width: 640px) {
   .query-type-selector {
     padding: 16px 12px;
@@ -220,14 +218,9 @@
     margin-right: 6px;
   }
   
- .radio-label-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #1f2937;
-  line-height: 1.3;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
+  .radio-label-title {
+    font-size: 16px;
+  }
 
   .radio-label-desc {
     font-size: 11px;
@@ -235,15 +228,7 @@
   }
 }
 
-/* Very small screens */
 @media (max-width: 360px) {
-  .radio-label-title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-  
   .radio-icon {
     font-size: 22px;
     min-width: 28px;
@@ -256,8 +241,8 @@
   .radio-label-desc {
     font-size: 10.5px;
   }
-}  
-  /* Progressive Disclosure Animation */
+}
+  
   .slide-fade-enter {
     animation: slideFadeIn 0.5s ease-out;
   }
@@ -272,7 +257,6 @@
     }
   }
   
-  /* Custom textarea styling - Placeholder smaller, Typed text larger */
   #userInput::placeholder {
     font-size: 13px;
     color: #b5b5b5;
@@ -285,16 +269,11 @@
     color: #1f2937 !important;
     line-height: 1.5;
     vertical-align: bottom;
-  }
-  
-  /* Fix textarea width and alignment */
-  #userInput {
     width: 100% !important;
     box-sizing: border-box !important;
     display: block;
   }
   
-  /* Mobile optimization */
   @media (max-width: 768px) {
     #userInput {
       font-size: 16px !important;
@@ -412,33 +391,31 @@
     </div>
 
     <div class="p-2">
-      <!-- Query Type Selection - Always Visible -->
-<!-- Query Type Selection - Always Visible -->
-<div class="query-type-selector">
-  <h3 class="text-xl font-bold text-gray-900 mb-4 text-center flex items-center justify-center gap-2">
-    <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-    Area of interest?
-  </h3>
-  
-  <div class="radio-option" onclick="selectQueryType('gita')">
-    <input type="radio" name="queryType" id="gitaRadio" value="gita" onchange="selectQueryType('gita')">
-    <span class="radio-icon">🕉️</span>
-    <label for="gitaRadio" class="radio-label cursor-pointer">
-      <span class="radio-label-title">Gita Guidance (गीता मार्गदर्शन)</span>
-      <span class="radio-label-desc">Life wisdom, spiritual questions, peace of mind, handling emotions</span>
-    </label>
-  </div>
-  
-  <div class="radio-option" onclick="selectQueryType('event')">
-    <input type="radio" name="queryType" id="eventRadio" value="event" onchange="selectQueryType('event')">
-    <span class="radio-icon">🎪</span>
-    <label for="eventRadio" class="radio-label cursor-pointer">
-      <span class="radio-label-title">Festival Information (महोत्सव की जानकारी)</span>
-      <span class="radio-label-desc">Events, schedule, facilities, transport, accommodation, tourist places</span>
-    </label>
-  </div>
-</div>
-      <!-- Question Input Section - Hidden Initially -->
+      <div class="query-type-selector">
+        <h3 class="text-xl font-bold text-gray-900 mb-4 text-center flex items-center justify-center gap-2">
+          <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Area of interest?
+        </h3>
+        
+        <div class="radio-option" onclick="selectQueryType('gita')">
+          <input type="radio" name="queryType" id="gitaRadio" value="gita">
+          <span class="radio-icon">🕉️</span>
+          <label for="gitaRadio" class="radio-label cursor-pointer">
+            <span class="radio-label-title">Gita Guidance (गीता मार्गदर्शन)</span>
+            <span class="radio-label-desc">Life wisdom, spiritual questions, peace of mind, handling emotions</span>
+          </label>
+        </div>
+        
+        <div class="radio-option" onclick="selectQueryType('event')">
+          <input type="radio" name="queryType" id="eventRadio" value="event">
+          <span class="radio-icon">🎪</span>
+          <label for="eventRadio" class="radio-label cursor-pointer">
+            <span class="radio-label-title">Festival Information (महोत्सव की जानकारी)</span>
+            <span class="radio-label-desc">Events, schedule, facilities, transport, accommodation, tourist places</span>
+          </label>
+        </div>
+      </div>
+
       <div id="questionSection" style="display: none;">
         <div class="mb-8 slide-fade-enter">
           <div class="relative">
@@ -605,7 +582,6 @@
   </audio>
 
   <script>
-// Category questions for different query types
 const gitaQuestions = {
   'PHILOSOPHICAL_QUERY': [
     "How can one control anger according to the Bhagavad Gita?",
@@ -668,7 +644,7 @@ const eventQuestions = {
     "What is the predicted weather forecast for the next week?"
   ],
   'QUIZ_QUERY': [
-    "What is the registration process for the Online Gita Quiz?"
+    "What is the registration process for the Online Gita Quiz?",
     "When does registration start and end?",
     "When does the quiz start and end?",
     "What are the different categories?",
@@ -685,20 +661,17 @@ const eventQuestions = {
     "Will I receive a certificate?",
     "What if I forget my Quiz ID or password?"
   ]
-
 };
 
 let selectedQueryType = '';
 let selectedLanguage = 'Hindi';
 
-// Radio button selection handler
-// Radio button selection handler
 function selectQueryType(type) {
   selectedQueryType = type;
   const gitaRadio = document.getElementById('gitaRadio');
   const eventRadio = document.getElementById('eventRadio');
-  const gitaOption = gitaRadio.closest('.radio-option');
-  const eventOption = eventRadio.closest('.radio-option');
+  const gitaOption = gitaRadio.parentElement;
+  const eventOption = eventRadio.parentElement;
   const questionSection = document.getElementById('questionSection');
   const userInput = document.getElementById('userInput');
   
@@ -717,12 +690,11 @@ function selectQueryType(type) {
   }
   
   questionSection.style.display = 'block';
-  
   setTimeout(() => {
     questionSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, 100);
 }
-    
+
 function populateCategoriesForGita() {
   const categorySelect = document.getElementById('categorySelect');
   categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
@@ -798,9 +770,8 @@ document.querySelectorAll('.langBtn').forEach(btn => {
 let ttsUtterance = null;
 let isSpeaking = false;
 let voicesLoaded = false;
-let manualStop = false; // Add this flag
+let manualStop = false;
 
-// Ensure voices are loaded (critical for iOS)
 function loadVoices() {
   return new Promise((resolve) => {
     let voices = speechSynthesis.getVoices();
@@ -814,7 +785,6 @@ function loadVoices() {
         resolve(voices);
       }, { once: true });
       
-      // Fallback timeout for iOS
       setTimeout(() => {
         voices = speechSynthesis.getVoices();
         voicesLoaded = true;
@@ -824,8 +794,8 @@ function loadVoices() {
   });
 }
 
-// Load voices on page load
 loadVoices();    
+
 document.getElementById('ttsToggle').addEventListener('click', async () => {
   const ttsBtn = document.getElementById('ttsToggle');
   const ttsLabel = document.getElementById('ttsLabel');
@@ -834,8 +804,7 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   if (!answerText || answerText === 'Thinking...') return;
   
   if (isSpeaking) {
-    // User manually stopped
-    manualStop = true; // Set flag before canceling
+    manualStop = true;
     speechSynthesis.cancel();
     isSpeaking = false;
     ttsBtn.classList.remove('speaking');
@@ -843,29 +812,17 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
     return;
   }
   
-  // Reset manual stop flag
   manualStop = false;
-  
-  // Ensure voices are loaded
   const voices = await loadVoices();
-  
-  // Cancel any ongoing speech
   speechSynthesis.cancel();
-  
-  // Small delay for iOS (helps prevent issues)
   await new Promise(resolve => setTimeout(resolve, 100));
   
   ttsUtterance = new SpeechSynthesisUtterance(answerText);
-  
-  // iOS-friendly settings
   ttsUtterance.rate = 0.85;
   ttsUtterance.pitch = 1;
   ttsUtterance.volume = 1;
   
-  // Try to find Hindi voice, fallback to default
   let selectedVoice = null;
-  
-  // Look for Hindi voices (hi-IN)
   const hindiVoices = voices.filter(voice => 
     voice.lang.startsWith('hi') || 
     voice.lang === 'hi-IN' ||
@@ -874,13 +831,8 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   
   if (hindiVoices.length > 0) {
     selectedVoice = hindiVoices[0];
-    console.log('Using Hindi voice:', selectedVoice.name);
   } else {
-    // Fallback to first available voice
     selectedVoice = voices[0];
-    console.log('Hindi voice not found, using:', selectedVoice?.name || 'default');
-    
-    // Alert user on iOS if no Hindi voice (only once)
     if (/iPhone|iPad|iPod/i.test(navigator.userAgent) && !sessionStorage.getItem('hindiVoiceWarned')) {
       alert('Hindi voice not available. Using default voice. To enable Hindi, go to Settings > Accessibility > Spoken Content > Voices > Hindi.');
       sessionStorage.setItem('hindiVoiceWarned', 'true');
@@ -898,7 +850,6 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   };
   
   ttsUtterance.onend = () => {
-    // Only update UI if not manually stopped
     if (!manualStop) {
       isSpeaking = false;
       ttsBtn.classList.remove('speaking');
@@ -907,11 +858,8 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   };
   
   ttsUtterance.onerror = (e) => {
-    console.error('TTS Error:', e);
-    
-    // Don't show error if user manually stopped
     if (manualStop) {
-      manualStop = false; // Reset flag
+      manualStop = false;
       return;
     }
     
@@ -919,10 +867,8 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
     ttsBtn.classList.remove('speaking');
     ttsLabel.textContent = 'Listen';
     
-    // More specific error messages for actual errors
     let errorMsg = 'Speech failed. ';
     if (e.error === 'canceled' || e.error === 'interrupted') {
-      // Silently ignore canceled/interrupted errors
       return;
     } else if (e.error === 'not-allowed') {
       errorMsg += 'Please enable speech in browser settings.';
@@ -934,11 +880,9 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
     alert(errorMsg);
   };
   
-  // iOS requires immediate speech after user interaction
   try {
     speechSynthesis.speak(ttsUtterance);
   } catch (error) {
-    console.error('Speech synthesis failed:', error);
     alert('Text-to-speech is not available on your device.');
   }
 });
@@ -1009,15 +953,10 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
       })
     });
 
-  const data = await response.json();
+    const data = await response.json();
     const aiResponse = data.answer || data.error || 'No response received.';
-    
-    // Add disclaimer with reduced line spacing using span
     const disclaimer = "\n─────────────────\n⚠️ Disclaimer: This is an AI-generated response for guidance purposes only. Please verify important information from official sources.";
-    
-    // Use innerHTML instead of textContent to support HTML tags
     const fullResponse = aiResponse + `<span style="line-height: 1.2; display: block; margin-top: 8px;">${disclaimer}</span>`;
-    
     document.getElementById('modalAnswer').innerHTML = fullResponse;
   } catch (error) {
     document.getElementById('modalAnswer').textContent = 'Connection failed: ' + error.message;
@@ -1054,7 +993,6 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
   };
 
   recognition.onerror = (event) => {
-    console.error('Speech recognition error:', event.error);
     isRecording = false;
     const voiceBtn = document.getElementById('voiceBtn');
     voiceBtn.classList.remove('recording');
@@ -1109,7 +1047,6 @@ const musicLabel = document.getElementById('musicLabel');
 musicToggle.addEventListener('click', () => {
   if (fluteMusic.paused) {
     fluteMusic.play().catch(e => {
-      console.warn("Audio play blocked:", e);
       alert("Please interact with the page first, then click to play music.");
     });
     musicLabel.textContent = "Pause Flute";
@@ -1118,12 +1055,18 @@ musicToggle.addEventListener('click', () => {
     musicLabel.textContent = "Play Flute";
   }
 });
-    // Move this to the very end of the script (after the fluteMusic code)
-const lastModifiedDate = new Date(document.lastModified);
-document.getElementById("lastModified").textContent = lastModifiedDate.toLocaleDateString('en-US', {
-  year: 'numeric', month: 'long', day: 'numeric'
-}) + ' at ' + lastModifiedDate.toLocaleTimeString('en-US', {
-  hour: '2-digit', minute: '2-digit'
+
+// CRITICAL FIX: Last Modified at the END
+window.addEventListener('DOMContentLoaded', () => {
+  const lastModifiedDate = new Date(document.lastModified);
+  const element = document.getElementById("lastModified");
+  if (element) {
+    element.textContent = lastModifiedDate.toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    }) + ' at ' + lastModifiedDate.toLocaleTimeString('en-US', {
+      hour: '2-digit', minute: '2-digit'
+    });
+  }
 });
   </script>
 </body>
