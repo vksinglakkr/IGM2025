@@ -413,30 +413,31 @@
 
     <div class="p-2">
       <!-- Query Type Selection - Always Visible -->
-      <div class="query-type-selector">
-        <h3 class="text-xl font-bold text-gray-900 mb-4 text-center flex items-center justify-center gap-2">
-          <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          Area of interest?
-        </h3>
-        
-        <input type="radio" name="queryType" id="gitaRadio" value="gita" onchange="selectQueryType('gita')">
-          <span class="radio-icon">🕉️</span>
-          <label for="gitaRadio" class="radio-label cursor-pointer">
-            <span class="radio-label-title">Gita Guidance (गीता मार्गदर्शन)</span>
-            <span class="radio-label-desc">Life wisdom, spiritual questions, peace of mind, handling emotions</span>
-          </label>
-        </div>
-        
-       <input type="radio" name="queryType" id="eventRadio" value="event" onchange="selectQueryType('event')">
-          <input type="radio" name="queryType" id="eventRadio" value="event">
-          <span class="radio-icon">🎪</span>
-          <label for="eventRadio" class="radio-label cursor-pointer">
-            <span class="radio-label-title">Festival Information (महोत्सव की जानकारी)</span>
-            <span class="radio-label-desc">Events, schedule, facilities, transport, accommodation, tourist places</span>
-          </label>
-        </div>
-      </div>
-
+<!-- Query Type Selection - Always Visible -->
+<div class="query-type-selector">
+  <h3 class="text-xl font-bold text-gray-900 mb-4 text-center flex items-center justify-center gap-2">
+    <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    Area of interest?
+  </h3>
+  
+  <div class="radio-option" onclick="selectQueryType('gita')">
+    <input type="radio" name="queryType" id="gitaRadio" value="gita" onchange="selectQueryType('gita')">
+    <span class="radio-icon">🕉️</span>
+    <label for="gitaRadio" class="radio-label cursor-pointer">
+      <span class="radio-label-title">Gita Guidance (गीता मार्गदर्शन)</span>
+      <span class="radio-label-desc">Life wisdom, spiritual questions, peace of mind, handling emotions</span>
+    </label>
+  </div>
+  
+  <div class="radio-option" onclick="selectQueryType('event')">
+    <input type="radio" name="queryType" id="eventRadio" value="event" onchange="selectQueryType('event')">
+    <span class="radio-icon">🎪</span>
+    <label for="eventRadio" class="radio-label cursor-pointer">
+      <span class="radio-label-title">Festival Information (महोत्सव की जानकारी)</span>
+      <span class="radio-label-desc">Events, schedule, facilities, transport, accommodation, tourist places</span>
+    </label>
+  </div>
+</div>
       <!-- Question Input Section - Hidden Initially -->
       <div id="questionSection" style="display: none;">
         <div class="mb-8 slide-fade-enter">
