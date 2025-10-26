@@ -997,10 +997,13 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   const data = await response.json();
     const aiResponse = data.answer || data.error || 'No response received.';
     
-    // Add disclaimer to the response
-    const disclaimer = "\n───────────────────────\n⚠️ Disclaimer: This is an AI-generated response for guidance purposes only. Please verify important information from official sources.";
+    // Add disclaimer with reduced line spacing using span
+    const disclaimer = "\n─────────────────\n⚠️ Disclaimer: This is an AI-generated response for guidance purposes only. Please verify important information from official sources.";
     
-    document.getElementById('modalAnswer').textContent = aiResponse + disclaimer;
+    // Use innerHTML instead of textContent to support HTML tags
+    const fullResponse = aiResponse + `<span style="line-height: 1.2; display: block; margin-top: 8px;">${disclaimer}</span>`;
+    
+    document.getElementById('modalAnswer').innerHTML = fullResponse;
   } catch (error) {
     document.getElementById('modalAnswer').textContent = 'Connection failed: ' + error.message;
   }
