@@ -692,23 +692,26 @@ let selectedQueryType = '';
 let selectedLanguage = 'Hindi';
 
 // Radio button selection handler
+// Radio button selection handler
 function selectQueryType(type) {
   selectedQueryType = type;
   const gitaRadio = document.getElementById('gitaRadio');
   const eventRadio = document.getElementById('eventRadio');
+  const gitaOption = gitaRadio.closest('.radio-option');
+  const eventOption = eventRadio.closest('.radio-option');
   const questionSection = document.getElementById('questionSection');
   const userInput = document.getElementById('userInput');
   
   if (type === 'gita') {
     gitaRadio.checked = true;
-    gitaRadio.parentElement.classList.add('selected');
-    eventRadio.parentElement.classList.remove('selected');
+    gitaOption.classList.add('selected');
+    eventOption.classList.remove('selected');
     populateCategoriesForGita();
     userInput.placeholder = 'Ask your question... e.g., "How to find inner peace?"';
   } else {
     eventRadio.checked = true;
-    eventRadio.parentElement.classList.add('selected');
-    gitaRadio.parentElement.classList.remove('selected');
+    eventOption.classList.add('selected');
+    gitaOption.classList.remove('selected');
     populateCategoriesForEvent();
     userInput.placeholder = 'Ask your question... e.g., "Where is parking?" or "Today\'s events?"';
   }
@@ -719,7 +722,7 @@ function selectQueryType(type) {
     questionSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, 100);
 }
-
+    
 function populateCategoriesForGita() {
   const categorySelect = document.getElementById('categorySelect');
   categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
@@ -748,13 +751,6 @@ function populateCategoriesForEvent() {
   document.getElementById('questionSelect').disabled = true;
   document.getElementById('userInput').value = '';
 }
-
-const lastModifiedDate = new Date(document.lastModified);
-document.getElementById("lastModified").textContent = lastModifiedDate.toLocaleDateString('en-US', {
-  year: 'numeric', month: 'long', day: 'numeric'
-}) + ' at ' + lastModifiedDate.toLocaleTimeString('en-US', {
-  hour: '2-digit', minute: '2-digit'
-});
 
 const categorySelect = document.getElementById('categorySelect');
 const questionSelect = document.getElementById('questionSelect');
@@ -1121,6 +1117,13 @@ musicToggle.addEventListener('click', () => {
     fluteMusic.pause();
     musicLabel.textContent = "Play Flute";
   }
+});
+    // Move this to the very end of the script (after the fluteMusic code)
+const lastModifiedDate = new Date(document.lastModified);
+document.getElementById("lastModified").textContent = lastModifiedDate.toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric'
+}) + ' at ' + lastModifiedDate.toLocaleTimeString('en-US', {
+  hour: '2-digit', minute: '2-digit'
 });
   </script>
 </body>
