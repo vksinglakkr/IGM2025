@@ -419,8 +419,7 @@
           Area of interest?
         </h3>
         
-        <div class="radio-option" onclick="selectQueryType('gita')">
-          <input type="radio" name="queryType" id="gitaRadio" value="gita">
+        <input type="radio" name="queryType" id="gitaRadio" value="gita" onchange="selectQueryType('gita')">
           <span class="radio-icon">🕉️</span>
           <label for="gitaRadio" class="radio-label cursor-pointer">
             <span class="radio-label-title">Gita Guidance (गीता मार्गदर्शन)</span>
@@ -428,7 +427,7 @@
           </label>
         </div>
         
-        <div class="radio-option" onclick="selectQueryType('event')">
+       <input type="radio" name="queryType" id="eventRadio" value="event" onchange="selectQueryType('event')">
           <input type="radio" name="queryType" id="eventRadio" value="event">
           <span class="radio-icon">🎪</span>
           <label for="eventRadio" class="radio-label cursor-pointer">
