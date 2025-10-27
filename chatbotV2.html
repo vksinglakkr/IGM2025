@@ -585,7 +585,34 @@
 const gitaQuestions = {
 // Bhagavad Gita Life Situations - Prominent Questions
 
-'FAMILY_CONFLICT': [
+'GENERAL_WISDOM': [
+    "How to control anger according to Bhagavad Gita?",
+    "How to find peace of mind per Gita?",
+    "How to stay calm in success and failure per Gita?",
+    "How to overcome fear and anxiety according to Gita?",
+    "What is true source of happiness per Gita?",
+    "What is Nishkam Karma and how to practice it?",
+    "What is Yoga according to Bhagavad Gita?",
+    "What is difference between soul and body per Gita?",
+    "What is the law of Karma in Gita?",
+    "How to meditate according to Gita?",
+    "How to control desires per Gita?",
+    "What is ego and how to let it go per Gita?",
+    "What is equanimity and how to achieve it?",
+    "What is importance of devotion (Bhakti) in Gita?",
+    "What is difference between Swadharma and Paradharma?",
+    "What is Moksha (liberation) according to Gita?",
+    "What are three Gunas (Sattva, Rajas, Tamas)?",
+    "Who is Krishna in the Bhagavad Gita?",
+    "What was Arjuna's doubt and what did Krishna say?",
+    "Difference between Karma Yoga, Bhakti Yoga, Jnana Yoga?",
+    "How to apply Gita teachings in daily life?",
+    "What is Maya (illusion) in Gita?",
+    "What is difference between attachment and love per Gita?",
+    "When duty and desire conflict, what to do per Gita?",
+    "What are Sattvic, Rajasic, Tamasic foods in Gita?"
+],
+  'FAMILY_CONFLICT': [
     "Family member is addicted to drugs/alcohol - Gita's guidance?",
     "When stuck between parents and spouse, what does Gita teach?",
     "How to handle elderly parents who can't care for themselves?",
@@ -799,6 +826,10 @@ function selectQueryType(type) {
 function populateCategoriesForGita() {
   const categorySelect = document.getElementById('categorySelect');
   categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
+// Add this FIRST in your category dropdown
+categorySelect.innerHTML += '<option value="GENERAL_WISDOM">📿 सामान्य ज्ञान | General Wisdom</option>';
+// Then separator
+categorySelect.innerHTML += '<option disabled>━━━━ जीवन की विशिष्ट परिस्थितियाँ ━━━━</option>';
 categorySelect.innerHTML += '<option value="SPIRITUAL_CRISIS">🙏 आध्यात्मिक संकट और जीवन का उद्देश्य</option>';
 categorySelect.innerHTML += '<option value="CAREER_MONEY">💼 करियर, सफलता और वित्तीय संघर्ष</option>';
 categorySelect.innerHTML += '<option value="IDENTITY_CRISIS">🪞 आत्म-सम्मान और पहचान का संकट</option>';
