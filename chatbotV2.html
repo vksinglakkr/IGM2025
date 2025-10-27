@@ -660,6 +660,18 @@ const eventQuestions = {
     "In which languages is the quiz available?",
     "Will I receive a certificate?",
     "What if I forget my Quiz ID or password?"
+  ],
+  'STALLS_QUERY': [
+    "Where can I find Gohana Jalebi?",
+    "कश्मीरी शॉल कहाँ मिलेगा?",
+    "Show me all food stalls in Zone A",
+    "Where is Kashmiri Kahwa available?",
+    "Which stalls sell handicrafts from Rajasthan?",
+    "मुझे हरियाणवी खाना चाहिए",
+    "Budget-friendly food stalls under 100 rupees",
+    "Where can I buy Gita books?",
+    "Show me all stalls from Kashmir",
+    "Organic and wellness product stalls"
   ]
 };
 
@@ -708,7 +720,9 @@ function populateCategoriesForGita() {
 function populateCategoriesForEvent() {
   const categorySelect = document.getElementById('categorySelect');
   categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
+  categorySelect.innerHTML += '<option value="QUIZ_QUERY">❓ Online IGM Quiz</option>';
   categorySelect.innerHTML += '<option value="EVENT_QUERY">📅 Events & Schedule</option>';
+  categorySelect.innerHTML += '<option value="STALLS_QUERY">🏪 Stalls & Shopping</option>'; // NEW LINE
   categorySelect.innerHTML += '<option value="FACILITY_QUERY">🏢 Facilities</option>';
   categorySelect.innerHTML += '<option value="TRANSPORT_QUERY">🚗 Transport & Travel</option>';
   categorySelect.innerHTML += '<option value="GENERAL_INFO">ℹ️ General Info</option>';
@@ -716,7 +730,6 @@ function populateCategoriesForEvent() {
   categorySelect.innerHTML += '<option value="ACCOMMODATION_QUERY">🏨 Accommodation</option>';
   categorySelect.innerHTML += '<option value="COMPETITION_QUERY">🏆 Competitions</option>';
   categorySelect.innerHTML += '<option value="EMERGENCY_QUERY">🚨 Emergency Help</option>';
-  categorySelect.innerHTML += '<option value="QUIZ_QUERY">❓ Online IGM Quiz</option>';
   categorySelect.innerHTML += '<option value="FAQ_QUERY">❓ Common Questions</option>';
   categorySelect.disabled = false;
   document.getElementById('questionSelect').innerHTML = '<option value="" selected disabled>Select Question</option>';
