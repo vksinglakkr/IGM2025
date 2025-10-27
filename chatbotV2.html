@@ -583,14 +583,175 @@
 
   <script>
 const gitaQuestions = {
-  'PHILOSOPHICAL_QUERY': [
-    "How can one control anger according to the Bhagavad Gita?",
-    "What does the Gita say about finding peace of mind?",
-    "How can a person stay calm in success and failure as per the Gita?",
-    "What guidance does the Gita give for overcoming fear and anxiety?",
-    "How can one control desires and attachments according to Lord Krishna?",
-    "What is the ultimate message of the Bhagavad Gita for a common person?"
-  ]
+// Bhagavad Gita Life Situations - Prominent Questions
+
+'FAMILY_CONFLICT': [
+    "माता-पिता और पत्नी/पति के बीच फंसा हूँ, गीता क्या कहती है?",
+    "When stuck between parents and spouse, what does Gita teach?",
+    "बूढ़े माता-पिता को कैसे संभालें जब वे अपनी देखभाल नहीं कर पाते?",
+    "How to handle elderly parents who can't care for themselves?",
+    "बेटे ने माता-पिता को छोड़ दिया, इस दर्द को कैसे सहें?",
+    "Son abandoned parents - how to cope with this pain per Gita?",
+    "सास-बहू के झगड़े में शांति कैसे बनाएं?",
+    "How to maintain peace in mother-in-law and daughter-in-law conflicts?",
+    "भाई-बहन में संपत्ति का झगड़ा, गीता का समाधान क्या है?",
+    "Property dispute between siblings - what is Gita's solution?",
+    "परिवार में कोई नशे का आदी है, क्या करूं?",
+    "Family member is addicted to drugs/alcohol - Gita's guidance?",
+    "बच्चे माता-पिता की बात नहीं सुनते, कैसे handle करें?",
+    "Children don't listen to parents - how to handle per Gita?"
+],
+
+'LOVE_MARRIAGE': [
+    "पति/पत्नी ने धोखा दिया, क्या माफ करूं या छोड़ दूं?",
+    "Spouse cheated - should I forgive or leave according to Gita?",
+    "प्रेम विवाह में माता-पिता राजी नहीं, क्या करूं?",
+    "Parents against love marriage - what does Gita advise?",
+    "शादी में लगातार लड़ाई होती है, divorce लूं या continue करूं?",
+    "Constant fights in marriage - divorce or continue per Gita?",
+    "8 साल से बच्चा नहीं हुआ, समाज का ताना कैसे सहें?",
+    "No child after 8 years - how to handle society's taunts?",
+    "पत्नी/पति के साथ physical/emotional abuse हो रहा है, क्या करूं?",
+    "Facing physical/emotional abuse from spouse - Gita's guidance?",
+    "प्यार खत्म हो गया है पर बच्चों के लिए साथ हैं, कैसे जिएं?",
+    "Love is gone but staying for kids - how to live per Gita?",
+    "70 साल की उम्र में दोबारा शादी करनी चाहिए या नहीं?",
+    "Should one remarry at 70 years old - what does Gita say?",
+    "Arranged marriage में compatibility नहीं, अब क्या?",
+    "No compatibility in arranged marriage - what next per Gita?"
+],
+
+'CAREER_MONEY': [
+    "20 साल नौकरी के बाद निकाल दिया, अब क्या करूं?",
+    "Fired after 20 years of service - what should I do per Gita?",
+    "ईमानदारी से काम करता हूं पर promotion नहीं मिल रही, क्यों?",
+    "Working honestly but no promotion - why, according to Gita?",
+    "Boss मेरा credit खुद ले रहा है, क्या करूं?",
+    "Boss taking credit for my work - what does Gita advise?",
+    "Startup fail हो गया, लाखों का कर्ज है, कैसे उबरूं?",
+    "Startup failed with lakhs in debt - how to recover per Gita?",
+    "Office में corruption है, मैं क्या करूं?",
+    "Corruption at workplace - what should I do according to Gita?",
+    "40 की उम्र में career change करना चाहता हूं, सही है?",
+    "Want to change career at 40 - is it right per Gita?",
+    "सबकुछ है फिर भी खालीपन महसूस होता है, क्यों?",
+    "Have everything but feel empty - why, according to Gita?",
+    "पैसों के लिए गलत काम करना पड़ रहा है, क्या करूं?",
+    "Forced to do wrong things for money - Gita's guidance?",
+    "Junior मुझसे आगे निकल रहा है, jealous महसूस होता है",
+    "Junior overtaking me - feeling jealous, what does Gita say?"
+],
+
+'BETRAYAL_INJUSTICE': [
+    "सबसे अच्छे दोस्त ने धोखा दिया, कैसे माफ करूं?",
+    "Best friend betrayed me - how to forgive per Gita?",
+    "15 साल सेवा की, किसी ने झूठे आरोप लगाकर बंद करवा दी",
+    "Served 15 years, someone falsely accused and stopped it - Gita?",
+    "मेरी मेहनत का credit किसी और को मिल गया",
+    "Someone else got credit for my hard work - what does Gita say?",
+    "निर्दोष हूं पर सबूत नहीं है, कैसे साबित करूं?",
+    "Innocent but no proof - how to prove per Gita?",
+    "पिताजी को भाई ने संपत्ति से बेदखल कर दिया",
+    "Father thrown out by brother from property - Gita's advice?",
+    "न्याय नहीं मिल रहा, भगवान कहाँ है?",
+    "Not getting justice - where is God, according to Gita?",
+    "सच्चाई बोला तो सजा मिली, झूठे को इनाम",
+    "Punished for truth, liar got rewarded - Gita's perspective?",
+    "अन्याय सहते रहूं या लड़ूं?",
+    "Should I tolerate injustice or fight back per Gita?",
+    "बदला लेना चाहता हूं, क्या यह गलत है?",
+    "Want to take revenge - is it wrong according to Gita?"
+],
+
+'IDENTITY_CRISIS': [
+    "35 साल की उम्र में भी नहीं जानता मैं क्या चाहता हूं",
+    "35 years old, still don't know what I want - Gita's guidance?",
+    "हमेशा दूसरों की expectations पूरी कीं, मेरी पहचान क्या है?",
+    "Always fulfilled others' expectations - what is my identity per Gita?",
+    "समाज मुझे accept नहीं करता (LGBTQ+), क्या मैं गलत हूं?",
+    "Society doesn't accept me (LGBTQ+) - am I wrong per Gita?",
+    "Social media पर सब perfect दिखते हैं, मैं loser लगता हूं",
+    "Everyone looks perfect on social media, I feel like a loser - Gita?",
+    "3 बार exam fail हुआ, क्या मैं कुछ नहीं कर सकता?",
+    "Failed exam 3 times - am I incapable, according to Gita?",
+    "सब कहते हैं मैं कुछ नहीं कर सकता, क्या यह सच है?",
+    "Everyone says I'm incapable - is this true per Gita?",
+    "Doctor बनना था पर artist बनना चाहता हूं, गलत है क्या?",
+    "Was supposed to be doctor but want to be artist - wrong per Gita?",
+    "Transgender हूं, क्या भगवान ने गलती की?",
+    "I'm transgender - did God make a mistake, according to Gita?",
+    "अपने आप से नफरत होती है, कैसे बदलूं?",
+    "I hate myself - how to change per Gita?"
+],
+
+'MENTAL_HEALTH': [
+    "Depression है, सुबह उठने की इच्छा नहीं होती, क्या करूं?",
+    "Have depression, no will to wake up - what to do per Gita?",
+    "Suicide के बारे में सोचता हूं, क्या यह गलत है?",
+    "Think about suicide - is this wrong according to Gita?",
+    "हर समय anxiety रहती है, शांति कैसे मिलेगी?",
+    "Constant anxiety - how to find peace per Gita?",
+    "Panic attacks आते हैं, गीता कैसे मदद करेगी?",
+    "Get panic attacks - how can Gita help?",
+    "बचपन में abuse हुआ था, इस दर्द से कैसे उबरूं?",
+    "Childhood abuse trauma - how to heal per Gita?",
+    "Addiction से छुटकारा नहीं मिल रहा (drugs/porn/alcohol)",
+    "Can't get rid of addiction (drugs/porn/alcohol) - Gita's help?",
+    "गुस्सा control नहीं होता, रिश्ते बर्बाद हो रहे हैं",
+    "Can't control anger, ruining relationships - Gita's guidance?",
+    "Loneliness बर्दाश्त नहीं होती, क्या करूं?",
+    "Can't bear loneliness - what to do according to Gita?",
+    "Overthinking की वजह से नींद नहीं आती",
+    "Overthinking causing insomnia - Gita's solution?",
+    "PTSD है (trauma से), कैसे normal जिऊं?",
+    "Have PTSD from trauma - how to live normally per Gita?"
+],
+
+'AGING_DEATH': [
+    "मेरे बच्चे की अचानक मृत्यु हो गई, क्यों भगवान?",
+    "My child died suddenly - why God, according to Gita?",
+    "माँ को cancer है, last stage - कैसे संभालूं?",
+    "Mother has last stage cancer - how to cope per Gita?",
+    "पिताजी को Alzheimer's है, मुझे पहचानते नहीं - दर्द कैसे सहूं?",
+    "Father has Alzheimer's, doesn't recognize me - how to bear pain?",
+    "मैं खुद dying हूं, मृत्यु का डर लगता है",
+    "I'm dying myself, scared of death - what does Gita say?",
+    "Retirement के बाद उद्देश्य नहीं मिल रहा, क्या करूं?",
+    "No purpose after retirement - what to do per Gita?",
+    "बूढ़े हो गए, बच्चों ने Old Age Home में छोड़ दिया",
+    "Grew old, children left in Old Age Home - Gita's comfort?",
+    "Terminal illness है, इतना दर्द क्यों?",
+    "Have terminal illness - why so much pain per Gita?",
+    "पति/पत्नी की मृत्यु के बाद कैसे जिऊं?",
+    "How to live after spouse's death according to Gita?",
+    "70 की उम्र में अकेलापन बर्दाश्त नहीं होता",
+    "Loneliness unbearable at 70 - Gita's guidance?",
+    "मृत्यु के बाद क्या होगा? डर लगता है",
+    "What happens after death? Scared - what does Gita say?"
+],
+
+'SPIRITUAL_CRISIS': [
+    "इतनी भक्ति की फिर भी दुःख ही मिला, क्यों?",
+    "Did so much devotion but only got sorrow - why per Gita?",
+    "क्या भगवान सच में है? कोई सबूत नहीं मिलता",
+    "Does God really exist? No proof found - what does Gita say?",
+    "बच्चा भूखा मर रहा है, भगवान क्यों नहीं बचाता?",
+    "Child dying of hunger - why doesn't God save per Gita?",
+    "मैंने कोई पाप किया है जो मुझे माफी नहीं मिलेगी?",
+    "Have I committed unforgivable sin according to Gita?",
+    "जीवन का उद्देश्य क्या है? randomly exist कर रहा हूं",
+    "What is life's purpose? Just existing randomly - Gita's answer?",
+    "सभी धर्म अलग बातें कहते हैं, सच क्या है?",
+    "All religions say different things - what is truth per Gita?",
+    "Meditation करता हूं पर कुछ अनुभव नहीं होता, मैं spiritual नहीं हूं?",
+    "Meditate but no experience - am I not spiritual per Gita?",
+    "गलत काम किया है, क्या redemption संभव है?",
+    "Did wrong thing - is redemption possible according to Gita?",
+    "धर्म के नाम पर इतना hypocrisy क्यों?",
+    "So much hypocrisy in religion's name - why, per Gita?",
+    "Atheist हूं पर गीता पढ़ना चाहता हूं, क्या यह विरोधाभास है?",
+    "I'm atheist but want to read Gita - is this contradictory?"
+]
 };
 
 const eventQuestions = {
@@ -710,7 +871,16 @@ function selectQueryType(type) {
 function populateCategoriesForGita() {
   const categorySelect = document.getElementById('categorySelect');
   categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
-  categorySelect.innerHTML += '<option value="PHILOSOPHICAL_QUERY">🕉️ Gita Wisdom</option>';
+//categorySelect.innerHTML += '<option value="PHILOSOPHICAL_QUERY">🕉️ Gita Wisdom</option>';
+categorySelect.innerHTML += '<option value="FAMILY_CONFLICT">👨‍👩‍👧‍👦 पारिवारिक संबंधों का द्वंद्व</option>';
+categorySelect.innerHTML += '<option value="CAREER_MONEY">💼 करियर, सफलता और वित्तीय संघर्ष</option>';
+categorySelect.innerHTML += '<option value="BETRAYAL_INJUSTICE">⚖️ विश्वासघात, अन्याय और धोखा</option>';
+categorySelect.innerHTML += '<option value="IDENTITY_CRISIS">🪞 आत्म-सम्मान और पहचान का संकट</option>';
+categorySelect.innerHTML += '<option value="MENTAL_HEALTH">🧠 मानसिक और भावनात्मक स्वास्थ्य</option>';
+categorySelect.innerHTML += '<option value="AGING_DEATH">🕉️ बीमारी, बुढ़ापा और मृत्यु</option>';
+categorySelect.innerHTML += '<option value="LOVE_MARRIAGE">💑 प्रेम, विवाह और रोमांटिक जीवन</option>';
+categorySelect.innerHTML += '<option value="SPIRITUAL_CRISIS">🙏 आध्यात्मिक संकट और जीवन का उद्देश्य</option>';
+  
   categorySelect.disabled = false;
   document.getElementById('questionSelect').innerHTML = '<option value="" selected disabled>Select Question</option>';
   document.getElementById('questionSelect').disabled = true;
