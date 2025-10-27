@@ -799,15 +799,14 @@ function selectQueryType(type) {
 function populateCategoriesForGita() {
   const categorySelect = document.getElementById('categorySelect');
   categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
-//categorySelect.innerHTML += '<option value="PHILOSOPHICAL_QUERY">🕉️ Gita Wisdom</option>';
-categorySelect.innerHTML += '<option value="FAMILY_CONFLICT">👨‍👩‍👧‍👦 पारिवारिक संबंधों का द्वंद्व</option>';
+categorySelect.innerHTML += '<option value="SPIRITUAL_CRISIS">🙏 आध्यात्मिक संकट और जीवन का उद्देश्य</option>';
 categorySelect.innerHTML += '<option value="CAREER_MONEY">💼 करियर, सफलता और वित्तीय संघर्ष</option>';
-categorySelect.innerHTML += '<option value="BETRAYAL_INJUSTICE">⚖️ विश्वासघात, अन्याय और धोखा</option>';
 categorySelect.innerHTML += '<option value="IDENTITY_CRISIS">🪞 आत्म-सम्मान और पहचान का संकट</option>';
 categorySelect.innerHTML += '<option value="MENTAL_HEALTH">🧠 मानसिक और भावनात्मक स्वास्थ्य</option>';
+categorySelect.innerHTML += '<option value="FAMILY_CONFLICT">👨‍👩‍👧‍👦 पारिवारिक संबंधों का द्वंद्व</option>';
+categorySelect.innerHTML += '<option value="BETRAYAL_INJUSTICE">⚖️ विश्वासघात, अन्याय और धोखा</option>';
 categorySelect.innerHTML += '<option value="AGING_DEATH">🕉️ बीमारी, बुढ़ापा और मृत्यु</option>';
 categorySelect.innerHTML += '<option value="LOVE_MARRIAGE">💑 प्रेम, विवाह और रोमांटिक जीवन</option>';
-categorySelect.innerHTML += '<option value="SPIRITUAL_CRISIS">🙏 आध्यात्मिक संकट और जीवन का उद्देश्य</option>';
   
   categorySelect.disabled = false;
   document.getElementById('questionSelect').innerHTML = '<option value="" selected disabled>Select Question</option>';
