@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IGM Quiz Assistant – International Gita Mahotsav 2025</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+ <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: radial-gradient(ellipse at top, #1e3a8a, #0f172a);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .devanagari { font-family: 'Noto Sans Devanagari', sans-serif; }
+  .playfair { font-family: 'Playfair Display', serif; }
+  .container-main { position: relative; z-index: 1; }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #ff6b35 0%, #f59e0b 50%, #ff6b35 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: shimmer 3s linear infinite;
+  }
+  .mic-btn {
+    transition: all 0.3s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mic-btn.recording {
+    background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+    border-color: #dc2626 !important;
+    animation: pulseRec 1.5s ease-in-out infinite;
+  }
+  @keyframes pulseRec {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+    50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+  }
+  @keyframes shimmer { to { background-position: 200% center; } }
+  .header-glow { position: relative; }
+  .header-glow::before {
+    content: '';
+    position: absolute;
+    top: -20px; left: 50%;
+    transform: translateX(-50%);
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.3), transparent 70%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .tts-btn {
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tts-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .tts-btn.speaking { animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+  }
+  .lang-toggle {
+    display: inline-flex;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .lang-toggle button {
+    padding: 8px 20px;
+    border-radius: 10px;
+    transition: all 0.3s;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: #64748b;
+  }
+  .lang-toggle button.active {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    color: white;
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
+    transform: scale(1.05);
+  }
+  
+  .slide-fade-enter {
+    animation: slideFadeIn 0.5s ease-out;
+  }
+  @keyframes slideFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  #userInput::placeholder {
+    font-size: 13px;
+    color: #b5b5b5;
+    font-weight: 400;
+    opacity: 0.8;
+  }
+  #userInput {
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    line-height: 1.5;
+    vertical-align: bottom;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: block;
+  }
+  
+  @media (max-width: 768px) {
+    #userInput {
+      font-size: 16px !important;
+      padding: 12px !important;
+      padding-bottom: 48px !important;
+      min-height: 100px;
+    }
+    #userInput::placeholder {
+      font-size: 12px;
+    }
+    .mic-btn {
+      bottom: 8px !important;
+      right: 8px !important;
+    }
+  }
+  
+  .icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; }
+  .btn-primary {
+    background: linear-gradient(135deg, #ff6b35, #f59e0b);
+    color: white;
+    font-weight: 700;
+    padding: 18px 32px;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+  }
+  .btn-primary:hover::before { left: 100%; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255, 107, 53, 0.5); }
+  
+  .main-chatbot-btn {
+    background: linear-gradient(135deg, #3b82f6, #1e40af);
+    color: white;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .main-chatbot-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5); }
+  
+  input, textarea, select { transition: all 0.3s; }
+  input:focus, textarea:focus, select:focus { transform: translateY(-2px); }
+  .modal-enter { animation: modalEnter 0.3s ease-out; }
+  @keyframes modalEnter {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .floating { animation: floating 3s ease-in-out infinite; }
+  @keyframes floating {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+</style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+  <div class="container-main w-full max-w-4xl glass-card rounded-3xl shadow-2xl overflow-hidden">
+    <div class="relative bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 p-6 pb-4 text-center header-glow">
+      <div class="flex justify-between items-start mb-4">
+        <button onclick="window.open('https://vksinglakkr.github.io/IGM2025/chatbotV2.html', '_blank')" class="main-chatbot-btn">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+          Full Chatbot
+        </button>
+        <div class="lang-toggle">
+          <button class="langBtn active" data-lang="Hindi">हिंदी</button>
+          <button class="langBtn" data-lang="English">English</button>
+        </div>
+      </div>
+      
+      <div class="floating">
+        <h1 class="text-4xl md:text-5xl font-black gradient-text mb-2 playfair tracking-tight">IGM Quiz Assistant</h1>
+      </div>
+      <p class="text-sm text-gray-600 font-semibold mb-3 tracking-wide">Online Gita Quiz Help</p>
+      
+      <div class="w-full max-w-2xl mx-auto px-4">
+        <div class="bg-white rounded-2xl border-3 border-orange-400 py-2 px-4 shadow-xl transform hover:scale-105 transition-all duration-300">
+          <h2 class="text-sm sm:text-base md:text-lg font-black text-center bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 bg-clip-text text-transparent whitespace-nowrap">
+            International Gita Mahotsav 2025
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-6">
+      <div class="mb-6 slide-fade-enter">
+        <div class="relative">
+          <textarea
+            id="userInput"
+            rows="3"
+            class="w-full rounded-2xl border-4 border-orange-400 p-4 pb-12 text-gray-900
+                   bg-gradient-to-br from-white to-orange-50 shadow-2xl resize-none
+                   focus:border-orange-500 focus:ring-4 focus:ring-orange-200 focus:shadow-2xl
+                   transition-all duration-300 leading-relaxed"
+            placeholder="Ask about quiz registration, rules, dates, prizes..."
+          ></textarea>
+          <button
+            id="voiceBtn"
+            class="mic-btn absolute bottom-3 right-3 text-orange-500 hover:text-orange-700 transition-all duration-300 hover:scale-110 bg-white rounded-full p-3 shadow-lg border-2 border-orange-300"
+            title="Click to speak"
+          >
+            <svg id="micIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-6 slide-fade-enter">
+        <label class="text-lg font-bold text-gray-800 mb-3 block">Quick Quiz Questions 👇</label>
+        <div class="space-y-3">
+          <select id="questionSelect" class="block w-full px-5 py-4 text-base border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-blue-500 focus:border-blue-500 rounded-2xl bg-white shadow-md transition-all duration-300 font-medium">
+            <option value="" selected disabled>Select a question</option>
+          </select>
+        </div>
+      </div>
+
+      <button 
+        id="submitBtn" 
+        class="w-full btn-primary flex items-center justify-center gap-3 text-xl slide-fade-enter"
+      >
+        <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+        </svg>
+        Submit
+      </button>
+
+      <div class="mt-6 text-center">
+        <a href="https://internationalgitamahotsav.in/" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold transition-all hover:scale-105">
+          <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          Return to Main Page
+        </a>
+      </div>
+    </div>
+
+    <div class="border-t-2 border-gray-100 p-4 text-center bg-gradient-to-b from-gray-50 to-white">
+      <p class="text-sm text-gray-700 mb-2 font-medium">AI Chatbot powered by <span class="font-bold text-orange-600">Groq + Llama 3.3</span></p>
+      <div class="flex flex-wrap justify-center items-center gap-8">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Haryana" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
+        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="KDB" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
+      </div>
+    </div>
+  </div>
+
+  <div id="aiModal" class="hidden fixed inset-0 flex items-center justify-center p-4" style="z-index: 9999; background: rgba(0,0,0,0.92);">
+    <div class="bg-white rounded-3xl shadow-2xl w-full mx-2 modal-enter overflow-hidden" style="max-width: 850px; max-height: 92vh;">
+      <div class="flex justify-between items-center px-5 py-4 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+        <h2 class="text-xl font-bold flex items-center gap-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+          Quiz Assistant Response
+        </h2>
+        <button id="closeModal" class="hover:bg-white/20 p-2 rounded-full transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-5 overflow-y-auto bg-gray-50" style="max-height: calc(92vh - 180px);">
+        <div class="mb-5">
+          <div class="flex items-center gap-2 mb-2">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <p class="font-bold text-gray-900">Question:</p>
+          </div>
+          <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-2xl border-l-4 border-blue-500">
+            <pre id="modalQuestion" class="whitespace-pre-wrap text-gray-800 text-sm leading-relaxed"></pre>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+            <div class="flex items-center gap-2">
+              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+              </svg>
+              <p class="font-bold text-gray-900">Answer:</p>
+            </div>
+            <button id="ttsToggle" class="tts-btn bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+              </svg>
+              <span id="ttsLabel">Listen</span>
+            </button>
+          </div>
+          <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-2xl border-l-4 border-orange-500">
+            <pre id="modalAnswer" class="whitespace-pre-wrap text-gray-800 text-sm leading-loose devanagari"></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t-2 border-gray-200 p-3 bg-white flex justify-center gap-2">
+        <button id="copyBtn" class="flex items-center gap-1 px-4 py-2 bg-white border-2 border-gray-300 rounded-xl hover:bg-gray-50 transition text-sm font-semibold">
+          <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          Copy
+        </button>
+        <button id="closeBtn" class="flex items-center gap-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-5 py-2 rounded-xl hover:from-blue-700 hover:to-blue-800 transition text-sm font-bold shadow-lg">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+const quizQuestions = [
+  "What is the registration process for the Online Gita Quiz?",
+  "When does registration start and end?",
+  "When does the quiz start and end?",
+  "What are the different categories?",
+  "How many questions are asked daily?",
+  "What is the timing for answering questions?",
+  "Can we modify our answers after submission?",
+  "Are there daily winners?",
+  "What are the prizes?",
+  "Who is the motivator behind this quiz?",
+  "Who can participate in the quiz?",
+  "What are the technical requirements?",
+  "How to contact for quiz support?",
+  "In which languages is the quiz available?",
+  "Will I receive a certificate?",
+  "What if I forget my Quiz ID or password?",
+  "Syllabus of IGM Quiz?", 
+  "Is it necessary to join the WhatsApp group?" 
+];
+
+const quizQuestionsHindi = [
+  "ऑनलाइन गीता क्विज़ के लिए पंजीकरण प्रक्रिया क्या है?",
+  "ऑनलाइन गीता क्विज़ के लिए पंजीकरण कब शुरू और समाप्त होता है?",
+  "क्विज़ कब शुरू और समाप्त होती है?",
+  "ऑनलाइन गीता क्विज़ के लिए विभिन्न श्रेणियां क्या हैं?",
+  "ऑनलाइन गीता क्विज़ के लिए प्रतिदिन कितने प्रश्न पूछे जाते हैं?",
+  "ऑनलाइन गीता क्विज़ के लिए प्रश्नों के उत्तर देने का समय क्या है?",
+  "ऑनलाइन गीता क्विज़ - क्या हम सबमिशन के बाद उत्तर संशोधित कर सकते हैं?",
+  "ऑनलाइन गीता क्विज़ - क्या दैनिक विजेता हैं?",
+  "ऑनलाइन गीता क्विज़ - पुरस्कार क्या हैं?",
+  "इस क्विज़ के प्रेरक कौन हैं?",
+  "क्विज़ में कौन भाग ले सकता है?",
+  "ऑनलाइन गीता क्विज़ के लिए तकनीकी आवश्यकताएं क्या हैं?",
+  "क्विज़ सहायता के लिए कैसे संपर्क करें?",
+  "क्विज़ किन भाषाओं में उपलब्ध है?",
+  "ऑनलाइन गीता क्विज़ के लिए क्या मुझे प्रमाणपत्र मिलेगा?",
+  "अगर मैं अपनी क्विज़ ID या पासवर्ड भूल जाऊं?",
+  "क्विज़ का पाठ्यक्रम?",
+  "क्या व्हाट्सएप ग्रुप में शामिल होना आवश्यक है?"
+];
+
+let selectedLanguage = 'Hindi';
+
+function populateQuestions() {
+  const questionSelect = document.getElementById('questionSelect');
+  questionSelect.innerHTML = '<option value="" selected disabled>Select a question</option>';
+  
+  const questions = selectedLanguage === 'Hindi' ? quizQuestionsHindi : quizQuestions;
+  questions.forEach(q => {
+    const option = document.createElement('option');
+    option.value = q;
+    option.textContent = q;
+    questionSelect.appendChild(option);
+  });
+}
+
+populateQuestions();
+
+document.getElementById('questionSelect').addEventListener('change', (e) => {
+  document.getElementById('userInput').value = e.target.value;
+});
+
+document.querySelectorAll('.langBtn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    selectedLanguage = this.dataset.lang;
+    document.querySelectorAll('.langBtn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    populateQuestions();
+  });
+});
+
+let ttsUtterance = null;
+let isSpeaking = false;
+let voicesLoaded = false;
+let manualStop = false;
+
+function loadVoices() {
+  return new Promise((resolve) => {
+    let voices = speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      voicesLoaded = true;
+      resolve(voices);
+    } else {
+      speechSynthesis.addEventListener('voiceschanged', () => {
+        voices = speechSynthesis.getVoices();
+        voicesLoaded = true;
+        resolve(voices);
+      }, { once: true });
+      
+      setTimeout(() => {
+        voices = speechSynthesis.getVoices();
+        voicesLoaded = true;
+        resolve(voices);
+      }, 1000);
+    }
+  });
+}
+
+loadVoices();
+
+document.getElementById('ttsToggle').addEventListener('click', async () => {
+  const ttsBtn = document.getElementById('ttsToggle');
+  const ttsLabel = document.getElementById('ttsLabel');
+  const answerText = document.getElementById('modalAnswer').textContent;
+  
+  if (!answerText || answerText === 'Thinking...') return;
+  
+  if (isSpeaking) {
+    manualStop = true;
+    speechSynthesis.cancel();
+    isSpeaking = false;
+    ttsBtn.classList.remove('speaking');
+    ttsLabel.textContent = 'Listen';
+    return;
+  }
+  
+  manualStop = false;
+  const voices = await loadVoices();
+  speechSynthesis.cancel();
+  await new Promise(resolve => setTimeout(resolve, 100));
+  
+  ttsUtterance = new SpeechSynthesisUtterance(answerText);
+  ttsUtterance.rate = 0.85;
+  ttsUtterance.pitch = 1;
+  ttsUtterance.volume = 1;
+  
+  let selectedVoice = null;
+  const hindiVoices = voices.filter(voice => 
+    voice.lang.startsWith('hi') || 
+    voice.lang === 'hi-IN' ||
+    voice.name.toLowerCase().includes('hindi')
+  );
+  
+  if (hindiVoices.length > 0) {
+    selectedVoice = hindiVoices[0];
+  } else {
+    selectedVoice = voices[0];
+  }
+  
+  if (selectedVoice) {
+    ttsUtterance.voice = selectedVoice;
+  }
+  
+  ttsUtterance.onstart = () => {
+    isSpeaking = true;
+    ttsBtn.classList.add('speaking');
+    ttsLabel.textContent = 'Stop';
+  };
+  
+  ttsUtterance.onend = () => {
+    if (!manualStop) {
+      isSpeaking = false;
+      ttsBtn.classList.remove('speaking');
+      ttsLabel.textContent = 'Listen';
+    }
+  };
+  
+  ttsUtterance.onerror = (e) => {
+    if (manualStop) {
+      manualStop = false;
+      return;
+    }
+    
+    isSpeaking = false;
+    ttsBtn.classList.remove('speaking');
+    ttsLabel.textContent = 'Listen';
+  };
+  
+  try {
+    speechSynthesis.speak(ttsUtterance);
+  } catch (error) {
+    alert('Text-to-speech is not available on your device.');
+  }
+});
+
+document.getElementById('submitBtn').addEventListener('click', async () => {
+  const question = document.getElementById('userInput').value.trim();
+  
+  if (!question) {
+    alert('Please enter your question!');
+    return;
+  }
+
+  const mainContainer = document.querySelector('.container-main');
+  if (mainContainer) mainContainer.style.visibility = 'hidden';
+
+  speechSynthesis.cancel();
+  isSpeaking = false;
+  document.getElementById('ttsToggle').classList.remove('speaking');
+  document.getElementById('ttsLabel').textContent = 'Listen';
+
+  document.getElementById('modalQuestion').textContent = question;
+  document.getElementById('modalAnswer').textContent = 'Thinking...';
+  document.getElementById('aiModal').classList.remove('hidden');
+
+  const deviceType = /Mobile|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'Mobile' : 
+                     /Tablet|iPad/i.test(navigator.userAgent) ? 'Tablet' : 'Desktop';
+  const browserMatch = navigator.userAgent.match(/(Firefox|Chrome|Safari|Edge|Opera|OPR)/i);
+  const browser = browserMatch ? browserMatch[0].replace('OPR', 'Opera') : 'Unknown';
+
+  try {
+    const webhookUrl = 'https://vksinglakkrgroq1.app.n8n.cloud/webhook/ask-gitaV2';
+
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        question: question,
+        language: selectedLanguage,
+        queryType: 'PRACTICAL_INFO_QUERY',
+        mobNo: 'quiz-assistant',
+        deviceType: deviceType,
+        browser: browser,
+        latitude: 'Not Available',
+        longitude: 'Not Available',
+        timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+        userAgent: navigator.userAgent
+      })
+    });
+
+    const data = await response.json();
+    const aiResponse = data.answer || data.error || 'No response received.';
+    const disclaimer = "\n─────────────────\n⚠️ Disclaimer: This is an AI-generated response for guidance purposes only. Please verify important information from official sources.";
+    const fullResponse = aiResponse + `<span style="line-height: 1.2; display: block; margin-top: 8px;">${disclaimer}</span>`;
+    document.getElementById('modalAnswer').innerHTML = fullResponse;
+  } catch (error) {
+    document.getElementById('modalAnswer').textContent = 'Connection failed: ' + error.message;
+  }
+});
+
+let recognition;
+let isRecording = false;
+
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.lang = 'hi-IN';
+
+  recognition.onstart = () => {
+    isRecording = true;
+    const voiceBtn = document.getElementById('voiceBtn');
+    voiceBtn.classList.add('recording');
+    voiceBtn.title = 'Recording... Click to stop';
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    document.getElementById('userInput').value = transcript;
+  };
+
+  recognition.onend = () => {
+    isRecording = false;
+    const voiceBtn = document.getElementById('voiceBtn');
+    voiceBtn.classList.remove('recording');
+    voiceBtn.title = 'Click to speak';
+  };
+
+  recognition.onerror = (event) => {
+    isRecording = false;
+    const voiceBtn = document.getElementById('voiceBtn');
+    voiceBtn.classList.remove('recording');
+    voiceBtn.title = 'Click to speak';
+    if (event.error !== 'no-speech') {
+      alert('Voice recognition failed. Please try again.');
+    }
+  };
+}
+
+document.getElementById('voiceBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  if (recognition) {
+    if (isRecording) {
+      recognition.stop();
+    } else {
+      recognition.start();
+    }
+  } else {
+    alert('Voice recognition is not supported in your browser.');
+  }
+});
+
+document.getElementById('closeBtn').onclick = () => {
+  speechSynthesis.cancel();
+  document.getElementById('aiModal').classList.add('hidden');
+  const mainContainer = document.querySelector('.container-main');
+  if (mainContainer) mainContainer.style.visibility = 'visible';
+};
+
+document.getElementById('closeModal').onclick = () => {
+  speechSynthesis.cancel();
+  document.getElementById('aiModal').classList.add('hidden');
+  const mainContainer = document.querySelector('.container-main');
+  if (mainContainer) mainContainer.style.visibility = 'visible';
+};
+
+document.getElementById('copyBtn').onclick = () => {
+  const text = document.getElementById('modalAnswer').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Copied!';
+    setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
+  });
+};
+  </script>
+</body>
+</html>
