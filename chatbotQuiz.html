@@ -1,3 +1,6 @@
+Here's your complete updated `chatbotQuiz.html` with load balancing, geolocation, and city/state/country extraction:
+
+<artifact identifier="chatbot-quiz-loadbalanced" type="text/html" title="IGM Quiz Assistant with Load Balancing">
 <!doctype html>
 <html lang="en">
 <head>
@@ -369,6 +372,94 @@
   </div>
 
   <script>
+// ============= 1. LOAD BALANCING CONFIGURATION =============
+const webhookUrls = [
+  'https://vksinglakkrgroq3.app.n8n.cloud/webhook/ask-gitaV2',   // Account 2
+  'https://vksinglakkrgroq4.app.n8n.cloud/webhook/ask-gitaV2',   // Account 3
+];
+
+let currentWebhookIndex = 0;
+
+// Function to get next webhook URL (Round-Robin)
+function getNextWebhook() {
+  const url = webhookUrls[currentWebhookIndex];
+  currentWebhookIndex = (currentWebhookIndex + 1) % webhookUrls.length;
+  return url;
+}
+
+// Function to try all webhooks with fallback
+async function sendToWebhookWithFallback(data) {
+  const maxRetries = webhookUrls.length;
+  let lastError = null;
+  
+  for (let i = 0; i < maxRetries; i++) {
+    const webhookUrl = getNextWebhook();
+    
+    try {
+      console.log(`Trying webhook ${currentWebhookIndex}/${webhookUrls.length}: ${webhookUrl}`);
+      
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      
+      if (response.ok) {
+        console.log(`✅ Success with webhook ${currentWebhookIndex}`);
+        return await response.json();
+      } else {
+        console.warn(`⚠️ Webhook ${currentWebhookIndex} returned status ${response.status}`);
+        lastError = new Error(`HTTP ${response.status}`);
+      }
+    } catch (error) {
+      console.warn(`❌ Webhook ${currentWebhookIndex} failed:`, error.message);
+      lastError = error;
+      // Continue to next webhook
+    }
+  }
+  
+  // All webhooks failed
+  throw lastError || new Error('All webhooks failed');
+}
+
+// ============= 2. GEOLOCATION FUNCTION =============
+async function getLocationDetails(latitude, longitude) {
+  if (latitude === 'Not Available' || longitude === 'Not Available') {
+    return {
+      country: 'Not Available',
+      state: 'Not Available',
+      city: 'Not Available'
+    };
+  }
+
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`,
+      {
+        headers: {
+          'User-Agent': 'IGM-Quiz-Assistant'
+        }
+      }
+    );
+    
+    const data = await response.json();
+    
+    return {
+      country: data.address.country || 'Unknown',
+      state: data.address.state || data.address.region || 'Unknown',
+      city: data.address.city || data.address.town || data.address.village || 'Unknown'
+    };
+  } catch (error) {
+    console.error('Geocoding error:', error);
+    return {
+      country: 'Not Available',
+      state: 'Not Available',
+      city: 'Not Available'
+    };
+  }
+}
+
+// ============= 3. QUIZ QUESTIONS =============
 const quizQuestions = [
   "What is the registration process for the Online Gita Quiz?",
   "When does registration start and end (Quiz)?",
@@ -413,6 +504,7 @@ const quizQuestionsHindi = [
 
 let selectedLanguage = 'Hindi';
 
+// ============= 4. POPULATE QUESTIONS =============
 function populateQuestions() {
   const questionSelect = document.getElementById('questionSelect');
   questionSelect.innerHTML = '<option value="" selected disabled>Select a question</option>';
@@ -441,6 +533,7 @@ document.querySelectorAll('.langBtn').forEach(btn => {
   });
 });
 
+// ============= 5. TTS FUNCTIONS =============
 let ttsUtterance = null;
 let isSpeaking = false;
 let voicesLoaded = false;
@@ -545,6 +638,7 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   }
 });
 
+// ============= 6. SUBMIT BUTTON WITH LOAD BALANCING =============
 document.getElementById('submitBtn').addEventListener('click', async () => {
   const question = document.getElementById('userInput').value.trim();
   
@@ -569,9 +663,13 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
                      /Tablet|iPad/i.test(navigator.userAgent) ? 'Tablet' : 'Desktop';
   const browserMatch = navigator.userAgent.match(/(Firefox|Chrome|Safari|Edge|Opera|OPR)/i);
   const browser = browserMatch ? browserMatch[0].replace('OPR', 'Opera') : 'Unknown';
-// Get geolocation
+
+  // Get geolocation
   let latitude = 'Not Available';
   let longitude = 'Not Available';
+  let country = 'Not Available';
+  let state = 'Not Available';
+  let city = 'Not Available';
 
   try {
     if (navigator.geolocation) {
@@ -584,42 +682,50 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
       });
       latitude = position.coords.latitude;
       longitude = position.coords.longitude;
+      
+      // Get location details from coordinates
+      const locationDetails = await getLocationDetails(latitude, longitude);
+      country = locationDetails.country;
+      state = locationDetails.state;
+      city = locationDetails.city;
+      
+      console.log('Location data:', { latitude, longitude, country, state, city });
     }
   } catch (geoError) {
     console.log('Geolocation error:', geoError.message);
-    // Will use 'Not Available' as fallback
   }
 
+  const requestData = {
+    question: question,
+    language: selectedLanguage,
+    queryType: 'PRACTICAL_INFO_QUERY',
+    mobNo: 'quiz-assistant',
+    deviceType: deviceType,
+    browser: browser,
+    latitude: latitude,
+    longitude: longitude,
+    country: country,
+    state: state,
+    city: city,
+    timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+    userAgent: navigator.userAgent
+  };
+
   try {
-    const webhookUrl = 'https://vksinglakkrgroq3.app.n8n.cloud/webhook/ask-gitaV2';
-
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        question: question,
-        language: selectedLanguage,
-        queryType: 'PRACTICAL_INFO_QUERY',
-        mobNo: 'quiz-assistant',
-        deviceType: deviceType,
-        browser: browser,
-        latitude: latitude,
-        longitude: longitude,
-        timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-        userAgent: navigator.userAgent
-      })
-    });
-
-    const data = await response.json();
+    // Use load-balancing function with automatic fallback
+    const data = await sendToWebhookWithFallback(requestData);
+    
     const aiResponse = data.answer || data.error || 'No response received.';
     const disclaimer = "\n─────────────────\n⚠️ Disclaimer: This is an AI-generated response for guidance purposes only. Please verify important information from official sources.";
     const fullResponse = aiResponse + `<span style="line-height: 1.2; display: block; margin-top: 8px;">${disclaimer}</span>`;
     document.getElementById('modalAnswer').innerHTML = fullResponse;
   } catch (error) {
-    document.getElementById('modalAnswer').textContent = 'Connection failed: ' + error.message;
+    console.error('All webhooks failed:', error);
+    document.getElementById('modalAnswer').textContent = '❌ Connection failed: All servers are currently busy. Please try again in a moment.\n\nError: ' + error.message;
   }
 });
 
+// ============= 7. VOICE RECOGNITION =============
 let recognition;
 let isRecording = false;
 
@@ -673,6 +779,7 @@ document.getElementById('voiceBtn').addEventListener('click', (e) => {
   }
 });
 
+// ============= 8. MODAL CONTROLS =============
 document.getElementById('closeBtn').onclick = () => {
   speechSynthesis.cancel();
   document.getElementById('aiModal').classList.add('hidden');
