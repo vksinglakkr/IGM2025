@@ -209,11 +209,44 @@
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
   }
+  
+  .location-banner {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .location-banner:hover {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+  }
+  .location-banner.denied {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+  }
+  .location-banner.granted {
+    background: linear-gradient(135deg, #10b981, #059669);
+  }
 </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
 
   <div class="container-main w-full max-w-4xl glass-card rounded-3xl shadow-2xl overflow-hidden">
+    <!-- Location Permission Banner -->
+    <div id="locationBanner" class="location-banner" style="display: none;">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+      <span id="locationText">Click to enable location access for better service</span>
+    </div>
+
     <div class="relative bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 p-6 pb-4 text-center header-glow">
       <div class="flex justify-end items-start mb-4">
         <button onclick="window.open('https://vksinglakkr.github.io/IGM2025/chatbotV2.html', '_blank')" class="main-chatbot-btn">
@@ -405,7 +438,7 @@ const quizQuestionsData = {
       "What age group can participate in the Quiz?"
     ],
     "motivator_program": [
-      "Who is the organiser behind this Quiz?",
+      "Who is the motivator behind this Quiz?",
       "What should be filled in the Motivator field in the Quiz registration form?",
       "Who can become a Quiz Motivator?",
       "Do I need permission to become a Quiz Motivator?"
@@ -465,7 +498,7 @@ const quizQuestionsData = {
       "क्विज़ में कौन सी आयु वर्ग भाग ले सकता है?"
     ],
     "motivator_program": [
-      "इस क्विज़ के आयोजक कौन हैं?",
+      "इस क्विज़ के प्रेरक कौन हैं?",
       "क्विज़ के पंजीकरण फॉर्म में Motivator वाले कॉलम में क्या भरना है?",
       "क्विज़ मोटिवेटर कौन बन सकता है?",
       "क्या क्विज़ मोटिवेटर बनने के लिए मुझे अनुमति की आवश्यकता है?"
@@ -521,6 +554,8 @@ const quizQuestionsData = {
 // ============= GLOBAL VARIABLES =============
 let selectedLanguage = 'English';
 let selectedCategory = '';
+let cachedLocation = null;
+let locationPermissionStatus = 'unknown'; // unknown, granted, denied, unavailable
 
 // ============= WEBHOOK CONFIGURATION =============
 const webhookUrls = [
@@ -568,10 +603,30 @@ async function sendToWebhookWithFallback(data) {
   throw lastError || new Error('All webhooks failed');
 }
 
-// ============= GEOLOCATION CACHE =============
-let cachedLocation = null;
-let locationFetchInProgress = false;
+// ============= LOCATION BANNER FUNCTIONS =============
+function updateLocationBanner(status, message) {
+  const banner = document.getElementById('locationBanner');
+  const text = document.getElementById('locationText');
+  
+  banner.style.display = 'flex';
+  text.textContent = message;
+  
+  banner.classList.remove('denied', 'granted');
+  if (status === 'granted') {
+    banner.classList.add('granted');
+  } else if (status === 'denied') {
+    banner.classList.add('denied');
+  }
+  
+  locationPermissionStatus = status;
+}
 
+function hideLocationBanner() {
+  const banner = document.getElementById('locationBanner');
+  banner.style.display = 'none';
+}
+
+// ============= GEOLOCATION FUNCTIONS =============
 async function getLocationDetails(latitude, longitude) {
   if (latitude === 'Not Available' || longitude === 'Not Available') {
     return { country: 'Not Available', state: 'Not Available', city: 'Not Available' };
@@ -596,40 +651,39 @@ async function getLocationDetails(latitude, longitude) {
   }
 }
 
-async function fetchAndCacheLocation() {
-  if (cachedLocation) {
-    return cachedLocation;
-  }
-  
-  if (locationFetchInProgress) {
-    await new Promise(resolve => {
-      const checkInterval = setInterval(() => {
-        if (!locationFetchInProgress) {
-          clearInterval(checkInterval);
-          resolve();
-        }
-      }, 100);
-    });
+async function requestLocation() {
+  if (cachedLocation && locationPermissionStatus === 'granted') {
+    console.log('📍 Using cached location:', cachedLocation);
     return cachedLocation;
   }
 
-  locationFetchInProgress = true;
-  
+  if (!navigator.geolocation) {
+    updateLocationBanner('unavailable', '⚠️ Location services not available on this device');
+    cachedLocation = {
+      latitude: 'Not Available',
+      longitude: 'Not Available',
+      country: 'Not Available',
+      state: 'Not Available',
+      city: 'Not Available'
+    };
+    return cachedLocation;
+  }
+
   try {
-    if (!navigator.geolocation) {
-      throw new Error('Geolocation not supported');
-    }
-
+    updateLocationBanner('requesting', '📍 Requesting location access...');
+    
     const position = await new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resolve, reject, {
-        enableHighAccuracy: false,
-        timeout: 10000,
-        maximumAge: 300000
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 0
       });
     });
     
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
+    
+    updateLocationBanner('processing', '🔄 Processing location data...');
     
     const locationDetails = await getLocationDetails(latitude, longitude);
     
@@ -641,11 +695,28 @@ async function fetchAndCacheLocation() {
       city: locationDetails.city
     };
     
+    updateLocationBanner('granted', `✅ Location captured: ${locationDetails.city}, ${locationDetails.state}`);
+    
+    setTimeout(() => {
+      hideLocationBanner();
+    }, 3000);
+    
     console.log('✅ Location captured successfully:', cachedLocation);
     return cachedLocation;
     
   } catch (error) {
-    console.warn('⚠️ Geolocation failed:', error.message);
+    console.warn('⚠️ Geolocation error:', error.message);
+    
+    if (error.code === 1) {
+      updateLocationBanner('denied', '🚫 Location access denied. Click to enable for better service.');
+    } else if (error.code === 2) {
+      updateLocationBanner('unavailable', '⚠️ Location unavailable. Using without location data.');
+    } else if (error.code === 3) {
+      updateLocationBanner('timeout', '⏱️ Location request timed out. Click to retry.');
+    } else {
+      updateLocationBanner('error', '❌ Location error. Click to retry.');
+    }
+    
     cachedLocation = {
       latitude: 'Not Available',
       longitude: 'Not Available',
@@ -654,8 +725,6 @@ async function fetchAndCacheLocation() {
       city: 'Not Available'
     };
     return cachedLocation;
-  } finally {
-    locationFetchInProgress = false;
   }
 }
 
@@ -687,9 +756,18 @@ function populateQuestions() {
 
 populateQuestions();
 
-// Pre-fetch location on page load
+// Request location on page load
 window.addEventListener('DOMContentLoaded', () => {
-  fetchAndCacheLocation();
+  setTimeout(() => {
+    requestLocation();
+  }, 1000);
+});
+
+// Location banner click handler
+document.getElementById('locationBanner').addEventListener('click', () => {
+  if (locationPermissionStatus === 'denied' || locationPermissionStatus === 'error' || locationPermissionStatus === 'timeout') {
+    requestLocation();
+  }
 });
 
 // ============= EVENT LISTENERS =============
@@ -842,7 +920,14 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   const browserMatch = navigator.userAgent.match(/(Firefox|Chrome|Safari|Edge|Opera|OPR)/i);
   const browser = browserMatch ? browserMatch[0].replace('OPR', 'Opera') : 'Unknown';
 
-  const location = await fetchAndCacheLocation();
+  // Try to get location, but don't block if not available
+  let location;
+  if (!cachedLocation) {
+    location = await requestLocation();
+  } else {
+    location = cachedLocation;
+  }
+  
   const { latitude, longitude, country, state, city } = location;
 
   const requestData = {
