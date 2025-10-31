@@ -708,9 +708,25 @@ async function requestLocation() {
     console.warn('⚠️ Geolocation error:', error.message);
     
     if (error.code === 1) {
-      updateLocationBanner('denied', '🚫 Location access denied. Click to enable for better service.');
+      // Permission denied - provide detailed instructions
+      const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+      const isSafari = /Safari/.test(navigator.userAgent) && /Apple/.test(navigator.vendor);
+      const isFirefox = /Firefox/.test(navigator.userAgent);
+      
+      let instructions = '🚫 Location blocked. ';
+      if (isChrome) {
+        instructions += 'Tap the 🔒/ⓘ icon in address bar → Site settings → Location → Allow';
+      } else if (isSafari) {
+        instructions += 'Go to Settings → Safari → Location → Allow for this website';
+      } else if (isFirefox) {
+        instructions += 'Tap the 🔒 icon → Permissions → Location → Allow';
+      } else {
+        instructions += 'Enable location in browser settings for this site';
+      }
+      
+      updateLocationBanner('denied', instructions);
     } else if (error.code === 2) {
-      updateLocationBanner('unavailable', '⚠️ Location unavailable. Using without location data.');
+      updateLocationBanner('unavailable', '⚠️ Location unavailable. Check device location settings.');
     } else if (error.code === 3) {
       updateLocationBanner('timeout', '⏱️ Location request timed out. Click to retry.');
     } else {
@@ -727,7 +743,6 @@ async function requestLocation() {
     return cachedLocation;
   }
 }
-
 // ============= POPULATE QUESTIONS =============
 function populateQuestions() {
   const questionSelect = document.getElementById('questionSelect');
