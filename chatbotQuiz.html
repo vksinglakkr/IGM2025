@@ -652,13 +652,15 @@ async function getLocationDetails(latitude, longitude) {
 }
 
 async function requestLocation() {
+  // If already have cached location, use it
   if (cachedLocation && locationPermissionStatus === 'granted') {
     console.log('📍 Using cached location:', cachedLocation);
     return cachedLocation;
   }
 
+  // Check if geolocation is available
   if (!navigator.geolocation) {
-    updateLocationBanner('unavailable', '⚠️ Location services not available on this device');
+    console.log('⚠️ Geolocation not supported');
     cachedLocation = {
       latitude: 'Not Available',
       longitude: 'Not Available',
@@ -666,25 +668,24 @@ async function requestLocation() {
       state: 'Not Available',
       city: 'Not Available'
     };
+    locationPermissionStatus = 'unavailable';
     return cachedLocation;
   }
 
   try {
-    updateLocationBanner('requesting', '📍 Requesting location access...');
-    
+    // Try to get location silently
     const position = await new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resolve, reject, {
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 0
+        enableHighAccuracy: false, // Changed to false for faster response
+        timeout: 10000, // Reduced timeout
+        maximumAge: 300000 // Accept cached position up to 5 minutes old
       });
     });
     
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     
-    updateLocationBanner('processing', '🔄 Processing location data...');
-    
+    // Get location details
     const locationDetails = await getLocationDetails(latitude, longitude);
     
     cachedLocation = {
@@ -695,43 +696,15 @@ async function requestLocation() {
       city: locationDetails.city
     };
     
-    updateLocationBanner('granted', `✅ Location captured: ${locationDetails.city}, ${locationDetails.state}`);
+    // Show success message briefly
+    updateLocationBanner('granted', `✅ ${locationDetails.city}, ${locationDetails.state}`);
     
-    setTimeout(() => {
-      hideLocationBanner();
-    }, 3000);
-    
-    console.log('✅ Location captured successfully:', cachedLocation);
+    console.log('✅ Location captured:', cachedLocation);
     return cachedLocation;
     
   } catch (error) {
-    console.warn('⚠️ Geolocation error:', error.message);
-    
-    if (error.code === 1) {
-      // Permission denied - provide detailed instructions
-      const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-      const isSafari = /Safari/.test(navigator.userAgent) && /Apple/.test(navigator.vendor);
-      const isFirefox = /Firefox/.test(navigator.userAgent);
-      
-      let instructions = '🚫 Location blocked. ';
-      if (isChrome) {
-        instructions += 'Tap the 🔒/ⓘ icon in address bar → Site settings → Location → Allow';
-      } else if (isSafari) {
-        instructions += 'Go to Settings → Safari → Location → Allow for this website';
-      } else if (isFirefox) {
-        instructions += 'Tap the 🔒 icon → Permissions → Location → Allow';
-      } else {
-        instructions += 'Enable location in browser settings for this site';
-      }
-      
-      updateLocationBanner('denied', instructions);
-    } else if (error.code === 2) {
-      updateLocationBanner('unavailable', '⚠️ Location unavailable. Check device location settings.');
-    } else if (error.code === 3) {
-      updateLocationBanner('timeout', '⏱️ Location request timed out. Click to retry.');
-    } else {
-      updateLocationBanner('error', '❌ Location error. Click to retry.');
-    }
+    // Silent handling - just log and continue
+    console.log('ℹ️ Location not available:', error.message);
     
     cachedLocation = {
       latitude: 'Not Available',
@@ -740,6 +713,10 @@ async function requestLocation() {
       state: 'Not Available',
       city: 'Not Available'
     };
+    
+    locationPermissionStatus = error.code === 1 ? 'denied' : 'error';
+    
+    // Don't show any error banner - just continue silently
     return cachedLocation;
   }
 }
