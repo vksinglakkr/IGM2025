@@ -568,7 +568,10 @@ async function sendToWebhookWithFallback(data) {
   throw lastError || new Error('All webhooks failed');
 }
 
-// ============= GEOLOCATION =============
+// ============= GEOLOCATION CACHE =============
+let cachedLocation = null;
+let locationFetchInProgress = false;
+
 async function getLocationDetails(latitude, longitude) {
   if (latitude === 'Not Available' || longitude === 'Not Available') {
     return { country: 'Not Available', state: 'Not Available', city: 'Not Available' };
@@ -593,6 +596,69 @@ async function getLocationDetails(latitude, longitude) {
   }
 }
 
+async function fetchAndCacheLocation() {
+  if (cachedLocation) {
+    return cachedLocation;
+  }
+  
+  if (locationFetchInProgress) {
+    await new Promise(resolve => {
+      const checkInterval = setInterval(() => {
+        if (!locationFetchInProgress) {
+          clearInterval(checkInterval);
+          resolve();
+        }
+      }, 100);
+    });
+    return cachedLocation;
+  }
+
+  locationFetchInProgress = true;
+  
+  try {
+    if (!navigator.geolocation) {
+      throw new Error('Geolocation not supported');
+    }
+
+    const position = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, {
+        enableHighAccuracy: false,
+        timeout: 10000,
+        maximumAge: 300000
+      });
+    });
+    
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    
+    const locationDetails = await getLocationDetails(latitude, longitude);
+    
+    cachedLocation = {
+      latitude: latitude,
+      longitude: longitude,
+      country: locationDetails.country,
+      state: locationDetails.state,
+      city: locationDetails.city
+    };
+    
+    console.log('✅ Location captured successfully:', cachedLocation);
+    return cachedLocation;
+    
+  } catch (error) {
+    console.warn('⚠️ Geolocation failed:', error.message);
+    cachedLocation = {
+      latitude: 'Not Available',
+      longitude: 'Not Available',
+      country: 'Not Available',
+      state: 'Not Available',
+      city: 'Not Available'
+    };
+    return cachedLocation;
+  } finally {
+    locationFetchInProgress = false;
+  }
+}
+
 // ============= POPULATE QUESTIONS =============
 function populateQuestions() {
   const questionSelect = document.getElementById('questionSelect');
@@ -601,7 +667,6 @@ function populateQuestions() {
   const languageData = quizQuestionsData[selectedLanguage];
   
   if (selectedCategory && languageData[selectedCategory]) {
-    // Show questions from selected category only
     languageData[selectedCategory].forEach(q => {
       const option = document.createElement('option');
       option.value = q;
@@ -609,7 +674,6 @@ function populateQuestions() {
       questionSelect.appendChild(option);
     });
   } else {
-    // Show all questions
     Object.values(languageData).forEach(categoryQuestions => {
       categoryQuestions.forEach(q => {
         const option = document.createElement('option');
@@ -622,6 +686,11 @@ function populateQuestions() {
 }
 
 populateQuestions();
+
+// Pre-fetch location on page load
+window.addEventListener('DOMContentLoaded', () => {
+  fetchAndCacheLocation();
+});
 
 // ============= EVENT LISTENERS =============
 document.getElementById('questionSelect').addEventListener('change', (e) => {
@@ -773,37 +842,13 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   const browserMatch = navigator.userAgent.match(/(Firefox|Chrome|Safari|Edge|Opera|OPR)/i);
   const browser = browserMatch ? browserMatch[0].replace('OPR', 'Opera') : 'Unknown';
 
-  let latitude = 'Not Available';
-  let longitude = 'Not Available';
-  let country = 'Not Available';
-  let state = 'Not Available';
-  let city = 'Not Available';
-
-  try {
-    if (navigator.geolocation) {
-      const position = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0
-        });
-      });
-      latitude = position.coords.latitude;
-      longitude = position.coords.longitude;
-      
-      const locationDetails = await getLocationDetails(latitude, longitude);
-      country = locationDetails.country;
-      state = locationDetails.state;
-      city = locationDetails.city;
-    }
-  } catch (geoError) {
-    console.log('Geolocation error:', geoError.message);
-  }
+  const location = await fetchAndCacheLocation();
+  const { latitude, longitude, country, state, city } = location;
 
   const requestData = {
     question: question,
     language: selectedLanguage,
-    queryType: 'PRACTICAL_INFO_QUERY',  // For FAQ-based Quiz queries
+    queryType: 'PRACTICAL_INFO_QUERY',
     mobNo: 'quiz-assistant',
     deviceType: deviceType,
     browser: browser,
