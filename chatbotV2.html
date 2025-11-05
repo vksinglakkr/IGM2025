@@ -369,12 +369,6 @@
 
   <div class="container-main w-full max-w-5xl glass-card rounded-3xl shadow-2xl overflow-hidden">
     <div class="relative bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 p-2 pb-.001 text-center header-glow">
-      <div class="flex justify-end mb-2">
-        <div class="lang-toggle">
-          <button class="langBtn active" data-lang="Hindi">हिंदी</button>
-          <button class="langBtn" data-lang="English">English</button>
-        </div>
-      </div>
       
       <div class="floating">
         <h1 class="text-5xl md:text-6xl font-black gradient-text mb-2 playfair tracking-tight">IGM Mitra</h1>
@@ -443,11 +437,17 @@
         <div class="mb-8 slide-fade-enter" id="quickQuestionsSection">
           <div class="flex items-center justify-between mb-4">
             <label class="text-lg font-bold text-gray-800">Quick Help 👇</label>
+              <div class="flex justify-end mb-2">
+                <div class="lang-toggle">
+                  <button class="langBtn active" data-lang="Hindi">हिंदी</button>
+                  <button class="langBtn" data-lang="English">English</button>
+                </div>
             <button id="musicToggle" class="text-sm text-gray-600 hover:text-orange-600 flex items-center gap-2 transition-all hover:scale-105 font-semibold">
               <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
               <span id="musicLabel">Play Flute</span>
             </button>
-          </div>
+                          </div>  
+</div>
           <div class="space-y-4">
             <select id="categorySelect" class="block w-full px-5 py-4 text-base border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-blue-500 focus:border-blue-500 rounded-2xl bg-white shadow-md transition-all duration-300 font-medium">
               <option value="" selected disabled>Select Topic</option>
@@ -1023,24 +1023,40 @@ function selectQueryType(type) {
 
 function populateCategoriesForGita() {
   const categorySelect = document.getElementById('categorySelect');
-  categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
-categorySelect.innerHTML += '<option value="GENERAL_WISDOM">🔿 सामान्य ज्ञान | General Wisdom</option>';
-categorySelect.innerHTML += '<option disabled>━━━━ जीवन की विशिष्ट परिस्थितियां ━━━━</option>';
-categorySelect.innerHTML += '<option value="SPIRITUAL_CRISIS">🙏 आध्यात्मिक संकट और जीवन का उद्देश्य</option>';
-categorySelect.innerHTML += '<option value="CAREER_MONEY">💼 करियर, सफलता और वित्तीय संघर्ष</option>';
-categorySelect.innerHTML += '<option value="IDENTITY_CRISIS">🪞 आत्म-सम्मान और पहचान का संकट</option>';
-categorySelect.innerHTML += '<option value="MENTAL_HEALTH">🧠 मानसिक और भावनात्मक स्वास्थ्य</option>';
-categorySelect.innerHTML += '<option value="FAMILY_CONFLICT">👨‍👩‍👧‍👦 पारिवारिक संबंधों का द्वंद्व</option>';
-categorySelect.innerHTML += '<option value="BETRAYAL_INJUSTICE">⚖️ विश्वासघात, अन्याय और धोखा</option>';
-categorySelect.innerHTML += '<option value="AGING_DEATH">🕉️ बीमारी, बुढ़ापा और मृत्यु</option>';
-categorySelect.innerHTML += '<option value="LOVE_MARRIAGE">💑 प्रेम, विवाह और रोमांटिक जीवन</option>';
+  categorySelect.innerHTML = '<option value="" selected disabled>' + 
+    (selectedLanguage === 'Hindi' ? 'विषय चुनें' : 'Select Topic') + '</option>';
+  
+  if (selectedLanguage === 'Hindi') {
+    categorySelect.innerHTML += '<option value="GENERAL_WISDOM">🔿 सामान्य ज्ञान</option>';
+    categorySelect.innerHTML += '<option disabled>━━━━ जीवन की विशिष्ट परिस्थितियां ━━━━</option>';
+    categorySelect.innerHTML += '<option value="SPIRITUAL_CRISIS">🙏 आध्यात्मिक संकट और जीवन का उद्देश्य</option>';
+    categorySelect.innerHTML += '<option value="CAREER_MONEY">💼 करियर, सफलता और वित्तीय संघर्ष</option>';
+    categorySelect.innerHTML += '<option value="IDENTITY_CRISIS">🪞 आत्म-सम्मान और पहचान का संकट</option>';
+    categorySelect.innerHTML += '<option value="MENTAL_HEALTH">🧠 मानसिक और भावनात्मक स्वास्थ्य</option>';
+    categorySelect.innerHTML += '<option value="FAMILY_CONFLICT">👨‍👩‍👧‍👦 पारिवारिक संबंधों का द्वंद्व</option>';
+    categorySelect.innerHTML += '<option value="BETRAYAL_INJUSTICE">⚖️ विश्वासघात, अन्याय और धोखा</option>';
+    categorySelect.innerHTML += '<option value="AGING_DEATH">🕉️ बीमारी, बुढ़ापा और मृत्यु</option>';
+    categorySelect.innerHTML += '<option value="LOVE_MARRIAGE">💑 प्रेम, विवाह और रोमांटिक जीवन</option>';
+  } else {
+    categorySelect.innerHTML += '<option value="GENERAL_WISDOM">🔿 General Wisdom</option>';
+    categorySelect.innerHTML += '<option disabled>━━━━ Specific Life Situations ━━━━</option>';
+    categorySelect.innerHTML += '<option value="SPIRITUAL_CRISIS">🙏 Spiritual Crisis & Life Purpose</option>';
+    categorySelect.innerHTML += '<option value="CAREER_MONEY">💼 Career, Success & Financial Struggles</option>';
+    categorySelect.innerHTML += '<option value="IDENTITY_CRISIS">🪞 Self-Esteem & Identity Crisis</option>';
+    categorySelect.innerHTML += '<option value="MENTAL_HEALTH">🧠 Mental & Emotional Health</option>';
+    categorySelect.innerHTML += '<option value="FAMILY_CONFLICT">👨‍👩‍👧‍👦 Family Relationship Conflicts</option>';
+    categorySelect.innerHTML += '<option value="BETRAYAL_INJUSTICE">⚖️ Betrayal, Injustice & Deception</option>';
+    categorySelect.innerHTML += '<option value="AGING_DEATH">🕉️ Illness, Aging & Death</option>';
+    categorySelect.innerHTML += '<option value="LOVE_MARRIAGE">💑 Love, Marriage & Romantic Life</option>';
+  }
   
   categorySelect.disabled = false;
-  document.getElementById('questionSelect').innerHTML = '<option value="" selected disabled>Select Question</option>';
-  document.getElementById('questionSelect').disabled = true;
+  const questionSelect = document.getElementById('questionSelect');
+  questionSelect.innerHTML = '<option value="" selected disabled>' + 
+    (selectedLanguage === 'Hindi' ? 'प्रश्न चुनें' : 'Select Question') + '</option>';
+  questionSelect.disabled = true;
   document.getElementById('userInput').value = '';
 }
-
 function populateCategoriesForEvent() {
   const categorySelect = document.getElementById('categorySelect');
   categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
@@ -1110,6 +1126,25 @@ document.querySelectorAll('.langBtn').forEach(btn => {
     selectedLanguage = this.dataset.lang;
     document.querySelectorAll('.langBtn').forEach(b => b.classList.remove('active'));
     this.classList.add('active');
+    
+    // Update placeholder text based on selected query type
+    const userInput = document.getElementById('userInput');
+    if (selectedQueryType === 'gita') {
+      userInput.placeholder = selectedLanguage === 'Hindi' ? 
+        'अपना प्रश्न पूछें... जैसे, "आंतरिक शांति कैसे पाएं?"' : 
+        'Ask your question... e.g., "How to find inner peace?"';
+    } else if (selectedQueryType === 'event') {
+      userInput.placeholder = selectedLanguage === 'Hindi' ? 
+        'अपना प्रश्न पूछें... जैसे, "पार्किंग कहाँ है?" या "आज के कार्यक्रम?"' : 
+        'Ask your question... e.g., "Where is parking?" or "Today\'s events?"';
+    }
+    
+    // Repopulate categories if a query type is selected
+    if (selectedQueryType === 'gita') {
+      populateCategoriesForGita();
+    } else if (selectedQueryType === 'event') {
+      populateCategoriesForEvent();
+    }
     
     const currentCategory = categorySelect.value;
     if (currentCategory) {
