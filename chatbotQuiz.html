@@ -135,6 +135,22 @@
   padding: 8px 16px;
   font-size: 13px;
 }
+
+/* CRITICAL: Custom modal visibility - DO NOT USE Tailwind's hidden class! */
+.modal-hide {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.modal-show {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
 #feedbackIframe {
   background: white;
 }
@@ -162,6 +178,7 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
 .pulse-green {
   animation: pulseGreen 2s ease-in-out infinite;
 }
@@ -508,9 +525,9 @@
     </div>
   </div>
 
-  <!-- Feedback Modal - MOVED OUTSIDE SCRIPT TAG -->
-  <div id="feedbackModal" class="hidden" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 10000; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; padding: 16px;">
-    <div class="bg-white rounded-3xl shadow-2xl w-full mx-2 overflow-hidden relative" style="max-width: 900px; height: 90vh; display: flex; flex-direction: column;">
+  <!-- Feedback Modal - CRITICAL: Using custom modal-hide class instead of Tailwind's hidden -->
+  <div id="feedbackModal" class="modal-hide" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 10000; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; padding: 16px;">
+    <div class="bg-white rounded-3xl shadow-2xl w-full mx-2 overflow-hidden relative modal-enter" style="max-width: 900px; height: 90vh; display: flex; flex-direction: column;">
       <div class="flex justify-between items-center px-5 py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white flex-shrink-0">
         <h2 class="text-xl font-bold flex items-center gap-2">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -526,7 +543,7 @@
       </div>
       
       <!-- Loading Spinner -->
-      <div id="iframeLoader" class="iframe-loader" style="display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; text-align: center;">
+      <div id="iframeLoader" class="iframe-loader" style="display: block;">
         <div class="spinner"></div>
         <p class="text-gray-600 font-semibold">Loading feedback form...</p>
       </div>
@@ -1010,9 +1027,9 @@ document.getElementById('copyBtn').onclick = () => {
   });
 };
 
-// ============= FEEDBACK FUNCTION =============
+// ============= FEEDBACK FUNCTION - THE REAL FIX =============
 function openFeedbackInParent() {
-  console.log('Opening feedback modal...');
+  console.log('🔵 Opening feedback modal...');
   const feedbackUrl = 'https://vksinglakkr.github.io/IGM2025/feedback_igm_chatbot.html';
   const feedbackModal = document.getElementById('feedbackModal');
   const feedbackIframe = document.getElementById('feedbackIframe');
@@ -1021,21 +1038,21 @@ function openFeedbackInParent() {
   // Show loader
   if (iframeLoader) {
     iframeLoader.style.display = 'block';
-    console.log('Loader shown');
+    console.log('✅ Loader shown');
   }
   
-  // Show the modal using both class and display property
-  feedbackModal.classList.remove('hidden');
-  feedbackModal.style.display = 'flex'; // CRITICAL: Explicitly set display to flex
-  console.log('Modal shown with display flex');
+  // CRITICAL: Use custom class instead of Tailwind's hidden
+  feedbackModal.classList.remove('modal-hide');
+  feedbackModal.classList.add('modal-show');
+  console.log('✅ Modal shown with modal-show class');
   
-  // Then set the iframe source
+  // Set iframe source
   feedbackIframe.src = feedbackUrl;
-  console.log('Iframe src set to:', feedbackUrl);
+  console.log('✅ Iframe src set to:', feedbackUrl);
   
   // Hide loader when iframe loads
   feedbackIframe.onload = () => {
-    console.log('Iframe loaded successfully');
+    console.log('✅ Iframe loaded successfully');
     if (iframeLoader) {
       iframeLoader.style.display = 'none';
     }
@@ -1043,40 +1060,41 @@ function openFeedbackInParent() {
   
   // Handle iframe load errors
   feedbackIframe.onerror = () => {
-    console.error('Iframe failed to load');
+    console.error('❌ Iframe failed to load');
     if (iframeLoader) {
       iframeLoader.innerHTML = '<p class="text-red-600 font-semibold">Failed to load feedback form. Please try again.</p>';
     }
   };
   
-  // Optionally hide the main container
+  // Hide main container
   const mainContainer = document.querySelector('.container-main');
   if (mainContainer) {
     mainContainer.style.visibility = 'hidden';
-    console.log('Main container hidden');
+    console.log('✅ Main container hidden');
   }
 }
 
 // Close feedback modal handler
 document.getElementById('closeFeedbackModal').onclick = () => {
-  console.log('Closing feedback modal...');
+  console.log('🔵 Closing feedback modal...');
   const feedbackModal = document.getElementById('feedbackModal');
   const feedbackIframe = document.getElementById('feedbackIframe');
   const iframeLoader = document.getElementById('iframeLoader');
   
-  // Hide loader if still showing
+  // Hide loader
   if (iframeLoader) {
     iframeLoader.style.display = 'none';
   }
   
-  // Clear iframe source to stop any ongoing processes
+  // Clear iframe
   feedbackIframe.src = '';
   
-  // Hide the modal using both class and display property
-  feedbackModal.classList.add('hidden');
-  feedbackModal.style.display = 'none'; // CRITICAL: Explicitly set display to none
+  // CRITICAL: Use custom class instead of Tailwind's hidden
+  feedbackModal.classList.remove('modal-show');
+  feedbackModal.classList.add('modal-hide');
+  console.log('✅ Modal hidden with modal-hide class');
   
-  // Show the main container again
+  // Show main container
   const mainContainer = document.querySelector('.container-main');
   if (mainContainer) mainContainer.style.visibility = 'visible';
 };
