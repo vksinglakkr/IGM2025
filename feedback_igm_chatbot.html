@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGM Chatbot Feedback - International Gita Mahotsav 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: #FFF8F0;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #FF6B35;
+            font-size: 12px;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        .subtitle {
+            background: #1e3a5f;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .section-title {
+            color: #FF6B35;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #FF6B35;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .required {
+            color: #FF6B35;
+            margin-left: 4px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: white;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #FF6B35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            border-color: #FF6B35;
+            background: #FFF5F0;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: #FF6B35;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .star-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .star-option:hover {
+            border-color: #FF6B35;
+            background: #FFF5F0;
+            transform: translateY(-2px);
+        }
+
+        .star-option input[type="radio"] {
+            margin-right: 8px;
+            accent-color: #FF6B35;
+        }
+
+        .star-option input[type="radio"]:checked + label {
+            color: #FF6B35;
+            font-weight: 700;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .error-message {
+            display: none;
+            background: #f44336;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .form-content {
+                padding: 24px;
+            }
+
+            .logo-placeholder {
+                width: 60px;
+                height: 60px;
+                font-size: 10px;
+            }
+
+            .rating-stars {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo-placeholder">KDB LOGO</div>
+                <div class="logo-placeholder">IGM LOGO</div>
+            </div>
+            <h1>IGM Chatbot Feedback</h1>
+            <p>Help Us Improve Your Experience</p>
+        </div>
+        
+        <div class="subtitle">
+            International Gita Mahotsav 2025
+        </div>
+
+        <div class="form-content">
+            <form id="feedbackForm">
+                
+                <!-- Basic Information -->
+                <div class="section-title">📋 Basic Information</div>
+                
+                <div class="form-group">
+                    <label for="name">Name <span style="font-size: 12px; color: #666;">(Optional)</span></label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email <span style="font-size: 12px; color: #666;">(Optional)</span></label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Country <span class="required">*</span></label>
+                    <select id="country" name="country" required>
+                        <option value="">Select Country</option>
+                        <option value="India">India</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">UK</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Nepal">Nepal</option>
+                        <option value="Bangladesh">Bangladesh</option>
+                        <option value="Sri Lanka">Sri Lanka</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State <span class="required">*</span></label>
+                    <input type="text" id="state" name="state" placeholder="Enter your state" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City <span class="required">*</span></label>
+                    <input type="text" id="city" name="city" placeholder="Enter your city" required>
+                </div>
+
+                <!-- Usage Information -->
+                <div class="section-title">💬 Usage Information</div>
+
+                <div class="form-group">
+                    <label for="usageFrequency">How many times have you used the chatbot? <span class="required">*</span></label>
+                    <select id="usageFrequency" name="usageFrequency" required>
+                        <option value="">Select frequency</option>
+                        <option value="First time">First time</option>
+                        <option value="2-5 times">2-5 times</option>
+                        <option value="6-10 times">6-10 times</option>
+                        <option value="More than 10 times">More than 10 times</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>What did you use the chatbot for? <span class="required">*</span> <span style="font-size: 12px; color: #666;">(Select all that apply)</span></label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="purpose1" name="purpose" value="Gita Quiz related queries">
+                            <label for="purpose1">Gita Quiz related queries</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="purpose2" name="purpose" value="IGM event information">
+                            <label for="purpose2">IGM event information</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="purpose3" name="purpose" value="Bhagavad Gita knowledge/verses">
+                            <label for="purpose3">Bhagavad Gita knowledge/verses</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="purpose4" name="purpose" value="General questions">
+                            <label for="purpose4">General questions</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="purpose5" name="purpose" value="Technical support">
+                            <label for="purpose5">Technical support</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="purpose6" name="purpose" value="Other">
+                            <label for="purpose6">Other</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chatbot Performance -->
+                <div class="section-title">⭐ Chatbot Performance</div>
+
+                <div class="form-group">
+                    <label for="understood">Did the chatbot understand your questions? <span class="required">*</span></label>
+                    <select id="understood" name="understood" required>
+                        <option value="">Select option</option>
+                        <option value="Always">Always</option>
+                        <option value="Most times">Most times</option>
+                        <option value="Sometimes">Sometimes</option>
+                        <option value="Rarely">Rarely</option>
+                        <option value="Never">Never</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="helpful">Were the chatbot's answers helpful? <span class="required">*</span></label>
+                    <select id="helpful" name="helpful" required>
+                        <option value="">Select option</option>
+                        <option value="Very Helpful">Very Helpful</option>
+                        <option value="Helpful">Helpful</option>
+                        <option value="Somewhat Helpful">Somewhat Helpful</option>
+                        <option value="Not Helpful">Not Helpful</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="responseSpeed">Response speed was good <span class="required">*</span></label>
+                    <select id="responseSpeed" name="responseSpeed" required>
+                        <option value="">Select option</option>
+                        <option value="Strongly Agree">Strongly Agree</option>
+                        <option value="Agree">Agree</option>
+                        <option value="Neutral">Neutral</option>
+                        <option value="Disagree">Disagree</option>
+                        <option value="Strongly Disagree">Strongly Disagree</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="easyToUse">Chatbot was easy to use <span class="required">*</span></label>
+                    <select id="easyToUse" name="easyToUse" required>
+                        <option value="">Select option</option>
+                        <option value="Strongly Agree">Strongly Agree</option>
+                        <option value="Agree">Agree</option>
+                        <option value="Neutral">Neutral</option>
+                        <option value="Disagree">Disagree</option>
+                        <option value="Strongly Disagree">Strongly Disagree</option>
+                    </select>
+                </div>
+
+                <!-- Issues -->
+                <div class="section-title">🔧 Technical Issues</div>
+
+                <div class="form-group">
+                    <label for="hadProblems">Did you face any problems while using the chatbot? <span class="required">*</span></label>
+                    <select id="hadProblems" name="hadProblems" required onchange="toggleProblemDetails()">
+                        <option value="">Select option</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="problemDetailsGroup" style="display: none;">
+                    <label for="problemDetails">Please describe the problem</label>
+                    <textarea id="problemDetails" name="problemDetails" placeholder="Tell us what went wrong..."></textarea>
+                </div>
+
+                <!-- Overall Experience -->
+                <div class="section-title">🌟 Overall Experience</div>
+
+                <div class="form-group">
+                    <label>Overall chatbot experience rating <span class="required">*</span></label>
+                    <div class="rating-stars">
+                        <div class="star-option">
+                            <input type="radio" id="rating5" name="rating" value="5" required>
+                            <label for="rating5">⭐⭐⭐⭐⭐ (5 stars)</label>
+                        </div>
+                        <div class="star-option">
+                            <input type="radio" id="rating4" name="rating" value="4">
+                            <label for="rating4">⭐⭐⭐⭐ (4 stars)</label>
+                        </div>
+                        <div class="star-option">
+                            <input type="radio" id="rating3" name="rating" value="3">
+                            <label for="rating3">⭐⭐⭐ (3 stars)</label>
+                        </div>
+                        <div class="star-option">
+                            <input type="radio" id="rating2" name="rating" value="2">
+                            <label for="rating2">⭐⭐ (2 stars)</label>
+                        </div>
+                        <div class="star-option">
+                            <input type="radio" id="rating1" name="rating" value="1">
+                            <label for="rating1">⭐ (1 star)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="useAgain">Would you use this chatbot again? <span class="required">*</span></label>
+                    <select id="useAgain" name="useAgain" required>
+                        <option value="">Select option</option>
+                        <option value="Yes">Yes</option>
+                        <option value="Maybe">Maybe</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="improvements">What should we improve? <span style="font-size: 12px; color: #666;">(Optional)</span></label>
+                    <textarea id="improvements" name="improvements" placeholder="Share your suggestions..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="comments">Any other comments? <span style="font-size: 12px; color: #666;">(Optional)</span></label>
+                    <textarea id="comments" name="comments" placeholder="Additional feedback..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    🙏 Submit Feedback
+                </button>
+
+                <div class="success-message" id="successMessage">
+                    ✅ Thank you for your valuable feedback!<br>
+                    Your response has been recorded successfully.
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    ❌ Something went wrong. Please try again.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleProblemDetails() {
+            const hadProblems = document.getElementById('hadProblems').value;
+            const problemDetailsGroup = document.getElementById('problemDetailsGroup');
+            problemDetailsGroup.style.display = hadProblems === 'Yes' ? 'block' : 'none';
+        }
+
+        document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Submitting...';
+            
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Get all checkbox values
+            const purposes = Array.from(document.querySelectorAll('input[name="purpose"]:checked'))
+                .map(cb => cb.value)
+                .join(', ');
+            
+            // Create JSON object
+            const data = {
+                timestamp: new Date().toISOString(),
+                name: formData.get('name') || '',
+                email: formData.get('email') || '',
+                country: formData.get('country'),
+                state: formData.get('state'),
+                city: formData.get('city'),
+                usageFrequency: formData.get('usageFrequency'),
+                purpose: purposes,
+                understood: formData.get('understood'),
+                helpful: formData.get('helpful'),
+                responseSpeed: formData.get('responseSpeed'),
+                easyToUse: formData.get('easyToUse'),
+                hadProblems: formData.get('hadProblems'),
+                problemDetails: formData.get('problemDetails') || '',
+                rating: formData.get('rating'),
+                useAgain: formData.get('useAgain'),
+                improvements: formData.get('improvements') || '',
+                comments: formData.get('comments') || ''
+            };
+
+            try {
+                // Replace with your n8n webhook URL
+                const webhookURL = 'YOUR_N8N_WEBHOOK_URL_HERE';
+                
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    this.reset();
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.style.display = 'block';
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 5000);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🙏 Submit Feedback';
+            }
+        });
+    </script>
+</body>
+</html>
