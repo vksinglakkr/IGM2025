@@ -108,87 +108,7 @@
     box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
     transform: scale(1.05);
   }
-.feedback-btn {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  font-weight: 600;
-  padding: 12px 24px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-.feedback-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
-  background: linear-gradient(135deg, #059669, #047857);
-}
-
-.feedback-btn-small {
-  padding: 8px 16px;
-  font-size: 13px;
-}
-
-/* CRITICAL: Custom modal visibility - DO NOT USE Tailwind's hidden class! */
-.modal-hide {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-.modal-show {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
-}
-
-#feedbackIframe {
-  background: white;
-}
-
-.iframe-loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 10;
-}
-
-.spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #10b981;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 16px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.pulse-green {
-  animation: pulseGreen 2s ease-in-out infinite;
-}
-
-@keyframes pulseGreen {
-  0%, 100% { box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
-  50% { box-shadow: 0 4px 20px rgba(16, 185, 129, 0.6); }
-}
-
-   
+  
   .slide-fade-enter {
     animation: slideFadeIn 0.5s ease-out;
   }
@@ -313,6 +233,125 @@
   .location-banner.granted {
     background: linear-gradient(135deg, #10b981, #059669);
   }
+
+  /* Feedback Button Styles */
+  .feedback-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+  
+  .feedback-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+    background: linear-gradient(135deg, #059669, #047857);
+  }
+  
+  .feedback-btn-small {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  /* Feedback Modal Styles */
+  #feedbackModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  #feedbackModal.show {
+    display: flex;
+  }
+
+  .feedback-modal-content {
+    background: white;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 900px;
+    height: 90vh;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .feedback-modal-header {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .feedback-modal-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+
+  .feedback-modal-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+  }
+
+  #feedbackIframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    flex: 1;
+  }
+
+  .iframe-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #10b981;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 16px;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
@@ -379,7 +418,7 @@
       <!-- Category Filter & Language Toggle -->
       <div class="mb-6 slide-fade-enter">
         <div class="flex justify-between items-center mb-3 flex-wrap gap-2">
-          <label class="text-lg font-bold text-gray-800">Quick help👇</label>
+          <label class="text-lg font-bold text-gray-800">Quick help 👇</label>
           <div class="lang-toggle">
             <button class="langBtn" data-lang="Hindi">हिंदी</button>
             <button class="langBtn active" data-lang="English">English</button>
@@ -412,8 +451,6 @@
         </div>
       </div>
 
-   
-
       <button 
         id="submitBtn" 
         class="w-full btn-primary flex items-center justify-center gap-3 text-xl slide-fade-enter"
@@ -424,29 +461,27 @@
         Submit
       </button>
 
-      <!-- Feedback Button Section -->
+      <!-- Feedback Button -->
       <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
-<button onclick="openFeedbackInParent()" class="feedback-btn pulse-green">
-  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
-  </svg>
-  Share Your Feedback
-</button>
+        <button onclick="openFeedback()" class="feedback-btn">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+          </svg>
+          Share Your Feedback
+        </button>
         
-        <a href="https://internationalgitamahotsav.in/" 
-           class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold transition-all hover:scale-105">
+        <a href="https://internationalgitamahotsav.in/" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold transition-all hover:scale-105">
           <svg class="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
           </svg>
           Return to Main Page
         </a>
       </div>
+    </div>
 
     <div class="border-t-2 border-gray-100 p-4 text-center bg-gradient-to-b from-gray-50 to-white">
       <p class="text-sm text-gray-700 mb-2 font-medium">AI Chatbot powered by <span class="font-bold text-orange-600">Groq + Llama 3.3</span></p>
       <div class="flex flex-wrap justify-center items-center gap-8">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/haryana-logo.jpg" alt="Haryana" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
-        <img src="https://raw.githubusercontent.com/vksinglakkr/IGM2025/main/Images/kdb-logo.png" alt="KDB" class="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-all hover:scale-110">
       </div>
     </div>
   </div>
@@ -510,45 +545,44 @@
           Copy
         </button>
         
-<button onclick="openFeedbackInParent()" class="feedback-btn feedback-btn-small">
-  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
-  </svg>
-  Rate Us
-</button>
+        <button onclick="openFeedback()" class="feedback-btn feedback-btn-small">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+          </svg>
+          Rate Us
+        </button>
         
         <button id="closeBtn" class="flex items-center gap-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-5 py-2 rounded-xl hover:from-blue-700 hover:to-blue-800 transition text-sm font-bold shadow-lg">
           Close
         </button>
       </div>
-
     </div>
   </div>
 
-  <!-- Feedback Modal - CRITICAL: Using custom modal-hide class instead of Tailwind's hidden -->
-  <div id="feedbackModal" class="modal-hide" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 10000; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; padding: 16px;">
-    <div class="bg-white rounded-3xl shadow-2xl w-full mx-2 overflow-hidden relative modal-enter" style="max-width: 900px; height: 90vh; display: flex; flex-direction: column;">
-      <div class="flex justify-between items-center px-5 py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white flex-shrink-0">
+  <!-- Feedback Modal -->
+  <div id="feedbackModal">
+    <div class="feedback-modal-content">
+      <div class="feedback-modal-header">
         <h2 class="text-xl font-bold flex items-center gap-2">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
           </svg>
           Share Your Feedback
         </h2>
-        <button id="closeFeedbackModal" class="hover:bg-white/20 p-2 rounded-full transition">
+        <button onclick="closeFeedback()" class="feedback-modal-close">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
         </button>
       </div>
       
-      <!-- Loading Spinner -->
-      <div id="iframeLoader" class="iframe-loader" style="display: block;">
-        <div class="spinner"></div>
-        <p class="text-gray-600 font-semibold">Loading feedback form...</p>
+      <div style="position: relative; flex: 1;">
+        <div id="iframeLoader" class="iframe-loader" style="display: none;">
+          <div class="spinner"></div>
+          <p style="color: #64748b; font-weight: 600;">Loading feedback form...</p>
+        </div>
+        <iframe id="feedbackIframe" src=""></iframe>
       </div>
-      
-      <iframe id="feedbackIframe" src="" style="width: 100%; height: 100%; flex: 1; border: none; background: white;"></iframe>
     </div>
   </div>
 
@@ -645,224 +679,354 @@ const quizQuestionsData = {
     "rewards": [
       "क्या क्विज़ में दैनिक विजेता हैं?",
       "क्विज़ के लिए पुरस्कार क्या हैं?",
-      "क्विज़ विजेताओं का चयन कैसे किया जाता है?",
+      "विजेताओं का चयन कैसे किया जाता है?",
       "क्विज़ पुरस्कार कब और कैसे वितरित किए जाएंगे?"
     ],
     "certificates": [
-      "क्या मुझे क्विज़ में भाग लेने के लिए प्रमाण पत्र मिलेगा?",
-      "क्विज़ प्रमाण पत्र के विभिन्न प्रकार क्या हैं?"
+      "क्या क्विज़ में भाग लेने के लिए मुझे प्रमाणपत्र मिलेगा?",
+      "विभिन्न प्रकार के क्विज़ प्रमाणपत्र कौन से हैं?"
     ],
     "technical_support": [
       "क्विज़ के लिए तकनीकी आवश्यकताएं क्या हैं?",
-      "यदि मैं अपना क्विज़ आईडी या पासवर्ड भूल जाऊं तो क्या करूं?",
+      "यदि मैं अपनी क्विज़ आईडी या पासवर्ड भूल जाऊं तो क्या होगा?",
       "क्विज़ सहायता के लिए कैसे संपर्क करें?",
-      "क्विज़ के लिए कौन से उपकरण समर्थित हैं?"
+      "क्विज़ के लिए कौन से डिवाइस समर्थित हैं?"
     ],
     "communication": [
-      "क्या क्विज़ के लिए व्हाट्सऐप समूह में शामिल होना आवश्यक है?",
-      "मुझे दैनिक क्विज़ सूचनाएं कैसे मिलेंगी?"
+      "क्या क्विज़ के लिए व्हाट्सएप ग्रुप में शामिल होना आवश्यक है?",
+      "मुझे दैनिक क्विज़ सूचनाएं कैसे प्राप्त होंगी?"
     ],
     "learning_preparation": [
       "क्या क्विज़ के लिए अध्ययन सामग्री या संदर्भ पुस्तकें अनुशंसित हैं?",
-      "क्या प्रत्येक क्विज़ के बाद उत्तर और व्याख्याएं प्रदान की जाएंगी?"
+      "क्या प्रत्येक क्विज़ के बाद उत्तर और स्पष्टीकरण प्रदान किए जाएंगे?"
     ],
     "post_quiz": [
-      "क्या मैं क्विज़ जमा करने के बाद सही उत्तर देख सकता हूं?",
+      "क्या क्विज़ जमा करने के बाद मैं सही उत्तर देख सकता हूं?",
       "मैं क्विज़ के बारे में फीडबैक कैसे दे सकता हूं?"
     ],
     "special_circumstances": [
       "यदि क्विज़ अवधि के दौरान कोई त्योहार या छुट्टी है तो क्या होगा?",
-      "यदि क्विज़ के दिन वेबसाइट डाउन हो जाए तो क्या होगा?"
+      "यदि क्विज़ दिवस पर क्विज़ वेबसाइट डाउन हो जाती है तो क्या होता है?"
     ]
   }
 };
 
-// ============= LANGUAGE AND CATEGORY HANDLERS =============
+// ============= GLOBAL VARIABLES =============
 let selectedLanguage = 'English';
-const categorySelect = document.getElementById('categorySelect');
-const questionSelect = document.getElementById('questionSelect');
-const userInput = document.getElementById('userInput');
-
-const langButtons = document.querySelectorAll('.langBtn');
-langButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    langButtons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    selectedLanguage = btn.dataset.lang;
-    
-    categorySelect.value = '';
-    questionSelect.innerHTML = '<option value="" selected disabled>Select a question</option>';
-    userInput.value = '';
-    
-    recognition.lang = selectedLanguage === 'Hindi' ? 'hi-IN' : 'en-IN';
-    
-    const event = new Event('change');
-    categorySelect.dispatchEvent(event);
-  });
-});
-
-categorySelect.addEventListener('change', () => {
-  const category = categorySelect.value;
-  questionSelect.innerHTML = '<option value="" selected disabled>Select a question</option>';
-  
-  if (category && quizQuestionsData[selectedLanguage][category]) {
-    quizQuestionsData[selectedLanguage][category].forEach(question => {
-      const option = document.createElement('option');
-      option.value = question;
-      option.textContent = question;
-      questionSelect.appendChild(option);
-    });
-  }
-});
-
-questionSelect.addEventListener('change', () => {
-  const selectedQuestion = questionSelect.value;
-  if (selectedQuestion) {
-    userInput.value = selectedQuestion;
-  }
-});
-
-// ============= GEOLOCATION =============
+let selectedCategory = '';
 let cachedLocation = null;
+let locationPermissionStatus = 'unknown'; // unknown, granted, denied, unavailable
 
-async function requestLocation() {
-  return new Promise((resolve) => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          try {
-            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
-            const data = await response.json();
-            const location = {
-              latitude: latitude,
-              longitude: longitude,
-              country: data.address?.country || 'N/A',
-              state: data.address?.state || 'N/A',
-              city: data.address?.city || data.address?.town || data.address?.village || 'N/A'
-            };
-            cachedLocation = location;
-            document.getElementById('locationBanner').style.display = 'none';
-            resolve(location);
-          } catch (error) {
-            const location = { latitude: latitude, longitude: longitude, country: 'N/A', state: 'N/A', city: 'N/A' };
-            cachedLocation = location;
-            resolve(location);
-          }
-        },
-        () => {
-          const location = { latitude: 'Denied', longitude: 'Denied', country: 'N/A', state: 'N/A', city: 'N/A' };
-          cachedLocation = location;
-          resolve(location);
-        }
-      );
-    } else {
-      const location = { latitude: 'Not Supported', longitude: 'Not Supported', country: 'N/A', state: 'N/A', city: 'N/A' };
-      cachedLocation = location;
-      resolve(location);
-    }
-  });
-}
-
-window.addEventListener('load', requestLocation);
-
-// ============= WEBHOOK FALLBACK =============
-const webhookAccounts = [
-  "https://hook.eu2.make.com/z7avqjnktufhpysdq06eiuhd0i2jcgau",
-  "https://hook.eu2.make.com/6x40yvukr5l80sbgcvrvplcaay32e3h7",
-  "https://hook.eu2.make.com/d6aahfr89gk04pwqw3ymcxkm7kp8r6be",
-  "https://hook.eu2.make.com/vvwl5oufvq6hehsw4ddw2yslpobfytxv",
-  "https://hook.eu2.make.com/1w2fplhpuqqf8slmwcqb6kdbfz7kpvn6",
-  "https://hook.eu2.make.com/1lkj8y85yw4jvgohsz5mxcxs3vhbx8q7",
-  "https://hook.eu2.make.com/9d35pu1b0vx47vhaqm67skqxg5g83d5x",
-  "https://hook.eu2.make.com/uc4k1pfxhfxtfycvcmptq75c01w0s5a5",
-  "https://hook.eu2.make.com/qp93bkuv0oj1ukr4k7jdw5pzpjxj8f43"
+// ============= WEBHOOK CONFIGURATION =============
+const webhookUrls = [
+  'https://vksinglakkrgroq13.app.n8n.cloud/webhook/ask-gitaV2',  // groq8,groq4,groq6, groq7, groq9, groq10 full, 
+  'https://vksinglakkrgroq14.app.n8n.cloud/webhook/ask-gitaV2'
+  'https://vksinglakkrgroq15.app.n8n.cloud/webhook/ask-gitaV2'
 ];
 
-let currentWebhookIndex = Math.floor(Math.random() * webhookAccounts.length);
-let failedWebhooks = new Set();
+let currentWebhookIndex = 0;
 
-async function sendToWebhookWithFallback(requestData) {
-  const maxRetries = webhookAccounts.length;
-  let attempts = 0;
-  
-  while (attempts < maxRetries) {
-    const webhookUrl = webhookAccounts[currentWebhookIndex];
-    
-    if (!failedWebhooks.has(webhookUrl)) {
-      try {
-        const response = await fetch(webhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestData)
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          failedWebhooks.clear();
-          return data;
-        }
-      } catch (error) {
-        console.warn(`Webhook ${currentWebhookIndex + 1} failed, trying next...`);
-      }
-      
-      failedWebhooks.add(webhookUrl);
-    }
-    
-    currentWebhookIndex = (currentWebhookIndex + 1) % webhookAccounts.length;
-    attempts++;
-  }
-  
-  throw new Error('All webhook servers are currently busy');
+function getNextWebhook() {
+  const url = webhookUrls[currentWebhookIndex];
+  currentWebhookIndex = (currentWebhookIndex + 1) % webhookUrls.length;
+  return url;
 }
 
-// ============= TEXT-TO-SPEECH =============
+async function sendToWebhookWithFallback(data) {
+  const maxRetries = webhookUrls.length;
+  let lastError = null;
+  
+  for (let i = 0; i < maxRetries; i++) {
+    const webhookUrl = getNextWebhook();
+    
+    try {
+      console.log(`Trying webhook ${currentWebhookIndex}/${webhookUrls.length}: ${webhookUrl}`);
+      
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      
+      if (response.ok) {
+        console.log(`✅ Success with webhook ${currentWebhookIndex}`);
+        return await response.json();
+      } else {
+        console.warn(`⚠️ Webhook ${currentWebhookIndex} returned status ${response.status}`);
+        lastError = new Error(`HTTP ${response.status}`);
+      }
+    } catch (error) {
+      console.warn(`❌ Webhook ${currentWebhookIndex} failed:`, error.message);
+      lastError = error;
+    }
+  }
+  
+  throw lastError || new Error('All webhooks failed');
+}
+
+// ============= LOCATION BANNER FUNCTIONS =============
+function updateLocationBanner(status, message) {
+  const banner = document.getElementById('locationBanner');
+  const text = document.getElementById('locationText');
+  
+  banner.style.display = 'flex';
+  text.textContent = message;
+  
+  banner.classList.remove('denied', 'granted');
+  if (status === 'granted') {
+    banner.classList.add('granted');
+  } else if (status === 'denied') {
+    banner.classList.add('denied');
+  }
+  
+  locationPermissionStatus = status;
+}
+
+function hideLocationBanner() {
+  const banner = document.getElementById('locationBanner');
+  banner.style.display = 'none';
+}
+
+// ============= GEOLOCATION FUNCTIONS =============
+async function getLocationDetails(latitude, longitude) {
+  if (latitude === 'Not Available' || longitude === 'Not Available') {
+    return { country: 'Not Available', state: 'Not Available', city: 'Not Available' };
+  }
+
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`,
+      { headers: { 'User-Agent': 'IGM-Quiz-Assistant' } }
+    );
+    
+    const data = await response.json();
+    
+    return {
+      country: data.address.country || 'Unknown',
+      state: data.address.state || data.address.region || 'Unknown',
+      city: data.address.city || data.address.town || data.address.village || 'Unknown'
+    };
+  } catch (error) {
+    console.error('Geocoding error:', error);
+    return { country: 'Not Available', state: 'Not Available', city: 'Not Available' };
+  }
+}
+
+async function requestLocation() {
+  // If already have cached location, use it
+  if (cachedLocation && locationPermissionStatus === 'granted') {
+    console.log('📍 Using cached location:', cachedLocation);
+    return cachedLocation;
+  }
+
+  // Check if geolocation is available
+  if (!navigator.geolocation) {
+    console.log('⚠️ Geolocation not supported');
+    cachedLocation = {
+      latitude: 'Not Available',
+      longitude: 'Not Available',
+      country: 'Not Available',
+      state: 'Not Available',
+      city: 'Not Available'
+    };
+    locationPermissionStatus = 'unavailable';
+    return cachedLocation;
+  }
+
+  try {
+    // Try to get location silently
+    const position = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, {
+        enableHighAccuracy: false, // Changed to false for faster response
+        timeout: 10000, // Reduced timeout
+        maximumAge: 300000 // Accept cached position up to 5 minutes old
+      });
+    });
+    
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    
+    // Get location details
+    const locationDetails = await getLocationDetails(latitude, longitude);
+    
+    cachedLocation = {
+      latitude: latitude,
+      longitude: longitude,
+      country: locationDetails.country,
+      state: locationDetails.state,
+      city: locationDetails.city
+    };
+    
+    // Show success message briefly
+    updateLocationBanner('granted', `✅ ${locationDetails.city}, ${locationDetails.state}`);
+    
+    console.log('✅ Location captured:', cachedLocation);
+    return cachedLocation;
+    
+  } catch (error) {
+    // Silent handling - just log and continue
+    console.log('ℹ️ Location not available:', error.message);
+    
+    cachedLocation = {
+      latitude: 'Not Available',
+      longitude: 'Not Available',
+      country: 'Not Available',
+      state: 'Not Available',
+      city: 'Not Available'
+    };
+    
+    locationPermissionStatus = error.code === 1 ? 'denied' : 'error';
+    
+    // Don't show any error banner - just continue silently
+    return cachedLocation;
+  }
+}
+// ============= POPULATE QUESTIONS =============
+function populateQuestions() {
+  const questionSelect = document.getElementById('questionSelect');
+  questionSelect.innerHTML = '<option value="" selected disabled>Select a question</option>';
+  
+  const languageData = quizQuestionsData[selectedLanguage];
+  
+  if (selectedCategory && languageData[selectedCategory]) {
+    languageData[selectedCategory].forEach(q => {
+      const option = document.createElement('option');
+      option.value = q;
+      option.textContent = q;
+      questionSelect.appendChild(option);
+    });
+  } else {
+    Object.values(languageData).forEach(categoryQuestions => {
+      categoryQuestions.forEach(q => {
+        const option = document.createElement('option');
+        option.value = q;
+        option.textContent = q;
+        questionSelect.appendChild(option);
+      });
+    });
+  }
+}
+
+populateQuestions();
+
+// Request location on page load
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    requestLocation();
+  }, 1000);
+});
+
+// Location banner click handler
+document.getElementById('locationBanner').addEventListener('click', () => {
+  if (locationPermissionStatus === 'denied' || locationPermissionStatus === 'error' || locationPermissionStatus === 'timeout') {
+    requestLocation();
+  }
+});
+
+// ============= EVENT LISTENERS =============
+document.getElementById('questionSelect').addEventListener('change', (e) => {
+  document.getElementById('userInput').value = e.target.value;
+});
+
+document.getElementById('categorySelect').addEventListener('change', (e) => {
+  selectedCategory = e.target.value;
+  populateQuestions();
+});
+
+document.querySelectorAll('.langBtn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    selectedLanguage = this.dataset.lang;
+    document.querySelectorAll('.langBtn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    populateQuestions();
+  });
+});
+
+// ============= TTS FUNCTIONS =============
+let ttsUtterance = null;
 let isSpeaking = false;
+let voicesLoaded = false;
 let manualStop = false;
-let ttsUtterance;
 
-const ttsBtn = document.getElementById('ttsToggle');
-const ttsLabel = document.getElementById('ttsLabel');
+function loadVoices() {
+  return new Promise((resolve) => {
+    let voices = speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      voicesLoaded = true;
+      resolve(voices);
+    } else {
+      speechSynthesis.addEventListener('voiceschanged', () => {
+        voices = speechSynthesis.getVoices();
+        voicesLoaded = true;
+        resolve(voices);
+      }, { once: true });
+      
+      setTimeout(() => {
+        voices = speechSynthesis.getVoices();
+        voicesLoaded = true;
+        resolve(voices);
+      }, 1000);
+    }
+  });
+}
 
-ttsBtn.addEventListener('click', () => {
+loadVoices();
+
+document.getElementById('ttsToggle').addEventListener('click', async () => {
+  const ttsBtn = document.getElementById('ttsToggle');
+  const ttsLabel = document.getElementById('ttsLabel');
+  const answerText = document.getElementById('modalAnswer').textContent;
+  
+  if (!answerText || answerText === 'Thinking...') return;
+  
   if (isSpeaking) {
-    speechSynthesis.cancel();
     manualStop = true;
+    speechSynthesis.cancel();
     isSpeaking = false;
     ttsBtn.classList.remove('speaking');
     ttsLabel.textContent = 'Listen';
     return;
   }
-
-  const textToSpeak = document.getElementById('modalAnswer').textContent
-    .replace(/─+/g, '')
-    .replace(/⚠️ Disclaimer:.*/s, '')
-    .trim();
-
-  if (!textToSpeak) {
-    alert('No text available to read!');
-    return;
-  }
-
-  ttsUtterance = new SpeechSynthesisUtterance(textToSpeak);
-  ttsUtterance.lang = selectedLanguage === 'Hindi' ? 'hi-IN' : 'en-US';
-  ttsUtterance.rate = 0.95;
-  ttsUtterance.pitch = 1;
   
-  const voices = speechSynthesis.getVoices();
-  const preferredVoice = voices.find(v => 
-    selectedLanguage === 'Hindi' ? v.lang.includes('hi') : v.lang.includes('en')
+  manualStop = false;
+  const voices = await loadVoices();
+  speechSynthesis.cancel();
+  await new Promise(resolve => setTimeout(resolve, 100));
+  
+  ttsUtterance = new SpeechSynthesisUtterance(answerText);
+  ttsUtterance.rate = 0.85;
+  ttsUtterance.pitch = 1;
+  ttsUtterance.volume = 1;
+  
+  let selectedVoice = null;
+  const hindiVoices = voices.filter(voice => 
+    voice.lang.startsWith('hi') || 
+    voice.lang === 'hi-IN' ||
+    voice.name.toLowerCase().includes('hindi')
   );
-  if (preferredVoice) ttsUtterance.voice = preferredVoice;
-
-  isSpeaking = true;
-  ttsBtn.classList.add('speaking');
-  ttsLabel.textContent = 'Stop';
+  
+  if (hindiVoices.length > 0) {
+    selectedVoice = hindiVoices[0];
+  } else {
+    selectedVoice = voices[0];
+  }
+  
+  if (selectedVoice) {
+    ttsUtterance.voice = selectedVoice;
+  }
+  
+  ttsUtterance.onstart = () => {
+    isSpeaking = true;
+    ttsBtn.classList.add('speaking');
+    ttsLabel.textContent = 'Stop';
+  };
   
   ttsUtterance.onend = () => {
-    isSpeaking = false;
-    ttsBtn.classList.remove('speaking');
-    ttsLabel.textContent = 'Listen';
+    if (!manualStop) {
+      isSpeaking = false;
+      ttsBtn.classList.remove('speaking');
+      ttsLabel.textContent = 'Listen';
+    }
   };
   
   ttsUtterance.onerror = (e) => {
@@ -1027,77 +1191,54 @@ document.getElementById('copyBtn').onclick = () => {
   });
 };
 
-// ============= FEEDBACK FUNCTION - THE REAL FIX =============
-function openFeedbackInParent() {
-  console.log('🔵 Opening feedback modal...');
-  const feedbackUrl = 'https://vksinglakkr.github.io/IGM2025/feedback_igm_chatbot.html';
+// ============= FEEDBACK MODAL FUNCTIONS =============
+function openFeedback() {
   const feedbackModal = document.getElementById('feedbackModal');
   const feedbackIframe = document.getElementById('feedbackIframe');
   const iframeLoader = document.getElementById('iframeLoader');
+  
+  // Show modal
+  feedbackModal.classList.add('show');
   
   // Show loader
-  if (iframeLoader) {
-    iframeLoader.style.display = 'block';
-    console.log('✅ Loader shown');
-  }
+  iframeLoader.style.display = 'block';
   
-  // CRITICAL: Use custom class instead of Tailwind's hidden
-  feedbackModal.classList.remove('modal-hide');
-  feedbackModal.classList.add('modal-show');
-  console.log('✅ Modal shown with modal-show class');
-  
-  // Set iframe source
-  feedbackIframe.src = feedbackUrl;
-  console.log('✅ Iframe src set to:', feedbackUrl);
+  // Load iframe
+  feedbackIframe.src = 'https://vksinglakkr.github.io/IGM2025/feedback_igm_chatbot.html';
   
   // Hide loader when iframe loads
-  feedbackIframe.onload = () => {
-    console.log('✅ Iframe loaded successfully');
-    if (iframeLoader) {
-      iframeLoader.style.display = 'none';
-    }
+  feedbackIframe.onload = function() {
+    iframeLoader.style.display = 'none';
   };
   
-  // Handle iframe load errors
-  feedbackIframe.onerror = () => {
-    console.error('❌ Iframe failed to load');
-    if (iframeLoader) {
-      iframeLoader.innerHTML = '<p class="text-red-600 font-semibold">Failed to load feedback form. Please try again.</p>';
-    }
+  // Handle errors
+  feedbackIframe.onerror = function() {
+    iframeLoader.innerHTML = '<p style="color: #ef4444; font-weight: 600;">Failed to load feedback form</p>';
   };
-  
-  // Hide main container
-  const mainContainer = document.querySelector('.container-main');
-  if (mainContainer) {
-    mainContainer.style.visibility = 'hidden';
-    console.log('✅ Main container hidden');
-  }
 }
 
-// Close feedback modal handler
-document.getElementById('closeFeedbackModal').onclick = () => {
-  console.log('🔵 Closing feedback modal...');
+function closeFeedback() {
   const feedbackModal = document.getElementById('feedbackModal');
   const feedbackIframe = document.getElementById('feedbackIframe');
   const iframeLoader = document.getElementById('iframeLoader');
   
-  // Hide loader
-  if (iframeLoader) {
-    iframeLoader.style.display = 'none';
-  }
+  // Hide modal
+  feedbackModal.classList.remove('show');
   
   // Clear iframe
   feedbackIframe.src = '';
   
-  // CRITICAL: Use custom class instead of Tailwind's hidden
-  feedbackModal.classList.remove('modal-show');
-  feedbackModal.classList.add('modal-hide');
-  console.log('✅ Modal hidden with modal-hide class');
-  
-  // Show main container
-  const mainContainer = document.querySelector('.container-main');
-  if (mainContainer) mainContainer.style.visibility = 'visible';
-};
-</script>
+  // Reset loader
+  iframeLoader.style.display = 'none';
+  iframeLoader.innerHTML = '<div class="spinner"></div><p style="color: #64748b; font-weight: 600;">Loading feedback form...</p>';
+}
+
+// Close modal when clicking outside
+document.getElementById('feedbackModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeFeedback();
+  }
+});
+  </script>
 </body>
 </html>
