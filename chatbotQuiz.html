@@ -833,10 +833,36 @@ function populateQuestions() {
 populateQuestions();
 
 // Request location on page load
+// Request location on page load AND setup feedback modal
 window.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     requestLocation();
   }, 1000);
+  
+  // Setup feedback modal close handler
+  const closeFeedbackBtn = document.getElementById('closeFeedbackModal');
+  if (closeFeedbackBtn) {
+    closeFeedbackBtn.onclick = () => {
+      const feedbackModal = document.getElementById('feedbackModal');
+      const feedbackIframe = document.getElementById('feedbackIframe');
+      const iframeLoader = document.getElementById('iframeLoader');
+      
+      // Hide loader if still showing
+      if (iframeLoader) {
+        iframeLoader.style.display = 'none';
+      }
+      
+      // Clear iframe source to stop any ongoing processes
+      feedbackIframe.src = '';
+      
+      // Hide the modal
+      feedbackModal.classList.add('hidden');
+      
+      // Show the main container again
+      const mainContainer = document.querySelector('.container-main');
+      if (mainContainer) mainContainer.style.visibility = 'visible';
+    };
+  }
 });
 
 // Location banner click handler
