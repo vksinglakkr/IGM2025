@@ -509,8 +509,8 @@
   </div>
 
   <!-- Feedback Modal - MOVED OUTSIDE SCRIPT TAG -->
-  <div id="feedbackModal" class="hidden fixed inset-0 flex items-center justify-center p-4" style="z-index: 10000; background: rgba(0,0,0,0.85);">
-    <div class="bg-white rounded-3xl shadow-2xl w-full mx-2 overflow-hidden relative" style="max-width: 900px; max-height: 95vh; display: flex; flex-direction: column;">
+  <div id="feedbackModal" class="hidden" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 10000; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; padding: 16px;">
+    <div class="bg-white rounded-3xl shadow-2xl w-full mx-2 overflow-hidden relative" style="max-width: 900px; height: 90vh; display: flex; flex-direction: column;">
       <div class="flex justify-between items-center px-5 py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white flex-shrink-0">
         <h2 class="text-xl font-bold flex items-center gap-2">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -526,12 +526,12 @@
       </div>
       
       <!-- Loading Spinner -->
-      <div id="iframeLoader" class="iframe-loader" style="display: none;">
+      <div id="iframeLoader" class="iframe-loader" style="display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; text-align: center;">
         <div class="spinner"></div>
         <p class="text-gray-600 font-semibold">Loading feedback form...</p>
       </div>
       
-      <iframe id="feedbackIframe" src="" style="width: 100%; flex: 1; border: none; background: white; min-height: 500px;"></iframe>
+      <iframe id="feedbackIframe" src="" style="width: 100%; height: 100%; flex: 1; border: none; background: white;"></iframe>
     </div>
   </div>
 
@@ -1024,9 +1024,10 @@ function openFeedbackInParent() {
     console.log('Loader shown');
   }
   
-  // Show the modal first
+  // Show the modal using both class and display property
   feedbackModal.classList.remove('hidden');
-  console.log('Modal shown');
+  feedbackModal.style.display = 'flex'; // CRITICAL: Explicitly set display to flex
+  console.log('Modal shown with display flex');
   
   // Then set the iframe source
   feedbackIframe.src = feedbackUrl;
@@ -1071,8 +1072,9 @@ document.getElementById('closeFeedbackModal').onclick = () => {
   // Clear iframe source to stop any ongoing processes
   feedbackIframe.src = '';
   
-  // Hide the modal
+  // Hide the modal using both class and display property
   feedbackModal.classList.add('hidden');
+  feedbackModal.style.display = 'none'; // CRITICAL: Explicitly set display to none
   
   // Show the main container again
   const mainContainer = document.querySelector('.container-main');
