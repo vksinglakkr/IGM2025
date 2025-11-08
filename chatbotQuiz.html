@@ -1092,6 +1092,24 @@ document.getElementById('copyBtn').onclick = () => {
     setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
   });
 };
+    // ============= FEEDBACK FUNCTION =============
+function openFeedbackInParent() {
+  const feedbackUrl = 'https://vksinglakkr.github.io/IGM2025/feedback_igm_chatbot.html';
+  
+  // Try to open in parent window (top-level window)
+  if (window.top !== window.self) {
+    // We are in an iframe/widget
+    try {
+      window.top.open(feedbackUrl, '_blank');
+    } catch (e) {
+      // Fallback if top.open is blocked
+      window.open(feedbackUrl, '_blank');
+    }
+  } else {
+    // We are in the main window
+    window.open(feedbackUrl, '_blank');
+  }
+}
   </script>
 </body>
 </html>
