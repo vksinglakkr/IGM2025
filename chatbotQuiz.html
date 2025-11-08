@@ -1113,7 +1113,6 @@ document.getElementById('copyBtn').onclick = () => {
     setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
   });
 };
-    // ============= FEEDBACK FUNCTION =============
 // ============= FEEDBACK FUNCTION =============
 function openFeedbackInParent() {
   const feedbackUrl = 'https://vksinglakkr.github.io/IGM2025/feedback_igm_chatbot.html';
@@ -1121,21 +1120,35 @@ function openFeedbackInParent() {
   const feedbackIframe = document.getElementById('feedbackIframe');
   const iframeLoader = document.getElementById('iframeLoader');
   
+  console.log('Opening feedback modal...'); // Debug log
+  
+  // Show the modal first
+  feedbackModal.classList.remove('hidden');
+  feedbackModal.style.display = 'flex'; // Explicitly set display
+  
   // Show loader
   if (iframeLoader) {
     iframeLoader.style.display = 'block';
   }
   
-  // Show the modal first
-  feedbackModal.classList.remove('hidden');
-  
-  // Then set the iframe source (this prevents the flash)
-  feedbackIframe.src = feedbackUrl;
+  // Small delay before setting iframe source
+  setTimeout(() => {
+    feedbackIframe.src = feedbackUrl;
+  }, 100);
   
   // Hide loader when iframe loads
   feedbackIframe.onload = () => {
+    console.log('Feedback iframe loaded'); // Debug log
     if (iframeLoader) {
       iframeLoader.style.display = 'none';
+    }
+  };
+  
+  // Handle iframe load errors
+  feedbackIframe.onerror = () => {
+    console.error('Feedback iframe failed to load');
+    if (iframeLoader) {
+      iframeLoader.innerHTML = '<p class="text-red-600 font-semibold">Failed to load feedback form. Please try again.</p>';
     }
   };
   
@@ -1144,28 +1157,39 @@ function openFeedbackInParent() {
   if (mainContainer) mainContainer.style.visibility = 'hidden';
 }
 
-// Close feedback modal handler - MUST BE AFTER THE FUNCTION DEFINITION
-document.getElementById('closeFeedbackModal').onclick = () => {
-  const feedbackModal = document.getElementById('feedbackModal');
-  const feedbackIframe = document.getElementById('feedbackIframe');
-  const iframeLoader = document.getElementById('iframeLoader');
-  
-  // Hide loader if still showing
-  if (iframeLoader) {
-    iframeLoader.style.display = 'none';
+// Wait for DOM to be fully loaded before attaching event listeners
+document.addEventListener('DOMContentLoaded', function() {
+  // Close feedback modal handler
+  const closeFeedbackBtn = document.getElementById('closeFeedbackModal');
+  if (closeFeedbackBtn) {
+    closeFeedbackBtn.onclick = () => {
+      const feedbackModal = document.getElementById('feedbackModal');
+      const feedbackIframe = document.getElementById('feedbackIframe');
+      const iframeLoader = document.getElementById('iframeLoader');
+      
+      console.log('Closing feedback modal...'); // Debug log
+      
+      // Hide loader if still showing
+      if (iframeLoader) {
+        iframeLoader.style.display = 'none';
+      }
+      
+      // Clear iframe source to stop any ongoing processes
+      feedbackIframe.src = '';
+      
+      // Hide the modal
+      feedbackModal.classList.add('hidden');
+      feedbackModal.style.display = 'none'; // Explicitly hide
+      
+      // Show the main container again
+      const mainContainer = document.querySelector('.container-main');
+      if (mainContainer) mainContainer.style.visibility = 'visible';
+    };
+  } else {
+    console.error('closeFeedbackModal button not found!');
   }
-  
-  // Clear iframe source to stop any ongoing processes
-  feedbackIframe.src = '';
-  
-  // Hide the modal
-  feedbackModal.classList.add('hidden');
-  
-  // Show the main container again
-  const mainContainer = document.querySelector('.container-main');
-  if (mainContainer) mainContainer.style.visibility = 'visible';
-};
-</script>
+});
+  </script>
 <!-- Feedback Modal -->
   <div id="feedbackModal" class="hidden fixed inset-0 flex items-center justify-center p-4" style="z-index: 10000; background: rgba(0,0,0,0.85);">
     <div class="bg-white rounded-3xl shadow-2xl w-full mx-2 modal-enter overflow-hidden relative" style="max-width: 900px; max-height: 95vh;">
