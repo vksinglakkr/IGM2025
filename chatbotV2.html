@@ -1303,22 +1303,6 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   const browserMatch = navigator.userAgent.match(/(Firefox|Chrome|Safari|Edge|Opera|OPR)/i);
   const browser = browserMatch ? browserMatch[0].replace('OPR', 'Opera') : 'Unknown';
 
-  let geoLocation = { latitude: 'Not Available', longitude: 'Not Available' };
-  try {
-    if (navigator.geolocation) {
-      const position = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, { 
-          timeout: 3000,
-          enableHighAccuracy: false 
-        });
-      });
-      geoLocation.latitude = position.coords.latitude.toFixed(6);
-      geoLocation.longitude = position.coords.longitude.toFixed(6);
-    }
-  } catch (error) {
-    console.log('Geolocation not available');
-  }
-
   try {
     const webhookUrl = 'https://n8n-workflow-test.duckdns.org/webhook/ask-gitaV2n8n';
 
@@ -1332,8 +1316,6 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
         mobNo: 'anonymous',
         deviceType: deviceType,
         browser: browser,
-        latitude: geoLocation.latitude,
-        longitude: geoLocation.longitude,
         timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
         userAgent: navigator.userAgent
       })
