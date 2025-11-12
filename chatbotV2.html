@@ -1608,6 +1608,55 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+// ============= FEEDBACK MODAL FUNCTIONS =============
+function openFeedback() {
+  const feedbackModal = document.getElementById('feedbackModal');
+  const feedbackIframe = document.getElementById('feedbackIframe');
+  const iframeLoader = document.getElementById('iframeLoader');
+  
+  // Show modal
+  feedbackModal.classList.add('show');
+  
+  // Show loader
+  iframeLoader.style.display = 'block';
+  
+  // Load iframe
+  feedbackIframe.src = 'https://vksinglakkr.github.io/IGM2025/feedback_igm_chatbot.html';
+  
+  // Hide loader when iframe loads
+  feedbackIframe.onload = function() {
+    iframeLoader.style.display = 'none';
+  };
+  
+  // Handle errors
+  feedbackIframe.onerror = function() {
+    iframeLoader.innerHTML = '<p style="color: #ef4444; font-weight: 600;">Failed to load feedback form</p>';
+  };
+}
+
+function closeFeedback() {
+  const feedbackModal = document.getElementById('feedbackModal');
+  const feedbackIframe = document.getElementById('feedbackIframe');
+  const iframeLoader = document.getElementById('iframeLoader');
+  
+  // Hide modal
+  feedbackModal.classList.remove('show');
+  
+  // Clear iframe
+  feedbackIframe.src = '';
+  
+  // Reset loader
+  iframeLoader.style.display = 'none';
+  iframeLoader.innerHTML = '<div class="spinner"></div><p style="color: #64748b; font-weight: 600;">Loading feedback form...</p>';
+}
+
+// Close modal when clicking outside
+document.getElementById('feedbackModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeFeedback();
+  }
+});
+
   </script>
 </body>
 </html>
