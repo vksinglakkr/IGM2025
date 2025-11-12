@@ -424,8 +424,8 @@
     background: rgba(255, 255, 255, 0.2);
     border: none;
     color: white;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -443,7 +443,7 @@
     width: 100%;
     height: 100%;
     border: none;
-    flex: 1;
+    background: white;
   }
 
   .iframe-loader {
@@ -452,10 +452,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    z-index: 1;
   }
 
   .spinner {
-    border: 4px solid #f3f3f3;
+    border: 4px solid #f3f4f6;
     border-top: 4px solid #10b981;
     border-radius: 50%;
     width: 50px;
@@ -468,32 +469,41 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-
+  
   .om-symbol {
     position: fixed;
-    font-size: 150px;
-    color: rgba(251, 191, 36, 0.05);
+    font-size: 200px;
+    opacity: 0.05;
+    color: rgba(251, 191, 36, 0.3);
     pointer-events: none;
+    user-select: none;
     z-index: 0;
   }
-  .om-top-right { top: 50px; right: 50px; transform: rotate(15deg); }
-  .om-bottom-left { bottom: 50px; left: 50px; transform: rotate(-15deg); }
+  .om-top-right {
+    top: -50px;
+    right: -50px;
+  }
+  .om-bottom-left {
+    bottom: -50px;
+    left: -50px;
+    transform: rotate(180deg);
+  }
   
   /* Quiz Chatbot Button */
   .quiz-chatbot-btn {
     background: linear-gradient(135deg, #8b5cf6, #6366f1);
     color: white;
-    font-weight: 700;
-    padding: 12px 24px;
-    border-radius: 16px;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    font-size: 15px;
+    gap: 8px;
+    font-size: 14px;
     position: relative;
     overflow: hidden;
   }
@@ -559,6 +569,74 @@
       font-size: 13px;
     }
   }
+
+  /* Quiz Modal Styles */
+  #quizModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 10001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  #quizModal.show {
+    display: flex;
+  }
+
+  .quiz-modal-content {
+    background: white;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 1200px;
+    height: 92vh;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .quiz-modal-header {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .quiz-modal-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+
+  .quiz-modal-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+  }
+
+  #quizIframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white;
+  }
 </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
@@ -568,7 +646,7 @@
   <div class="container-main w-full max-w-5xl glass-card rounded-3xl shadow-2xl overflow-hidden">
     <div class="relative bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 p-6 pb-4 text-center header-glow">
       <div class="flex justify-end items-start mb-4">
-        <button onclick="window.open('https://vksinglakkr.github.io/IGM2025/chatbotQuiz.html')" class="quiz-chatbot-btn">
+        <button onclick="openQuizChatbot()" class="quiz-chatbot-btn">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
           </svg>
@@ -822,6 +900,40 @@
     </div>
   </div>
 
+  <!-- Quiz Modal -->
+  <div id="quizModal">
+    <div class="quiz-modal-content">
+      <div class="quiz-modal-header">
+        <h2 class="text-xl font-bold flex items-center gap-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+          </svg>
+          Gita Quiz Chatbot
+        </h2>
+        <button onclick="closeQuizChatbot()" class="quiz-modal-close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div style="position: relative; flex: 1;">
+        <div id="quizIframeLoader" class="iframe-loader" style="display: none;">
+          <div class="spinner"></div>
+          <p style="color: #64748b; font-weight: 600;">Loading Quiz Chatbot...</p>
+        </div>
+        <iframe id="quizIframe" src=""></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Music Control Button -->
+  <button id="musicToggle" class="music-control-btn">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+    </svg>
+    <span id="musicLabel">Play Flute</span>
+  </button>
 
   <audio id="fluteMusic" loop>
     <source src="https://vksinglakkr.github.io/IGM2025/audio/gentle-flute.mp3" type="audio/mpeg">
@@ -978,47 +1090,47 @@ const gitaQuestionsHindi = {
     "गीता की शिक्षाओं को दैनिक जीवन में कैसे लागू करें?",
     "गीता में माया (भ्रम) क्या है?",
     "गीता के अनुसार आसक्ति और प्रेम में क्या अंतर है?",
-    "भगवद गीता के अनुसार जब कर्तव्य और इच्छा में टकराव हो तो क्या करें?",
+    "जब कर्तव्य और इच्छा में टकराव हो, तो क्या करें?",
     "गीता में सात्विक, राजसिक, तामसिक भोजन क्या हैं?"
 ],
 'FAMILY_CONFLICT': [
-    "परिवार का सदस्य नशे का आदी है - गीता का मार्गदर्शन?",
-    "माता-पिता और पति/पत्नी के बीच फंसे हों तो क्या करें?",
-    "भगवद गीता के अनुसार बुजुर्ग माता-पिता की देखभाल कैसे करें?",
+    "परिवार का सदस्य नशे में है - गीता क्या कहती है?",
+    "माता-पिता और पति/पत्नी के बीच फंस गया हूं?",
+    "बूढ़े माता-पिता का ख्याल कैसे रखें?",
     "बेटे ने माता-पिता को छोड़ दिया - इस दर्द से कैसे निपटें?",
     "सास-बहू के झगड़े में शांति कैसे बनाए रखें?",
     "भाई-बहनों के बीच संपत्ति विवाद - गीता का समाधान?",
-    "बच्चे माता-पिता की बात नहीं मानते - कैसे संभालें?"
+    "बच्चे माता-पिता की बात नहीं सुनते - कैसे संभालें?"
 ],
 'LOVE_MARRIAGE': [
-    "पति/पत्नी ने धोखा दिया - माफ करूं या छोड़ दूं?",
+    "जीवनसाथी ने धोखा दिया - माफ करूं या छोड़ दूं?",
     "माता-पिता प्रेम विवाह के खिलाफ हैं - गीता क्या कहती है?",
-    "शादी में लगातार झगड़े - तलाक या जारी रखें?",
-    "8 साल बाद भी संतान नहीं - समाज के ताने कैसे झेलें?",
-    "पति/पत्नी से शारीरिक/भावनात्मक शोषण - गीता का मार्गदर्शन?",
-    "प्यार खत्म हो गया पर बच्चों के लिए साथ हैं - कैसे जीएं?",
-    "70 साल की उम्र में दोबारा शादी करनी चाहिए?",
-    "अरेंज मैरिज में तालमेल नहीं, अब क्या?",
-    "अरेंज मैरिज में कम्पेटिबिलिटी नहीं - आगे क्या?"
+    "शादी में लगातार लड़ाई - तलाक या जारी रखें?",
+    "8 साल से संतान नहीं - समाज के ताने कैसे सहें?",
+    "जीवनसाथी से शारीरिक/भावनात्मक शोषण - गीता का मार्गदर्शन?",
+    "प्यार खत्म हो गया पर बच्चों के लिए रुके हुए हैं?",
+    "70 साल की उम्र में दोबारा शादी करूं - गीता क्या कहती है?",
+    "Arranged marriage में compatibility नहीं, अब क्या?",
+    "अरेंज मैरिज में तालमेल नहीं - अब क्या?"
 ],
 'CAREER_MONEY': [
-    "20 साल सेवा के बाद नौकरी से निकाल दिया - क्या करूं?",
-    "ईमानदारी से काम कर रहा हूं पर प्रमोशन नहीं - क्यों?",
+    "20 साल की नौकरी के बाद निकाल दिया - क्या करूं?",
+    "ईमानदारी से काम करता हूं पर प्रमोशन नहीं मिलती?",
     "बॉस मेरे काम का श्रेय ले रहा है - गीता क्या कहती है?",
-    "स्टार्टअप असफल, लाखों का कर्ज - कैसे उबरूं?",
-    "कार्यस्थल पर भ्रष्टाचार - मुझे क्या करना चाहिए?",
-    "40 की उम्र में करियर बदलना चाहता हूं - सही है क्या?",
-    "सबकुछ है पर खालीपन महसूस होता है - क्यों?",
-    "पैसे के लिए गलत काम करने को मजबूर - गीता की सलाह?",
-    "जूनियर आगे निकल रहा है - ईर्ष्या हो रही है?"
+    "स्टार्टअप फेल हुआ, लाखों का कर्ज - कैसे उबरूं?",
+    "ऑफिस में भ्रष्टाचार - मुझे क्या करना चाहिए?",
+    "40 की उम्र में करियर बदलना चाहता हूं - सही है?",
+    "सब कुछ है पर खालीपन महसूस होता है - क्यों?",
+    "पैसों के लिए गलत काम करने पर मजबूर - गीता की सलाह?",
+    "जूनियर मुझसे आगे निकल रहा है - ईर्ष्या हो रही है?"
 ],
 'BETRAYAL_INJUSTICE': [
     "सबसे अच्छे दोस्त ने धोखा दिया - कैसे माफ करूं?",
-    "15 साल सेवा की, किसी ने झूठा आरोप लगाकर रोक दिया?",
+    "15 साल सेवा की, किसी ने झूठा आरोप लगाकर रुकवा दी?",
     "मेरी मेहनत का श्रेय किसी और को मिला - गीता क्या कहती है?",
     "निर्दोष हूं पर सबूत नहीं - कैसे साबित करूं?",
-    "भाई ने पिता को संपत्ति से बाहर निकाल दिया - सलाह?",
-    "न्याय नहीं मिल रहा - भगवान कहां हैं?",
+    "पिता को भाई ने संपत्ति से बाहर निकाल दिया?",
+    "न्याय नहीं मिल रहा - भगवान कहां है?",
     "सच के लिए सजा मिली, झूठे को इनाम - गीता का दृष्टिकोण?",
     "अन्याय सहूं या लड़ूं - गीता क्या कहती है?",
     "बदला लेना चाहता हूं - क्या यह गलत है?"
@@ -1200,241 +1312,127 @@ const eventQuestionsHindi = {
   ],
   'FAQ_QUERY': [
     "गीता महोत्सव क्या है?",
-    "आगंतुकों के लिए सामान्य नियम क्या हैं?",
-    "अगले सप्ताह का मौसम पूर्वानुमान क्या है?"
+    "आगंतुकों के लिए सामान्य नियम और विनियम क्या हैं?",
+    "अगले सप्ताह के लिए मौसम का पूर्वानुमान क्या है?"
   ],
   'QUIZ_QUERY': [
-    "ऑनलाइन गीता क्विज़ के लिए पंजीकरण प्रक्रिया क्या है?",
+    "ऑनलाइन गीता क्विज के लिए पंजीकरण प्रक्रिया क्या है?",
     "पंजीकरण कब शुरू और समाप्त होता है?",
-    "क्विज़ कब शुरू और समाप्त होती है?",
+    "क्विज कब शुरू और समाप्त होती है?",
     "विभिन्न श्रेणियां क्या हैं?",
     "प्रतिदिन कितने प्रश्न पूछे जाते हैं?",
     "प्रश्नों के उत्तर देने का समय क्या है?",
-    "क्या हम सबमिशन के बाद उत्तर संशोधित कर सकते हैं?",
+    "क्या हम सबमिशन के बाद अपने उत्तर संशोधित कर सकते हैं?",
     "क्या दैनिक विजेता हैं?",
     "पुरस्कार क्या हैं?",
-    "इस क्विज़ के प्रेरक कौन हैं?",
-    "क्विज़ में कौन भाग ले सकता है?",
+    "इस क्विज के पीछे प्रेरक कौन है?",
+    "क्विज में कौन भाग ले सकता है?",
     "तकनीकी आवश्यकताएं क्या हैं?",
-    "क्विज़ सहायता के लिए कैसे संपर्क करें?",
-    "क्विज़ किन भाषाओं में उपलब्ध है?",
-    "क्या मुझे प्रमाणपत्र मिलेगा?",
-    "अगर मैं अपनी क्विज़ ID या पासवर्ड भूल जाऊं?"
+    "क्विज सहायता के लिए कैसे संपर्क करें?",
+    "क्विज किन भाषाओं में उपलब्ध है?",
+    "क्या मुझे प्रमाण पत्र मिलेगा?",
+    "यदि मैं अपना क्विज आईडी या पासवर्ड भूल जाऊं तो क्या करूं?"
   ],
   'STALLS_QUERY': [
     "गोहाना जलेबी कहां मिलेगी?",
     "कश्मीरी शॉल कहां मिलेगा?",
-    "जोन A में सभी खाने के स्टॉल दिखाएं",
+    "जोन ए में सभी खाद्य स्टॉल दिखाएं",
     "कश्मीरी कहवा कहां उपलब्ध है?",
-    "राजस्थान से हस्तशिल्प बेचने वाले स्टॉल कौन से हैं?",
+    "कौन से स्टॉल राजस्थान से हस्तशिल्प बेचते हैं?",
     "मुझे हरियाणवी खाना चाहिए",
-    "100 रुपये के अंदर बजट-फ्रेंडली फूड स्टॉल",
-    "गीता की किताबें कहां से खरीदें?",
+    "100 रुपये से कम में बजट-अनुकूल खाद्य स्टॉल",
+    "गीता की किताबें कहां से खरीदूं?",
     "कश्मीर के सभी स्टॉल दिखाएं",
-    "जैविक और वेलनेस उत्पाद स्टॉल"
+    "जैविक और कल्याण उत्पाद स्टॉल"
   ]
 };
 
-let selectedQueryType = '';
+let selectedQueryType = null;
 let selectedLanguage = 'English';
-
-function selectQueryType(type) {
-  selectedQueryType = type;
-  const gitaRadio = document.getElementById('gitaRadio');
-  const eventRadio = document.getElementById('eventRadio');
-  const gitaOption = gitaRadio.parentElement;
-  const eventOption = eventRadio.parentElement;
-  const questionSection = document.getElementById('questionSection');
-  const userInput = document.getElementById('userInput');
-  
-  if (type === 'gita') {
-    gitaRadio.checked = true;
-    gitaOption.classList.add('selected');
-    eventOption.classList.remove('selected');
-    populateCategoriesForGita();
-    userInput.placeholder = 'Ask your question... e.g., "How to find inner peace?"';
-  } else {
-    eventRadio.checked = true;
-    eventOption.classList.add('selected');
-    gitaOption.classList.remove('selected');
-    populateCategoriesForEvent();
-    userInput.placeholder = 'Ask your question... e.g., "Where is parking?" or "Today\'s events?"';
-  }
-  
-  questionSection.style.display = 'block';
-  setTimeout(() => {
-    questionSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 100);
-}
-
-function populateCategoriesForGita() {
-  const categorySelect = document.getElementById('categorySelect');
-  categorySelect.innerHTML = '<option value="" selected disabled>' + 
-    (selectedLanguage === 'Hindi' ? 'विषय चुनें' : 'Select Topic') + '</option>';
-  
-  if (selectedLanguage === 'Hindi') {
-    categorySelect.innerHTML += '<option value="GENERAL_WISDOM">🔿 सामान्य ज्ञान</option>';
-    categorySelect.innerHTML += '<option disabled>━━━━ जीवन की विशिष्ट परिस्थितियां ━━━━</option>';
-    categorySelect.innerHTML += '<option value="SPIRITUAL_CRISIS">🙏 आध्यात्मिक संकट और जीवन का उद्देश्य</option>';
-    categorySelect.innerHTML += '<option value="CAREER_MONEY">💼 करियर, सफलता और वित्तीय संघर्ष</option>';
-    categorySelect.innerHTML += '<option value="IDENTITY_CRISIS">🪞 आत्म-सम्मान और पहचान का संकट</option>';
-    categorySelect.innerHTML += '<option value="MENTAL_HEALTH">🧠 मानसिक और भावनात्मक स्वास्थ्य</option>';
-    categorySelect.innerHTML += '<option value="FAMILY_CONFLICT">👨‍👩‍👧‍👦 पारिवारिक संबंधों का द्वंद्व</option>';
-    categorySelect.innerHTML += '<option value="BETRAYAL_INJUSTICE">⚖️ विश्वासघात, अन्याय और धोखा</option>';
-    categorySelect.innerHTML += '<option value="AGING_DEATH">🕉️ बीमारी, बुढ़ापा और मृत्यु</option>';
-    categorySelect.innerHTML += '<option value="LOVE_MARRIAGE">💑 प्रेम, विवाह और रोमांटिक जीवन</option>';
-  } else {
-    categorySelect.innerHTML += '<option value="GENERAL_WISDOM">🔿 General Wisdom</option>';
-    categorySelect.innerHTML += '<option disabled>━━━━ Specific Life Situations ━━━━</option>';
-    categorySelect.innerHTML += '<option value="SPIRITUAL_CRISIS">🙏 Spiritual Crisis & Life Purpose</option>';
-    categorySelect.innerHTML += '<option value="CAREER_MONEY">💼 Career, Success & Financial Struggles</option>';
-    categorySelect.innerHTML += '<option value="IDENTITY_CRISIS">🪞 Self-Esteem & Identity Crisis</option>';
-    categorySelect.innerHTML += '<option value="MENTAL_HEALTH">🧠 Mental & Emotional Health</option>';
-    categorySelect.innerHTML += '<option value="FAMILY_CONFLICT">👨‍👩‍👧‍👦 Family Relationship Conflicts</option>';
-    categorySelect.innerHTML += '<option value="BETRAYAL_INJUSTICE">⚖️ Betrayal, Injustice & Deception</option>';
-    categorySelect.innerHTML += '<option value="AGING_DEATH">🕉️ Illness, Aging & Death</option>';
-    categorySelect.innerHTML += '<option value="LOVE_MARRIAGE">💑 Love, Marriage & Romantic Life</option>';
-  }
-  
-  categorySelect.disabled = false;
-  const questionSelect = document.getElementById('questionSelect');
-  questionSelect.innerHTML = '<option value="" selected disabled>' + 
-    (selectedLanguage === 'Hindi' ? 'प्रश्न चुनें' : 'Select Question') + '</option>';
-  questionSelect.disabled = true;
-  document.getElementById('userInput').value = '';
-}
-function populateCategoriesForEvent() {
-  const categorySelect = document.getElementById('categorySelect');
-  categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
-  categorySelect.innerHTML += '<option value="QUIZ_QUERY">❓ Online IGM Quiz</option>';
-  categorySelect.innerHTML += '<option value="EVENT_QUERY">📅 Events & Schedule</option>';
-  categorySelect.innerHTML += '<option value="STALLS_QUERY">🪔 Stalls & Shopping</option>';
-  categorySelect.innerHTML += '<option value="FACILITY_QUERY">🏢 Facilities</option>';
-  categorySelect.innerHTML += '<option value="TRANSPORT_QUERY">🚗 Transport & Travel</option>';
-  categorySelect.innerHTML += '<option value="GENERAL_INFO">ℹ️ General Info</option>';
-  categorySelect.innerHTML += '<option value="TOURISM_QUERY">🛕 Tourist Places</option>';
-  categorySelect.innerHTML += '<option value="ACCOMMODATION_QUERY">🏨 Accommodation</option>';
-  categorySelect.innerHTML += '<option value="COMPETITION_QUERY">🏆 Competitions</option>';
-  categorySelect.innerHTML += '<option value="EMERGENCY_QUERY">🚨 Emergency Help</option>';
-  categorySelect.innerHTML += '<option value="FAQ_QUERY">❓ Common Questions</option>';
-  categorySelect.disabled = false;
-  document.getElementById('questionSelect').innerHTML = '<option value="" selected disabled>Select Question</option>';
-  document.getElementById('questionSelect').disabled = true;
-  document.getElementById('userInput').value = '';
-}
+let currentQuestions = {};
 
 const categorySelect = document.getElementById('categorySelect');
 const questionSelect = document.getElementById('questionSelect');
-const userQueryInput = document.getElementById('userInput');
+const questionSection = document.getElementById('questionSection');
 
-function populateQuestions(category) {
+function selectQueryType(type) {
+  selectedQueryType = type;
+  
+  document.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+  const clickedOption = type === 'gita' ? 
+    document.querySelector('.radio-option:first-of-type') : 
+    document.querySelector('.radio-option:last-of-type');
+  clickedOption.classList.add('selected');
+  
+  if (type === 'gita') {
+    document.getElementById('gitaRadio').checked = true;
+  } else {
+    document.getElementById('eventRadio').checked = true;
+  }
+  
+  loadCategories();
+  questionSection.style.display = 'block';
+}
+
+function loadCategories() {
+  categorySelect.innerHTML = '<option value="" selected disabled>Select Topic</option>';
   questionSelect.innerHTML = '<option value="" selected disabled>Select Question</option>';
   questionSelect.disabled = true;
   
-  let questions = [];
+  currentQuestions = selectedQueryType === 'gita' ? 
+    (selectedLanguage === 'Hindi' ? gitaQuestionsHindi : gitaQuestions) :
+    (selectedLanguage === 'Hindi' ? eventQuestionsHindi : eventQuestions);
   
-  if (selectedQueryType === 'gita') {
-    if (selectedLanguage === 'Hindi' && gitaQuestionsHindi[category]) {
-      questions = gitaQuestionsHindi[category];
-    } else if (gitaQuestions[category]) {
-      questions = gitaQuestions[category];
-    }
-  } else if (selectedQueryType === 'event') {
-    if (selectedLanguage === 'Hindi' && eventQuestionsHindi[category]) {
-      questions = eventQuestionsHindi[category];
-    } else if (eventQuestions[category]) {
-      questions = eventQuestions[category];
-    }
-  }
-  
-  if (questions.length > 0) {
-    questions.forEach(q => {
-      const option = document.createElement('option');
-      option.value = q;
-      option.textContent = q;
-      questionSelect.appendChild(option);
-    });
-    questionSelect.disabled = false;
-  }
+  Object.keys(currentQuestions).forEach(category => {
+    const option = document.createElement('option');
+    option.value = category;
+    option.textContent = formatCategoryName(category);
+    categorySelect.appendChild(option);
+  });
 }
 
-categorySelect.addEventListener('change', () => {
-  populateQuestions(categorySelect.value);
-  userQueryInput.value = '';
+function formatCategoryName(category) {
+  return category.replace(/_/g, ' ')
+    .split(' ')
+    .map(word => word.charAt(0) + word.slice(1).toLowerCase())
+    .join(' ');
+}
+
+categorySelect.addEventListener('change', function() {
+  questionSelect.innerHTML = '<option value="" selected disabled>Select Question</option>';
+  questionSelect.disabled = false;
+  
+  const selectedCategory = this.value;
+  if (currentQuestions[selectedCategory]) {
+    currentQuestions[selectedCategory].forEach(question => {
+      const option = document.createElement('option');
+      option.value = question;
+      option.textContent = question;
+      questionSelect.appendChild(option);
+    });
+  }
 });
 
-questionSelect.addEventListener('change', () => {
-  userQueryInput.value = questionSelect.value;
+questionSelect.addEventListener('change', function() {
+  document.getElementById('userInput').value = this.value;
 });
 
 document.querySelectorAll('.langBtn').forEach(btn => {
   btn.addEventListener('click', function() {
-    selectedLanguage = this.dataset.lang;
+    selectedLanguage = this.getAttribute('data-lang');
     document.querySelectorAll('.langBtn').forEach(b => b.classList.remove('active'));
     this.classList.add('active');
-    
-    // Update placeholder text based on selected query type
-    const userInput = document.getElementById('userInput');
-    if (selectedQueryType === 'gita') {
-      userInput.placeholder = selectedLanguage === 'Hindi' ? 
-        'अपना प्रश्न पूछें... जैसे, "आंतरिक शांति कैसे पाएं?"' : 
-        'Ask your question... e.g., "How to find inner peace?"';
-    } else if (selectedQueryType === 'event') {
-      userInput.placeholder = selectedLanguage === 'Hindi' ? 
-        'अपना प्रश्न पूछें... जैसे, "पार्किंग कहाँ है?" या "आज के कार्यक्रम?"' : 
-        'Ask your question... e.g., "Where is parking?" or "Today\'s events?"';
-    }
-    
-    // Repopulate categories if a query type is selected
-    if (selectedQueryType === 'gita') {
-      populateCategoriesForGita();
-    } else if (selectedQueryType === 'event') {
-      populateCategoriesForEvent();
-    }
-    
-    const currentCategory = categorySelect.value;
-    if (currentCategory) {
-      populateQuestions(currentCategory);
-    }
+    loadCategories();
   });
 });
 
-let ttsUtterance = null;
 let isSpeaking = false;
-let voicesLoaded = false;
+let ttsUtterance = null;
 let manualStop = false;
+const ttsBtn = document.getElementById('ttsToggle');
+const ttsLabel = document.getElementById('ttsLabel');
 
-function loadVoices() {
-  return new Promise((resolve) => {
-    let voices = speechSynthesis.getVoices();
-    if (voices.length > 0) {
-      voicesLoaded = true;
-      resolve(voices);
-    } else {
-      speechSynthesis.addEventListener('voiceschanged', () => {
-        voices = speechSynthesis.getVoices();
-        voicesLoaded = true;
-        resolve(voices);
-      }, { once: true });
-      
-      setTimeout(() => {
-        voices = speechSynthesis.getVoices();
-        voicesLoaded = true;
-        resolve(voices);
-      }, 1000);
-    }
-  });
-}
-
-loadVoices();    
-
-document.getElementById('ttsToggle').addEventListener('click', async () => {
-  const ttsBtn = document.getElementById('ttsToggle');
-  const ttsLabel = document.getElementById('ttsLabel');
-  const answerText = document.getElementById('modalAnswer').textContent;
-  
-  if (!answerText || answerText === 'Thinking...') return;
-  
+ttsBtn.addEventListener('click', () => {
   if (isSpeaking) {
     manualStop = true;
     speechSynthesis.cancel();
@@ -1445,16 +1443,26 @@ document.getElementById('ttsToggle').addEventListener('click', async () => {
   }
   
   manualStop = false;
-  const voices = await loadVoices();
-  speechSynthesis.cancel();
-  await new Promise(resolve => setTimeout(resolve, 100));
+  const answerText = document.getElementById('modalAnswer').textContent;
+  
+  if (!answerText || answerText === 'Thinking...') {
+    alert('No answer to read yet!');
+    return;
+  }
+  
+  if (!('speechSynthesis' in window)) {
+    alert('Text-to-speech is not supported in your browser.');
+    return;
+  }
   
   ttsUtterance = new SpeechSynthesisUtterance(answerText);
-  ttsUtterance.rate = 0.85;
+  ttsUtterance.rate = 0.9;
   ttsUtterance.pitch = 1;
   ttsUtterance.volume = 1;
   
+  const voices = speechSynthesis.getVoices();
   let selectedVoice = null;
+  
   const hindiVoices = voices.filter(voice => 
     voice.lang.startsWith('hi') || 
     voice.lang === 'hi-IN' ||
@@ -1681,27 +1689,22 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
 // ============= FEEDBACK MODAL FUNCTIONS =============
 function openFeedback() {
   const feedbackModal = document.getElementById('feedbackModal');
   const feedbackIframe = document.getElementById('feedbackIframe');
   const iframeLoader = document.getElementById('iframeLoader');
   
-  // Show modal
   feedbackModal.classList.add('show');
-  
-  // Show loader
   iframeLoader.style.display = 'block';
   
-  // Load iframe
   feedbackIframe.src = 'https://vksinglakkr.github.io/IGM2025/feedback_igm_chatbot.html';
   
-  // Hide loader when iframe loads
   feedbackIframe.onload = function() {
     iframeLoader.style.display = 'none';
   };
   
-  // Handle errors
   feedbackIframe.onerror = function() {
     iframeLoader.innerHTML = '<p style="color: #ef4444; font-weight: 600;">Failed to load feedback form</p>';
   };
@@ -1712,21 +1715,54 @@ function closeFeedback() {
   const feedbackIframe = document.getElementById('feedbackIframe');
   const iframeLoader = document.getElementById('iframeLoader');
   
-  // Hide modal
   feedbackModal.classList.remove('show');
-  
-  // Clear iframe
   feedbackIframe.src = '';
   
-  // Reset loader
   iframeLoader.style.display = 'none';
   iframeLoader.innerHTML = '<div class="spinner"></div><p style="color: #64748b; font-weight: 600;">Loading feedback form...</p>';
 }
 
-// Close modal when clicking outside
 document.getElementById('feedbackModal').addEventListener('click', function(e) {
   if (e.target === this) {
     closeFeedback();
+  }
+});
+
+// ============= QUIZ CHATBOT MODAL FUNCTIONS =============
+function openQuizChatbot() {
+  const quizModal = document.getElementById('quizModal');
+  const quizIframe = document.getElementById('quizIframe');
+  const quizIframeLoader = document.getElementById('quizIframeLoader');
+  
+  quizModal.classList.add('show');
+  quizIframeLoader.style.display = 'block';
+  
+  quizIframe.src = 'https://vksinglakkr.github.io/IGM2025/chatbotQuiz.html';
+  
+  quizIframe.onload = function() {
+    quizIframeLoader.style.display = 'none';
+  };
+  
+  quizIframe.onerror = function() {
+    quizIframeLoader.innerHTML = '<p style="color: #ef4444; font-weight: 600;">Failed to load Quiz Chatbot</p>';
+  };
+}
+
+function closeQuizChatbot() {
+  const quizModal = document.getElementById('quizModal');
+  const quizIframe = document.getElementById('quizIframe');
+  const quizIframeLoader = document.getElementById('quizIframeLoader');
+  
+  quizModal.classList.remove('show');
+  quizIframe.src = '';
+  
+  quizIframeLoader.style.display = 'none';
+  quizIframeLoader.innerHTML = '<div class="spinner"></div><p style="color: #64748b; font-weight: 600;">Loading Quiz Chatbot...</p>';
+}
+
+document.getElementById('quizModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeQuizChatbot();
   }
 });
 
