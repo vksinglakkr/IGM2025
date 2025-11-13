@@ -183,7 +183,7 @@
         .rating-row {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 10px;
             margin-bottom: 24px;
             flex-wrap: wrap;
         }
@@ -198,7 +198,7 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            gap: 20px;
+            gap: 30px; /* Increased gap between stars */
         }
 
         .rating-stars input[type="radio"] {
@@ -214,14 +214,9 @@
             margin: 0;
         }
 
-        /* Hover effect - stars light up from left to the hovered star */
-        .rating-stars:hover label {
-            color: #ccc;
-        }
-
-        .rating-stars label:hover,
-        .rating-stars label:hover ~ label {
-            color: orange !important;
+        /* Hover effect */
+        .rating-stars label:hover {
+            color: orange;
         }
 
         /* Selected state */
@@ -304,6 +299,10 @@
                 align-items: flex-start;
             }
 
+            .rating-stars {
+                gap: 20px;
+            }
+
             .rating-stars label {
                 font-size: 28px;
             }
@@ -325,7 +324,7 @@
 
              <div class="form-group">
                     <label for="city">Address <span style="font-size: 12px; color: #666;">(Optional)</span></label>
-                    <input type="text" id="city" name="city" placeholder="Enter your address" required>
+                    <input type="text" id="city" name="city" placeholder="Enter your address">
                 </div>
 
                 <!-- Usage Information -->
@@ -345,15 +344,15 @@
                     <div class="checkbox-group">
                         <div class="checkbox-item">
                             <input type="checkbox" id="purpose2" name="purpose" value="IGM event information">
-                            <label for="purpose1">IGM event information</label>
+                            <label for="purpose2">IGM event information</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="purpose3" name="purpose" value="Bhagavad Gita knowledge/verses">
-                            <label for="purpose2">Bhagavad Gita knowledge/verses</label>
+                            <label for="purpose3">Bhagavad Gita knowledge/verses</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="purpose1" name="purpose" value="Gita Quiz related queries">
-                            <label for="purpose3">Gita Quiz related queries</label>
+                            <label for="purpose1">Gita Quiz related queries</label>
                         </div>
                     </div>
                 </div>
@@ -417,18 +416,20 @@
     </div>
 
     <script>
-        // Add JavaScript to handle proper hover effect for left-to-right stars
+        // Fix star hover and selection for left-to-right display
         document.addEventListener('DOMContentLoaded', function() {
             const stars = document.querySelectorAll('.rating-stars label');
             const inputs = document.querySelectorAll('.rating-stars input[type="radio"]');
+            const starContainer = document.querySelector('.rating-stars');
             
+            // Handle hover
             stars.forEach((star, index) => {
                 star.addEventListener('mouseenter', function() {
-                    // Highlight all stars up to and including the hovered star
+                    // Light up all stars from left to current
                     for (let i = 0; i <= index; i++) {
                         stars[i].style.color = 'orange';
                     }
-                    // Reset stars after the hovered star
+                    // Gray out stars after current
                     for (let i = index + 1; i < stars.length; i++) {
                         stars[i].style.color = '#ccc';
                     }
@@ -436,13 +437,10 @@
             });
             
             // Reset on mouse leave
-            document.querySelector('.rating-stars').addEventListener('mouseleave', function() {
-                // Find checked star and color appropriately
+            starContainer.addEventListener('mouseleave', function() {
                 let checkedIndex = -1;
                 inputs.forEach((input, index) => {
-                    if (input.checked) {
-                        checkedIndex = index;
-                    }
+                    if (input.checked) checkedIndex = index;
                 });
                 
                 if (checkedIndex >= 0) {
@@ -457,7 +455,7 @@
                 }
             });
             
-            // Handle click to persist color
+            // Handle selection
             inputs.forEach((input, index) => {
                 input.addEventListener('change', function() {
                     if (this.checked) {
@@ -475,7 +473,9 @@
         function toggleProblemDetails() {
             const hadProblems = document.getElementById('hadProblems').value;
             const problemDetailsGroup = document.getElementById('problemDetailsGroup');
-            problemDetailsGroup.style.display = hadProblems === 'Yes' ? 'block' : 'none';
+            if (problemDetailsGroup) {
+                problemDetailsGroup.style.display = hadProblems === 'Yes' ? 'block' : 'none';
+            }
         }
 
         document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
@@ -538,6 +538,9 @@
                 if (response.ok) {
                     successMessage.style.display = 'block';
                     this.reset();
+                    // Reset star colors after form reset
+                    const stars = document.querySelectorAll('.rating-stars label');
+                    stars.forEach(star => star.style.color = '#ccc');
                     setTimeout(() => {
                         successMessage.style.display = 'none';
                     }, 5000);
