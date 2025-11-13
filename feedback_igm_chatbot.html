@@ -179,22 +179,22 @@
             font-weight: 500;
         }
 
-        .rating-stars {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+.rating-stars {
+    display: flex;
+    gap: 4px; /* Reduced gap */
+    flex-wrap: wrap;
+}
 
-        .star-option {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+.star-option {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px; /* Reduced padding for a smaller box */
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
         .star-option:hover {
             border-color: #FF6B35;
@@ -361,8 +361,19 @@
                 <!-- Overall Experience -->
                 <!-- <div class="section-title">🌟 Overall Experience</div> -->
 
-    <div class="form-group"><label>Overall chatbot experience rating <span class="required">*</span></label><div class="rating-stars"><div class="star-option"><input type="radio" id="rating5" name="rating" value="5" required><label for="rating5">⭐⭐⭐⭐⭐ (5 stars)</label></div><div class="star-option"><input type="radio" id="rating4" name="rating" value="4"><label for="rating4">⭐⭐⭐⭐ (4 stars)</label></div><div class="star-option"><input type="radio" id="rating3" name="rating" value="3"><label for="rating3">⭐⭐⭐ (3 stars)</label></div><div class="star-option"><input type="radio" id="rating2" name="rating" value="2"><label for="rating2">⭐⭐ (2 stars)</label></div><div class="star-option"><input type="radio" id="rating1" name="rating" value="1"><label for="rating1">⭐ (1 star)</label></div></div></div>
-
+    <div class="form-group">
+    <label>Overall chatbot experience rating <span class="required">*</span></label>
+    <div class="rating-stars">
+        <div class="star-option">
+            <input type="radio" id="rating5" name="rating" value="5" required>
+            <label for="rating5">⭐⭐⭐⭐⭐ (5 stars)</label>
+        </div>
+        <div class="star-option">
+            <input type="radio" id="rating4" name="rating" value="4">
+            <label for="rating4">⭐⭐⭐⭐ (4 stars)</label>
+        </div>
+        </div>
+</div>
                 <div class="form-group">
                     <label for="comments">Any other comments? <span style="font-size: 12px; color: #666;">(Optional)</span></label>
                     <textarea id="comments" name="comments" placeholder="Additional feedback..."></textarea>
