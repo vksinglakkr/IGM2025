@@ -1321,6 +1321,13 @@ const eventQuestions = {
     "Who will inaugurate the festival?"
   ],
   
+  'VVIP_VISITS': [
+    "Which VVIPs are coming?",
+    "When are dignitaries visiting?",
+    "Who is the chief guest?",
+    "Which VIPs on November 24?"
+  ],
+  
   'EXHIBITIONS': [
     "What exhibitions are there?",
     "Where is the institutions exhibition?",
@@ -1328,10 +1335,60 @@ const eventQuestions = {
     "Where are the stalls?"
   ],
   
-
+  'COMPETITIONS': [
+    "How to participate in Gita Quiz?",
+    "When is the online quiz?",
+    "What are student competitions?",
+    "When is essay writing competition?",
+    "Is there painting competition?",
+    "What about speech competition?"
+  ],
   
- 
-
+  'GENERAL_INFO': [
+    "What are the dates for IGM 2025?",
+    "When does the festival start and end?",
+    "How many days is IGM?",
+    "What is International Gita Mahotsav?",
+    "What are the main events?",
+    "Is entry free?"
+  ],
+  
+  'FACILITY_QUERY': [
+    "Where is parking?",
+    "Where are the toilets?",
+    "Is there a food court?",
+    "Where is the medical facility?",
+    "Where is the help desk?"
+  ],
+  
+  'TRANSPORT_QUERY': [
+    "How to reach from Delhi?",
+    "What's the best way from Chandigarh?",
+    "Are there buses available?",
+    "Where is the railway station?"
+  ],
+  
+  'ACCOMMODATION_QUERY': [
+    "Hotels near Brahma Sarovar?",
+    "Where can I stay?",
+    "Are there budget hotels?",
+    "Dharamshala booking information?"
+  ],
+  
+  'EMERGENCY_QUERY': [
+    "Emergency helpline number?",
+    "I lost my child, where to report?",
+    "Where is the police station?",
+    "Medical emergency contact?"
+  ],
+  
+  'STALLS_QUERY': [
+    "Where can I find Gohana Jalebi?",
+    "Where is Kashmiri Kahwa available?",
+    "Which stalls sell handicrafts?",
+    "Where can I buy Gita books?",
+    "Show me food stalls"
+  ]
 };
 
 const eventQuestionsHindi = {
@@ -1403,7 +1460,13 @@ const eventQuestionsHindi = {
     "उद्घाटन कौन करेगा?"
   ],
   
- 
+  'VVIP_VISITS': [
+    "कौन से वीवीआईपी आ रहे हैं?",
+    "गणमान्य व्यक्ति कब आएंगे?",
+    "मुख्य अतिथि कौन हैं?",
+    "24 नवम्बर को कौन से वीआईपी?"
+  ],
+  
   'EXHIBITIONS': [
     "कौन सी प्रदर्शनियां हैं?",
     "संस्थाओं की प्रदर्शनी कहाँ है?",
@@ -1411,7 +1474,60 @@ const eventQuestionsHindi = {
     "स्टॉल कहाँ हैं?"
   ],
   
-
+  'COMPETITIONS': [
+    "गीता क्विज़ में कैसे भाग लें?",
+    "ऑनलाइन क्विज़ कब है?",
+    "विद्यार्थी प्रतियोगिताएं क्या हैं?",
+    "निबंध लेखन प्रतियोगिता कब है?",
+    "चित्रकला प्रतियोगिता है क्या?",
+    "भाषण प्रतियोगिता के बारे में?"
+  ],
+  
+  'GENERAL_INFO': [
+    "आईजीएम 2025 की तारीखें क्या हैं?",
+    "महोत्सव कब शुरू और खत्म होगा?",
+    "आईजीएम कितने दिन का है?",
+    "अंतर्राष्ट्रीय गीता महोत्सव क्या है?",
+    "मुख्य कार्यक्रम क्या हैं?",
+    "प्रवेश निःशुल्क है?"
+  ],
+  
+  'FACILITY_QUERY': [
+    "पार्किंग कहाँ है?",
+    "शौचालय कहाँ हैं?",
+    "फूड कोर्ट है क्या?",
+    "चिकित्सा सुविधा कहाँ है?",
+    "हेल्प डेस्क कहाँ है?"
+  ],
+  
+  'TRANSPORT_QUERY': [
+    "दिल्ली से कैसे पहुंचें?",
+    "चंडीगढ़ से सबसे अच्छा तरीका?",
+    "बसें उपलब्ध हैं क्या?",
+    "रेलवे स्टेशन कहाँ है?"
+  ],
+  
+  'ACCOMMODATION_QUERY': [
+    "ब्रह्म सरोवर के पास होटल?",
+    "कहाँ ठहर सकते हैं?",
+    "बजट होटल हैं क्या?",
+    "धर्मशाला बुकिंग की जानकारी?"
+  ],
+  
+  'EMERGENCY_QUERY': [
+    "आपातकालीन हेल्पलाइन नंबर?",
+    "मेरा बच्चा खो गया, कहां रिपोर्ट करूं?",
+    "पुलिस स्टेशन कहाँ है?",
+    "चिकित्सा आपातकाल संपर्क?"
+  ],
+  
+  'STALLS_QUERY': [
+    "गोहाना जलेबी कहाँ मिलेगी?",
+    "कश्मीरी कहवा कहाँ उपलब्ध है?",
+    "कौन से स्टॉल हस्तशिल्प बेचते हैं?",
+    "गीता की किताबें कहाँ से खरीदूं?",
+    "खाद्य स्टॉल दिखाएं"
+  ]
 };
 
 let selectedQueryType = null;
@@ -1492,7 +1608,7 @@ function highlightMatch(text, query) {
 }
 
 function filterQuestions(query) {
-  if (!query || query.length < 2) {
+  if (!query || query.length < 1) {
     return [];
   }
   
@@ -1501,6 +1617,14 @@ function filterQuestions(query) {
   
   return allQuestions.filter(item => {
     const questionLower = item.question.toLowerCase();
+    
+    // Better matching for 3-4 character searches
+    if (query.length >= 3 && query.length <= 4) {
+      const wordBoundaryMatch = new RegExp(`\\b${query}`, 'i').test(questionLower);
+      const consecutiveMatch = questionLower.includes(query);
+      return wordBoundaryMatch || consecutiveMatch;
+    }
+    
     return keywords.some(keyword => questionLower.includes(keyword));
   }).slice(0, 8); // Show max 8 suggestions
 }
@@ -1823,13 +1947,39 @@ document.getElementById('closeModal').onclick = () => {
 
 document.getElementById('copyBtn').onclick = () => {
   const text = document.getElementById('modalAnswer').textContent;
-  navigator.clipboard.writeText(text).then(() => {
+  
+  // Modern clipboard API with fallback
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Copied!';
+      setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
+    }).catch(err => fallbackCopyText(text));
+  } else {
+    fallbackCopyText(text);
+  }
+};
+
+// Fallback copy function for older browsers
+function fallbackCopyText(text) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.style.position = 'fixed';
+  textArea.style.left = '-999999px';
+  document.body.appendChild(textArea);
+  textArea.select();
+  try {
+    document.execCommand('copy');
     const btn = document.getElementById('copyBtn');
     const originalHTML = btn.innerHTML;
     btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Copied!';
     setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
-  });
-};
+  } catch (err) {
+    alert('Copy failed. Please copy manually.');
+  }
+  document.body.removeChild(textArea);
+}
 
 const fluteMusic = document.getElementById('fluteMusic');
 const musicToggle = document.getElementById('musicToggle');
