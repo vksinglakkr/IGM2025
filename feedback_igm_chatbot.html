@@ -178,47 +178,47 @@
             cursor: pointer;
             font-weight: 500;
         }
-/* ENSURE YOU APPLY THIS CLASS TO THE PARENT DIV: <div class="rating-form-group"> */
-.rating-form-group {
+/* 1. Make the question label and the star container appear on the same line */
+.rating-row {
+    /* Main container is FLEX: pushes children (label and .rating-stars) horizontally */
     display: flex;
-    align-items: center; /* Vertically center the label and stars */
-    gap: 15px; /* Space between the text and the stars */
-    margin-bottom: 24px; /* Maintain spacing below the group */
+    align-items: center; /* Vertically centers the text with the stars */
+    gap: 10px; /* Space between the rating text and the stars */
+    margin-bottom: 24px;
+    flex-wrap: wrap; /* Allows text to wrap if the screen is super narrow */
 }
 
-/* 2. Style the main question label (to ensure it stays inline) */
-.rating-form-group > label {
-    /* Override the general 'display: block' rule */
-    display: inline-block; 
-    white-space: nowrap; /* Prevents the rating text from wrapping */
-    margin-bottom: 0; /* Remove extra vertical margin */
+/* 2. Override the general 'display: block' rule on the question label */
+.rating-row > label {
+    /* Forces the label to take only the width of its content */
+    display: inline; 
+    /* Prevents the text from wrapping, forcing the stars onto the same line */
+    white-space: nowrap; 
+    margin-bottom: 0; /* Important: removes the default margin that pushes things down */
 }
 
-/* 3. Configure the star container itself */
+/* 3. Configure the star container itself (The stars are inside this) */
 .rating-stars {
     display: flex;
-    flex-direction: row-reverse; /* Arranges stars 1-5 left to right */
+    /* Sets the star order to be 1, 2, 3, 4, 5 from left to right */
+    flex-direction: row-reverse; 
     align-items: center;
     padding: 0;
 }
 
-/* Hide the actual radio buttons */
+/* 4. Star Styling and Effects (The rest is perfect) */
 .rating-stars input[type="radio"] {
     display: none;
 }
-
-/* Style the star labels */
 .rating-stars label {
     font-size: 24px;
     color: #ccc;
     cursor: pointer;
     transition: color 0.2s;
-    margin: 0; /* Ensure no extra margin */
-    /* Override the general 'display: block' rule from the top of your CSS */
+    margin: 0 2px; /* Small horizontal margin between stars */
+    /* Ensure the star label isn't blocking anything */
     display: inline-block; 
 }
-
-/* 4. HOVER and CHECKED effects remain the same (Perfect!) */
 .rating-stars label:hover,
 .rating-stars label:hover ~ label {
     color: orange;
@@ -376,8 +376,8 @@
                 <!-- <div class="section-title">🌟 Overall Experience</div> -->
 
 
-<div class="rating-form-group"> 
-    <label>Overall chatbot experience rating <span class="required">*</span></label>
+<div class="rating-row">     
+    <label>Overall chatbot experience rating <span class="required">*</span></label>
     <div class="rating-stars">
         <input type="radio" id="s5" name="rating" value="5" /><label for="s5">★</label>
         <input type="radio" id="s4" name="rating" value="4" /><label for="s4">★</label>
