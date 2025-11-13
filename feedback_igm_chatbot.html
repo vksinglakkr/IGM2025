@@ -178,68 +178,69 @@
             cursor: pointer;
             font-weight: 500;
         }
-/* 1. Make the question label and the star container appear on the same line */
-.rating-row {
-    /* Main container is FLEX: pushes children (label and .rating-stars) horizontally */
-    display: flex;
-    align-items: center; /* Vertically centers the text with the stars */
-    gap: 10px; /* Space between the rating text and the stars */
-    margin-bottom: 24px;
-    flex-wrap: wrap; /* Allows text to wrap if the screen is super narrow */
-}
 
-/* 2. Override the general 'display: block' rule on the question label */
-.rating-row > label {
-    /* Forces the label to take only the width of its content */
-    display: inline; 
-    /* Prevents the text from wrapping, forcing the stars onto the same line */
-    white-space: nowrap; 
-    margin-bottom: 0; /* Important: removes the default margin that pushes things down */
-}
+        /* FIXED: Rating stars display horizontally */
+        .rating-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
 
-/* 3. Configure the star container itself (The stars are inside this) */
-.rating-stars {
-    display: flex;
-    /* Sets the star order to be 1, 2, 3, 4, 5 from left to right */
-    flex-direction: row-reverse; 
-    align-items: center;
-    padding: 0;
-}
+        .rating-row > label {
+            display: inline;
+            white-space: nowrap;
+            margin-bottom: 0;
+        }
 
-/* 4. Star Styling and Effects (The rest is perfect) */
-.rating-stars input[type="radio"] {
-    display: none;
-}
-.rating-stars label {
-    font-size: 24px;
-    color: #ccc;
-    cursor: pointer;
-    transition: color 0.2s;
-    margin: 0 2px; /* Small horizontal margin between stars */
-    /* Ensure the star label isn't blocking anything */
-    display: inline-block; 
-}
-.rating-stars label:hover,
-.rating-stars label:hover ~ label {
-    color: orange;
-}
-.rating-stars input[type="radio"]:checked ~ label {
-    color: orange;
-}
+        .rating-stars {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .rating-stars input[type="radio"] {
+            display: none;
+        }
+
+        .rating-stars label {
+            font-size: 32px;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.2s;
+            display: inline-block;
+            margin: 0;
+        }
+
+        /* Hover effect - stars light up from left to the hovered star */
+        .rating-stars:hover label {
+            color: #ccc;
+        }
+
+        .rating-stars label:hover,
+        .rating-stars label:hover ~ label {
+            color: orange !important;
+        }
+
+        /* Selected state */
+        .rating-stars input[type="radio"]:checked ~ label {
+            color: orange;
+        }
+
         .submit-btn {
             background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
             color: white;
+            padding: 16px 40px;
             border: none;
-            padding: 18px 40px;
+            border-radius: 12px;
             font-size: 18px;
             font-weight: 700;
-            border-radius: 12px;
             cursor: pointer;
             width: 100%;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .submit-btn:hover {
@@ -247,8 +248,12 @@
             box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
         }
 
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
         .submit-btn:disabled {
-            background: #ccc;
+            opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
@@ -261,8 +266,7 @@
             border-radius: 12px;
             text-align: center;
             margin-top: 20px;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 16px;
         }
 
         .error-message {
@@ -295,8 +299,13 @@
                 font-size: 10px;
             }
 
-            .rating-stars {
+            .rating-row {
                 flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .rating-stars label {
+                font-size: 28px;
             }
         }
     </style>
@@ -375,18 +384,16 @@
                 <!-- Overall Experience -->
                 <!-- <div class="section-title">🌟 Overall Experience</div> -->
 
-
-<div class="rating-row">     
-    <label>Overall chatbot experience rating <span class="required">*</span></label>
-    <div class="rating-stars">
-        <input type="radio" id="s5" name="rating" value="5" /><label for="s5">★</label>
-        <input type="radio" id="s4" name="rating" value="4" /><label for="s4">★</label>
-        <input type="radio" id="s3" name="rating" value="3" /><label for="s3">★</label>
-        <input type="radio" id="s2" name="rating" value="2" /><label for="s2">★</label>
-        <input type="radio" id="s1" name="rating" value="1" /><label for="s1">★</label>
-    </div>
-</div>
-                
+                <div class="rating-row">     
+                    <label>Overall chatbot experience rating <span class="required">*</span></label>
+                    <div class="rating-stars">
+                        <input type="radio" id="s1" name="rating" value="1" required /><label for="s1">★</label>
+                        <input type="radio" id="s2" name="rating" value="2" /><label for="s2">★</label>
+                        <input type="radio" id="s3" name="rating" value="3" /><label for="s3">★</label>
+                        <input type="radio" id="s4" name="rating" value="4" /><label for="s4">★</label>
+                        <input type="radio" id="s5" name="rating" value="5" /><label for="s5">★</label>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label for="comments">Any other comments? <span style="font-size: 12px; color: #666;">(Optional)</span></label>
@@ -410,6 +417,61 @@
     </div>
 
     <script>
+        // Add JavaScript to handle proper hover effect for left-to-right stars
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.rating-stars label');
+            const inputs = document.querySelectorAll('.rating-stars input[type="radio"]');
+            
+            stars.forEach((star, index) => {
+                star.addEventListener('mouseenter', function() {
+                    // Highlight all stars up to and including the hovered star
+                    for (let i = 0; i <= index; i++) {
+                        stars[i].style.color = 'orange';
+                    }
+                    // Reset stars after the hovered star
+                    for (let i = index + 1; i < stars.length; i++) {
+                        stars[i].style.color = '#ccc';
+                    }
+                });
+            });
+            
+            // Reset on mouse leave
+            document.querySelector('.rating-stars').addEventListener('mouseleave', function() {
+                // Find checked star and color appropriately
+                let checkedIndex = -1;
+                inputs.forEach((input, index) => {
+                    if (input.checked) {
+                        checkedIndex = index;
+                    }
+                });
+                
+                if (checkedIndex >= 0) {
+                    for (let i = 0; i <= checkedIndex; i++) {
+                        stars[i].style.color = 'orange';
+                    }
+                    for (let i = checkedIndex + 1; i < stars.length; i++) {
+                        stars[i].style.color = '#ccc';
+                    }
+                } else {
+                    stars.forEach(star => star.style.color = '#ccc');
+                }
+            });
+            
+            // Handle click to persist color
+            inputs.forEach((input, index) => {
+                input.addEventListener('change', function() {
+                    if (this.checked) {
+                        for (let i = 0; i <= index; i++) {
+                            stars[i].style.color = 'orange';
+                        }
+                        for (let i = index + 1; i < stars.length; i++) {
+                            stars[i].style.color = '#ccc';
+                        }
+                    }
+                });
+            });
+        });
+
         function toggleProblemDetails() {
             const hadProblems = document.getElementById('hadProblems').value;
             const problemDetailsGroup = document.getElementById('problemDetailsGroup');
