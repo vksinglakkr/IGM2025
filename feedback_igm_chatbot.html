@@ -179,13 +179,21 @@
             font-weight: 500;
         }
 
-.rating-stars {
-    /* Set up the container to display elements in a row */
+/* 1. Make the question label and the star container appear on the same line */
+.form-group {
     display: flex;
-    flex-direction: row-reverse; /* Reverses the order so 5-star is on the right */
+    align-items: center; /* Vertically center the label and stars */
+    gap: 15px; /* Space between the text and the stars */
+}
+
+/* 2. Configure the star container itself */
+.rating-stars {
+    /* Use Flexbox for star arrangement */
+    display: flex;
+    /* This makes the 5-star appear on the right, arranging them left-to-right (1 to 5) */
+    flex-direction: row-reverse; 
     align-items: center;
-    justify-content: flex-end; /* Pushes the main label to the left, stars to the right */
-    padding: 10px 0;
+    padding: 0;
 }
 
 /* Hide the actual radio buttons */
@@ -195,31 +203,23 @@
 
 /* Style the default (unselected) star label */
 .rating-stars label {
-    font-size: 24px; /* Make the stars visible and large */
-    color: #ccc; /* Default grey color */
+    font-size: 24px;
+    color: #ccc; 
     cursor: pointer;
     transition: color 0.2s;
-    margin-right: 2px;
+    /* Important: Remove any default margin that could cause vertical space */
+    margin: 0; 
 }
 
-/* 1. HOVER EFFECT (Drag/Mouseover) */
-/* When a label is hovered, it and ALL PREVIOUS siblings (in HTML order) change color */
+/* 3. HOVER EFFECT (Drag/Mouseover) */
 .rating-stars label:hover,
 .rating-stars label:hover ~ label {
-    color: orange; /* Color for hover */
+    color: orange;
 }
 
-/* 2. CHECKED (Selected) EFFECT */
-/* When an input is checked, the subsequent labels (in DOM order) change color */
+/* 4. CHECKED (Selected) EFFECT */
 .rating-stars input[type="radio"]:checked ~ label {
-    color: orange; /* Color for selected stars */
-}
-
-/* 3. Ensure the main "Overall rating" label isn't affected by the star styling */
-.rating-stars > label:first-child {
-    font-size: 16px;
-    color: initial;
-    margin-right: 15px; /* Space between the rating text and the stars */
+    color: orange;
 }
         .submit-btn {
             background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
@@ -370,15 +370,18 @@
                 <!-- Overall Experience -->
                 <!-- <div class="section-title">🌟 Overall Experience</div> -->
 
-    <div class="form-group">
-<div class="rating-stars">
+
+<div class="form-group">
     <label>Overall chatbot experience rating <span class="required">*</span></label>
-    <input type="radio" id="s5" name="rating" value="5" /><label for="s5">★</label>
-    <input type="radio" id="s4" name="rating" value="4" /><label for="s4">★</label>
-    <input type="radio" id="s3" name="rating" value="3" /><label for="s3">★</label>
-    <input type="radio" id="s2" name="rating" value="2" /><label for="s2">★</label>
-    <input type="radio" id="s1" name="rating" value="1" /><label for="s1">★</label>
-</div></div>
+    <div class="rating-stars">
+        <input type="radio" id="s5" name="rating" value="5" /><label for="s5">★</label>
+        <input type="radio" id="s4" name="rating" value="4" /><label for="s4">★</label>
+        <input type="radio" id="s3" name="rating" value="3" /><label for="s3">★</label>
+        <input type="radio" id="s2" name="rating" value="2" /><label for="s2">★</label>
+        <input type="radio" id="s1" name="rating" value="1" /><label for="s1">★</label>
+    </div>
+</div>
+
                 <div class="form-group">
                     <label for="comments">Any other comments? <span style="font-size: 12px; color: #666;">(Optional)</span></label>
                     <textarea id="comments" name="comments" placeholder="Additional feedback..."></textarea>
