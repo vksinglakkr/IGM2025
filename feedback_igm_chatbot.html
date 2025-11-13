@@ -179,16 +179,19 @@
             font-weight: 500;
         }
 
+/* 1. Sets up the main container for horizontal display and spacing */
 .rating-stars {
     display: flex;
-    gap: 4px; /* Reduced gap */
-    flex-wrap: wrap;
+    align-items: center; /* Vertically aligns inputs and labels */
+    gap: 8px; /* Space between each rating group */
+    flex-wrap: wrap; 
 }
 
-.star-option {
-    display: flex;
+/* 2. Style the rating box/container, now applied to the clickable <label> */
+.rating-stars label {
+    display: flex; /* Helps align the text/stars inside the label */
     align-items: center;
-    padding: 8px 12px; /* Reduced padding for a smaller box */
+    padding: 8px 12px; /* Compact padding for a smaller box */
     background: white;
     border: 2px solid #e0e0e0;
     border-radius: 10px;
@@ -196,22 +199,26 @@
     transition: all 0.3s ease;
 }
 
-        .star-option:hover {
-            border-color: #FF6B35;
-            background: #FFF5F0;
-            transform: translateY(-2px);
-        }
+/* 3. Hover effect on the label */
+.rating-stars label:hover {
+    border-color: #FF6B35;
+    background: #FFF5F0;
+    transform: translateY(-2px);
+}
 
-        .star-option input[type="radio"] {
-            margin-right: 8px;
-            accent-color: #FF6B35;
-        }
+/* 4. Hide the actual radio button. This is common for visually clean star ratings. */
+.rating-stars input[type="radio"] {
+    /* Hide the radio button itself */
+    display: none;
+}
 
-        .star-option input[type="radio"]:checked + label {
-            color: #FF6B35;
-            font-weight: 700;
-        }
-
+/* 5. Style the label when its corresponding radio button IS checked */
+.rating-stars input[type="radio"]:checked + label {
+    color: #FF6B35;
+    font-weight: 700;
+    border-color: #FF6B35; /* Optional: Highlight the border when selected */
+    background: #FFF5F0; /* Optional: Highlight the background when selected */
+}
         .submit-btn {
             background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
             color: white;
@@ -363,16 +370,7 @@
 
     <div class="form-group">
     <label>Overall chatbot experience rating <span class="required">*</span></label>
-    <div class="rating-stars">
-        <div class="star-option">
-            <input type="radio" id="rating5" name="rating" value="5" required>
-            <label for="rating5">⭐⭐⭐⭐⭐ (5 stars)</label>
-        </div>
-        <div class="star-option">
-            <input type="radio" id="rating4" name="rating" value="4">
-            <label for="rating4">⭐⭐⭐⭐ (4 stars)</label>
-        </div>
-        </div>
+<div class="form-group"><label>Overall chatbot experience rating <span class="required">*</span></label><div class="rating-stars"><input type="radio" id="rating5" name="rating" value="5" required><label for="rating5">⭐⭐⭐⭐⭐ (5 stars)</label><input type="radio" id="rating4" name="rating" value="4"><label for="rating4">⭐⭐⭐⭐ (4 stars)</label><input type="radio" id="rating3" name="rating" value="3"><label for="rating3">⭐⭐⭐ (3 stars)</label><input type="radio" id="rating2" name="rating" value="2"><label for="rating2">⭐⭐ (2 stars)</label><input type="radio" id="rating1" name="rating" value="1"><label for="rating1">⭐ (1 star)</label></div></div>
 </div>
                 <div class="form-group">
                     <label for="comments">Any other comments? <span style="font-size: 12px; color: #666;">(Optional)</span></label>
