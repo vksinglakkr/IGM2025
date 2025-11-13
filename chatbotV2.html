@@ -195,6 +195,72 @@
   overflow-wrap: break-word;
 }
 
+/* AUTOCOMPLETE STYLES */
+.autocomplete-container {
+  position: relative;
+  width: 100%;
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 2px solid #f59e0b;
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+  margin-top: -8px;
+}
+
+.autocomplete-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f3f4f6;
+  transition: all 0.2s;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.autocomplete-item:last-child {
+  border-bottom: none;
+}
+
+.autocomplete-item:hover {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  font-weight: 600;
+}
+
+.autocomplete-item mark {
+  background: #fef3c7;
+  color: #ea580c;
+  font-weight: 700;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.autocomplete-no-results {
+  padding: 16px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.autocomplete-category {
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #f59e0b;
+  background: #fffbeb;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #fed7aa;
+}
+
 @media (max-width: 640px) {
   .query-type-selector {
     padding: 16px 12px;
@@ -225,6 +291,15 @@
   .radio-label-desc {
     font-size: 11px;
     line-height: 1.35;
+  }
+  
+  .autocomplete-dropdown {
+    max-height: 250px;
+  }
+  
+  .autocomplete-item {
+    padding: 10px 12px;
+    font-size: 13px;
   }
 }
 
@@ -489,7 +564,6 @@
     transform: rotate(180deg);
   }
   
-  /* Quiz Chatbot Button */
   .quiz-chatbot-btn {
     background: linear-gradient(135deg, #8b5cf6, #6366f1);
     color: white;
@@ -535,7 +609,6 @@
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
   }
   
-  /* Music Control Button */
   .music-control-btn {
     position: fixed;
     bottom: 24px;
@@ -570,7 +643,6 @@
     }
   }
 
-  /* Quiz Modal Styles */
   #quizModal {
     position: fixed;
     top: 0;
@@ -696,7 +768,7 @@
 
       <div id="questionSection" style="display: none;">
         <div class="mb-8 slide-fade-enter">
-          <div class="relative">
+          <div class="relative autocomplete-container">
             <textarea
               id="userInput"
               rows="3"
@@ -704,8 +776,9 @@
                      bg-gradient-to-br from-white to-orange-50 shadow-2xl resize-none
                      focus:border-orange-500 focus:ring-4 focus:ring-orange-200 focus:shadow-2xl
                      transition-all duration-300 leading-relaxed"
-              placeholder="Type your question here..."
+              placeholder="Type your question here... (e.g., anger, fear, marriage)"
             ></textarea>
+            <div id="autocompleteDropdown" class="autocomplete-dropdown" style="display: none;"></div>
             <button
               id="voiceBtn"
               class="mic-btn absolute bottom-3 right-3 text-orange-500 hover:text-orange-700 transition-all duration-300 hover:scale-110 bg-white rounded-full p-3 shadow-lg border-2 border-orange-300"
@@ -720,7 +793,7 @@
 
         <div class="mb-8 slide-fade-enter" id="quickQuestionsSection">
           <div class="flex items-center justify-between mb-4">
-            <label class="text-lg font-bold text-gray-800">Quick Help 👇</label>
+            <label class="text-lg font-bold text-gray-800">Or Browse Categories 👇</label>
               <div class="flex justify-end mb-2">
                 <div class="lang-toggle">
                   <button class="langBtn active" data-lang="English">English</button>
@@ -783,7 +856,6 @@
          </span></p>
       </div>
 
-      <!-- Feedback Button -->
       <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
         <button onclick="openFeedback()" class="feedback-btn">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -869,7 +941,7 @@
       </div>
     </div>
   </div>
-    <!-- Feedback Modal -->
+
   <div id="feedbackModal">
     <div class="feedback-modal-content">
       <div class="feedback-modal-header">
@@ -896,7 +968,6 @@
     </div>
   </div>
 
-  <!-- Quiz Modal -->
   <div id="quizModal">
     <div class="quiz-modal-content">
       <div class="quiz-modal-header">
@@ -923,7 +994,6 @@
     </div>
   </div>
 
-  <!-- Music Control Button -->
   <button id="musicToggle" class="music-control-btn">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
@@ -981,7 +1051,6 @@ const gitaQuestions = {
     "Facing physical/emotional abuse from spouse - Gita's guidance?",
     "Love is gone but staying for kids - how to live per Gita?",
     "Should one remarry at 70 years old - what does Gita say?",
-    "Arranged marriage में compatibility नहीं, अब क्या?",
     "No compatibility in arranged marriage - what next per Gita?"
 ],
 
@@ -1106,7 +1175,6 @@ const gitaQuestionsHindi = {
     "जीवनसाथी से शारीरिक/भावनात्मक शोषण - गीता का मार्गदर्शन?",
     "प्यार खत्म हो गया पर बच्चों के लिए रुके हुए हैं?",
     "70 साल की उम्र में दोबारा शादी करूं - गीता क्या कहती है?",
-    "Arranged marriage में compatibility नहीं, अब क्या?",
     "अरेंज मैरिज में तालमेल नहीं - अब क्या?"
 ],
 'CAREER_MONEY': [
@@ -1346,10 +1414,13 @@ const eventQuestionsHindi = {
 let selectedQueryType = null;
 let selectedLanguage = 'English';
 let currentQuestions = {};
+let allQuestions = [];
 
 const categorySelect = document.getElementById('categorySelect');
 const questionSelect = document.getElementById('questionSelect');
 const questionSection = document.getElementById('questionSection');
+const userInput = document.getElementById('userInput');
+const autocompleteDropdown = document.getElementById('autocompleteDropdown');
 
 function selectQueryType(type) {
   selectedQueryType = type;
@@ -1367,6 +1438,7 @@ function selectQueryType(type) {
   }
   
   loadCategories();
+  buildAllQuestionsList();
   questionSection.style.display = 'block';
 }
 
@@ -1387,12 +1459,103 @@ function loadCategories() {
   });
 }
 
+function buildAllQuestionsList() {
+  allQuestions = [];
+  currentQuestions = selectedQueryType === 'gita' ? 
+    (selectedLanguage === 'Hindi' ? gitaQuestionsHindi : gitaQuestions) :
+    (selectedLanguage === 'Hindi' ? eventQuestionsHindi : eventQuestions);
+  
+  Object.keys(currentQuestions).forEach(category => {
+    currentQuestions[category].forEach(question => {
+      allQuestions.push({
+        question: question,
+        category: formatCategoryName(category)
+      });
+    });
+  });
+}
+
 function formatCategoryName(category) {
   return category.replace(/_/g, ' ')
     .split(' ')
     .map(word => word.charAt(0) + word.slice(1).toLowerCase())
     .join(' ');
 }
+
+// AUTOCOMPLETE FUNCTIONALITY
+function highlightMatch(text, query) {
+  const regex = new RegExp(`(${query})`, 'gi');
+  return text.replace(regex, '<mark>$1</mark>');
+}
+
+function filterQuestions(query) {
+  if (!query || query.length < 2) {
+    return [];
+  }
+  
+  query = query.toLowerCase().trim();
+  const keywords = query.split(/\s+/);
+  
+  return allQuestions.filter(item => {
+    const questionLower = item.question.toLowerCase();
+    return keywords.some(keyword => questionLower.includes(keyword));
+  }).slice(0, 8); // Show max 8 suggestions
+}
+
+userInput.addEventListener('input', function() {
+  const query = this.value.trim();
+  
+  if (query.length < 2) {
+    autocompleteDropdown.style.display = 'none';
+    return;
+  }
+  
+  const matches = filterQuestions(query);
+  
+  if (matches.length === 0) {
+    autocompleteDropdown.innerHTML = '<div class="autocomplete-no-results">No matching questions found. Try different keywords.</div>';
+    autocompleteDropdown.style.display = 'block';
+    return;
+  }
+  
+  let html = '';
+  let lastCategory = '';
+  
+  matches.forEach(item => {
+    if (item.category !== lastCategory) {
+      html += `<div class="autocomplete-category">${item.category}</div>`;
+      lastCategory = item.category;
+    }
+    
+    const highlightedQuestion = highlightMatch(item.question, query);
+    html += `<div class="autocomplete-item" data-question="${item.question}">${highlightedQuestion}</div>`;
+  });
+  
+  autocompleteDropdown.innerHTML = html;
+  autocompleteDropdown.style.display = 'block';
+  
+  // Add click handlers
+  document.querySelectorAll('.autocomplete-item').forEach(item => {
+    item.addEventListener('click', function() {
+      userInput.value = this.getAttribute('data-question');
+      autocompleteDropdown.style.display = 'none';
+    });
+  });
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  if (!userInput.contains(e.target) && !autocompleteDropdown.contains(e.target)) {
+    autocompleteDropdown.style.display = 'none';
+  }
+});
+
+// Close dropdown on ESC key
+userInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    autocompleteDropdown.style.display = 'none';
+  }
+});
 
 categorySelect.addEventListener('change', function() {
   questionSelect.innerHTML = '<option value="" selected disabled>Select Question</option>';
@@ -1410,7 +1573,8 @@ categorySelect.addEventListener('change', function() {
 });
 
 questionSelect.addEventListener('change', function() {
-  document.getElementById('userInput').value = this.value;
+  userInput.value = this.value;
+  autocompleteDropdown.style.display = 'none';
 });
 
 document.querySelectorAll('.langBtn').forEach(btn => {
@@ -1419,6 +1583,7 @@ document.querySelectorAll('.langBtn').forEach(btn => {
     document.querySelectorAll('.langBtn').forEach(b => b.classList.remove('active'));
     this.classList.add('active');
     loadCategories();
+    buildAllQuestionsList();
   });
 });
 
@@ -1524,7 +1689,7 @@ ttsBtn.addEventListener('click', () => {
 });
     
 document.getElementById('submitBtn').addEventListener('click', async () => {
-  const question = document.getElementById('userInput').value.trim();
+  const question = userInput.value.trim();
   
   if (!selectedQueryType) {
     alert('Please select either "Gita Guidance" or "Festival Information" first!');
@@ -1547,6 +1712,9 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   document.getElementById('modalQuestion').textContent = question;
   document.getElementById('modalAnswer').textContent = 'Thinking...';
   document.getElementById('aiModal').classList.remove('hidden');
+  
+  // Hide autocomplete dropdown
+  autocompleteDropdown.style.display = 'none';
 
   const deviceType = /Mobile|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'Mobile' : 
                      /Tablet|iPad/i.test(navigator.userAgent) ? 'Tablet' : 'Desktop';
@@ -1573,7 +1741,7 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
 
     const data = await response.json();
     const aiResponse = data.answer || data.error || 'No response received.';
-    const disclaimer = "\n─────────────────\n⚠️ Disclaimer: This is an AI-generated response for guidance purposes only. Please verify important information from official sources.";
+    const disclaimer = "\n────────────────\n⚠️ Disclaimer: This is an AI-generated response for guidance purposes only. Please verify important information from official sources.";
     const fullResponse = aiResponse + `<span style="line-height: 1.2; display: block; margin-top: 8px;">${disclaimer}</span>`;
     document.getElementById('modalAnswer').innerHTML = fullResponse;
   } catch (error) {
@@ -1600,7 +1768,9 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
 
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
-    document.getElementById('userInput').value = transcript;
+    userInput.value = transcript;
+    // Trigger autocomplete
+    userInput.dispatchEvent(new Event('input'));
   };
 
   recognition.onend = () => {
@@ -1686,7 +1856,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ============= FEEDBACK MODAL FUNCTIONS =============
 function openFeedback() {
   const feedbackModal = document.getElementById('feedbackModal');
   const feedbackIframe = document.getElementById('feedbackIframe');
@@ -1724,7 +1893,6 @@ document.getElementById('feedbackModal').addEventListener('click', function(e) {
   }
 });
 
-// ============= QUIZ CHATBOT MODAL FUNCTIONS =============
 function openQuizChatbot() {
   const quizModal = document.getElementById('quizModal');
   const quizIframe = document.getElementById('quizIframe');
@@ -1761,7 +1929,6 @@ document.getElementById('quizModal').addEventListener('click', function(e) {
     closeQuizChatbot();
   }
 });
-
   </script>
 </body>
 </html>
