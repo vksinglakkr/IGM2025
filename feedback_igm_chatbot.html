@@ -181,26 +181,31 @@
 
 /* 1. Make the question label and the star container appear on the same line */
 .form-group {
-    display: flex;
-    align-items: center; /* Vertically center the label and stars */
-    gap: 15px; /* Space between the text and the stars */
+        margin-bottom: 24px;
 }
 
 /* 2. Configure the star container itself */
-.rating-stars {
-    /* Use Flexbox for star arrangement */
-    display: flex;
-    /* This makes the 5-star appear on the right, arranging them left-to-right (1 to 5) */
-    flex-direction: row-reverse; 
-    align-items: center;
-    padding: 0;
-}
 
 /* Hide the actual radio buttons */
 .rating-stars input[type="radio"] {
     display: none;
 }
 
+/* NEW CSS CLASS: Apply flex only to the rating row */
+.rating-form-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 24px; /* Keep consistent spacing */
+}
+
+/* The rest of the star rating CSS remains the same: */
+.rating-stars {
+    display: flex;
+    flex-direction: row-reverse;
+    /* ... rest of .rating-stars ... */
+}        
+        
 /* Style the default (unselected) star label */
 .rating-stars label {
     font-size: 24px;
