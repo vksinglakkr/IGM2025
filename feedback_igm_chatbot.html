@@ -353,51 +353,9 @@
                     <select id="helpful" name="helpful" required>
                         <option value="">Select option</option>
                         <option value="Very Helpful">Very Helpful</option>
-                        <option value="Helpful">Helpful</option>
                         <option value="Somewhat Helpful">Somewhat Helpful</option>
                         <option value="Not Helpful">Not Helpful</option>
                     </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="responseSpeed">Response speed was good <span class="required">*</span></label>
-                    <select id="responseSpeed" name="responseSpeed" required>
-                        <option value="">Select option</option>
-                        <option value="Strongly Agree">Strongly Agree</option>
-                        <option value="Agree">Agree</option>
-                        <option value="Neutral">Neutral</option>
-                        <option value="Disagree">Disagree</option>
-                        <option value="Strongly Disagree">Strongly Disagree</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="easyToUse">Chatbot was easy to use <span class="required">*</span></label>
-                    <select id="easyToUse" name="easyToUse" required>
-                        <option value="">Select option</option>
-                        <option value="Strongly Agree">Strongly Agree</option>
-                        <option value="Agree">Agree</option>
-                        <option value="Neutral">Neutral</option>
-                        <option value="Disagree">Disagree</option>
-                        <option value="Strongly Disagree">Strongly Disagree</option>
-                    </select>
-                </div>
-
-                <!-- Issues -->
-                <div class="section-title">🔧 Technical Issues</div>
-
-                <div class="form-group">
-                    <label for="hadProblems">Did you face any problems while using the chatbot? <span class="required">*</span></label>
-                    <select id="hadProblems" name="hadProblems" required onchange="toggleProblemDetails()">
-                        <option value="">Select option</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group" id="problemDetailsGroup" style="display: none;">
-                    <label for="problemDetails">Please describe the problem</label>
-                    <textarea id="problemDetails" name="problemDetails" placeholder="Tell us what went wrong..."></textarea>
                 </div>
 
                 <!-- Overall Experience -->
@@ -427,21 +385,6 @@
                             <label for="rating1">⭐ (1 star)</label>
                         </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="useAgain">Would you use this chatbot again? <span class="required">*</span></label>
-                    <select id="useAgain" name="useAgain" required>
-                        <option value="">Select option</option>
-                        <option value="Yes">Yes</option>
-                        <option value="Maybe">Maybe</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="improvements">What should we improve? <span style="font-size: 12px; color: #666;">(Optional)</span></label>
-                    <textarea id="improvements" name="improvements" placeholder="Share your suggestions..."></textarea>
                 </div>
 
                 <div class="form-group">
