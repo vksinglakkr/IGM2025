@@ -179,45 +179,47 @@
             font-weight: 500;
         }
 
-/* 1. Sets up the main container for horizontal display and spacing */
 .rating-stars {
+    /* Set up the container to display elements in a row */
     display: flex;
-    align-items: center; /* Vertically aligns inputs and labels */
-    gap: 8px; /* Space between each rating group */
-    flex-wrap: wrap; 
-}
-
-/* 2. Style the rating box/container, now applied to the clickable <label> */
-.rating-stars label {
-    display: flex; /* Helps align the text/stars inside the label */
+    flex-direction: row-reverse; /* Reverses the order so 5-star is on the right */
     align-items: center;
-    padding: 8px 12px; /* Compact padding for a smaller box */
-    background: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    justify-content: flex-end; /* Pushes the main label to the left, stars to the right */
+    padding: 10px 0;
 }
 
-/* 3. Hover effect on the label */
-.rating-stars label:hover {
-    border-color: #FF6B35;
-    background: #FFF5F0;
-    transform: translateY(-2px);
-}
-
-/* 4. Hide the actual radio button. This is common for visually clean star ratings. */
+/* Hide the actual radio buttons */
 .rating-stars input[type="radio"] {
-    /* Hide the radio button itself */
     display: none;
 }
 
-/* 5. Style the label when its corresponding radio button IS checked */
-.rating-stars input[type="radio"]:checked + label {
-    color: #FF6B35;
-    font-weight: 700;
-    border-color: #FF6B35; /* Optional: Highlight the border when selected */
-    background: #FFF5F0; /* Optional: Highlight the background when selected */
+/* Style the default (unselected) star label */
+.rating-stars label {
+    font-size: 24px; /* Make the stars visible and large */
+    color: #ccc; /* Default grey color */
+    cursor: pointer;
+    transition: color 0.2s;
+    margin-right: 2px;
+}
+
+/* 1. HOVER EFFECT (Drag/Mouseover) */
+/* When a label is hovered, it and ALL PREVIOUS siblings (in HTML order) change color */
+.rating-stars label:hover,
+.rating-stars label:hover ~ label {
+    color: orange; /* Color for hover */
+}
+
+/* 2. CHECKED (Selected) EFFECT */
+/* When an input is checked, the subsequent labels (in DOM order) change color */
+.rating-stars input[type="radio"]:checked ~ label {
+    color: orange; /* Color for selected stars */
+}
+
+/* 3. Ensure the main "Overall rating" label isn't affected by the star styling */
+.rating-stars > label:first-child {
+    font-size: 16px;
+    color: initial;
+    margin-right: 15px; /* Space between the rating text and the stars */
 }
         .submit-btn {
             background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
@@ -369,9 +371,14 @@
                 <!-- <div class="section-title">🌟 Overall Experience</div> -->
 
     <div class="form-group">
+<div class="rating-stars">
     <label>Overall chatbot experience rating <span class="required">*</span></label>
-<div class="form-group"><label>Overall chatbot experience rating <span class="required">*</span></label><div class="rating-stars"><input type="radio" id="rating5" name="rating" value="5" required><label for="rating5">⭐⭐⭐⭐⭐ (5 stars)</label><input type="radio" id="rating4" name="rating" value="4"><label for="rating4">⭐⭐⭐⭐ (4 stars)</label><input type="radio" id="rating3" name="rating" value="3"><label for="rating3">⭐⭐⭐ (3 stars)</label><input type="radio" id="rating2" name="rating" value="2"><label for="rating2">⭐⭐ (2 stars)</label><input type="radio" id="rating1" name="rating" value="1"><label for="rating1">⭐ (1 star)</label></div></div>
-</div>
+    <input type="radio" id="s5" name="rating" value="5" /><label for="s5">★</label>
+    <input type="radio" id="s4" name="rating" value="4" /><label for="s4">★</label>
+    <input type="radio" id="s3" name="rating" value="3" /><label for="s3">★</label>
+    <input type="radio" id="s2" name="rating" value="2" /><label for="s2">★</label>
+    <input type="radio" id="s1" name="rating" value="1" /><label for="s1">★</label>
+</div></div>
                 <div class="form-group">
                     <label for="comments">Any other comments? <span style="font-size: 12px; color: #666;">(Optional)</span></label>
                     <textarea id="comments" name="comments" placeholder="Additional feedback..."></textarea>
