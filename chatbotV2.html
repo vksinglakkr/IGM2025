@@ -745,16 +745,20 @@
     font-weight: 600;
   }
   
-  /* Mobile-specific font size for modal question */
+  /* Question font size adjustments */
+  #modalQuestion {
+    font-size: 12px !important; /* Desktop: 12px */
+  }
+  
   @media (max-width: 768px) {
     #modalQuestion {
-      font-size: 13px !important;
+      font-size: 11px !important; /* Tablet/Mobile: 11px */
     }
   }
   
   @media (max-width: 480px) {
     #modalQuestion {
-      font-size: 12px !important;
+      font-size: 8px !important; /* Small Mobile: 10px */
     }
   }
 </style>
