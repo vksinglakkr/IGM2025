@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>International Gita Mahotsav 2025 | अंतर्राष्ट्रीय गीता महोत्सव</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Sans+Devanagari:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+      font-family: 'Inter', sans-serif;
+    }
+    .saffron { background-color: #FF9933; }
+    .white { background-color: #FFFFFF; }
+    .green { background-color: #138808; }
+    .devanagari { font-family: 'Noto Sans Devanagari', sans-serif; }
+    .gita-font { font-family: 'Playfair Display', serif; }
+    .mandala-bg {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%23FF9933' stroke-width='0.5' opacity='0.1'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%23138808' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
+      background-size: 300px;
+    }
+    .card-shadow {
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-shadow:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.2);
+    }
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 153, 51, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 mandala-bg">
+
+  <!-- Tiranga Header -->
+  <div class="flex h-3 w-full max-w-4xl">
+    <div class="w-1/3 saffron"></div>
+    <div class="w-1/3 white"></div>
+    <div class="w-1/3 green"></div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden">
+    
+    <!-- Sacred Header -->
+    <div class="bg-gradient-to-r from-saffron to-amber-500 p-8 text-center relative">
+      <div class="absolute top-4 right-4 bg-yellow-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-full">
+        धर्मक्षेत्रे कुरुक्षेत्रे
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold gita-font text-white mb-2">🕉️ अंतर्राष्ट्रीय गीता महोत्सव</h1>
+      <p class="text-xl text-blue-100 devanagari">श्रीमद्भगवद्गीता का ज्ञान, विचार और संवाद</p>
+      <div class="mt-4 flex justify-center">
+        <span class="bg-white/20 text-white px-4 py-1 rounded-full text-sm">4–14 नवंबर 2025</span>
+      </div>
+    </div>
+
+    <!-- Quote Banner -->
+    <div class="bg-blue-50 border-l-4 border-blue-600 p-5 mx-6 mt-6">
+      <p class="text-lg italic text-gray-800 gita-font text-center">
+        "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनंजय।<br>
+        सिद्ध्यसिद्ध्योः समो भूत्वा समत्वं योग उच्यते॥"
+      </p>
+      <p class="text-right text-gray-600 mt-2">— श्रीमद्भगवद्गीता, अध्याय 2, श्लोक 48</p>
+    </div>
+
+    <!-- Activity Grid -->
+    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Card 1: Daily Quiz -->
+      <div class="card-shadow bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-100">
+        <div class="flex items-center mb-4">
+          <div class="bg-amber-100 p-3 rounded-xl mr-4">
+            <i data-lucide="book-open" class="text-amber-700 w-6 h-6"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800 gita-font">📜 दैनिक गीता क्विज</h2>
+        </div>
+        <p class="text-gray-700 mb-4 devanagari">
+          प्रतिदिन 5 प्रश्न। आध्यात्मिक उपहार जीतें!
+        </p>
+        <a href="quiz.html" class="inline-block bg-amber-600 hover:bg-amber-700 text-white px-5 py-3 rounded-xl shadow-md transition w-full text-center pulse">
+          क्विज शुरू करें
+        </a>
+      </div>
+
+      <!-- Card 2: Gita AI Scholar -->
+      <div class="card-shadow bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+        <div class="flex items-center mb-4">
+          <div class="bg-blue-100 p-3 rounded-xl mr-4">
+            <i data-lucide="bot" class="text-blue-700 w-6 h-6"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800 gita-font">🤖 गीता ज्ञानी AI</h2>
+        </div>
+        <p class="text-gray-700 mb-4 devanagari">
+          गीता, कुरुक्षेत्र, या आज के कार्यक्रम के बारे में पूछें
+        </p>
+        <a href="chatbot.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl shadow-md transition w-full text-center">
+          अब पूछें
+        </a>
+      </div>
+
+      <!-- Card 3: Today's Program -->
+      <div class="card-shadow bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100">
+        <div class="flex items-center mb-4">
+          <div class="bg-green-100 p-3 rounded-xl mr-4">
+            <i data-lucide="calendar" class="text-green-700 w-6 h-6"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800 gita-font">📅 आज का कार्यक्रम</h2>
+        </div>
+        <div id="todayProgram" class="text-gray-700 devanagari min-h-[60px]">
+          <p>10:00 AM – गीता जयंती समारोह</p>
+          <p>विशिष्ट अतिथि: हरियाणा के राज्यपाल</p>
+        </div>
+        <button onclick="fetchProgram()" class="mt-3 text-green-600 hover:text-green-800 flex items-center">
+          <i data-lucide="refresh-ccw" class="w-4 h-4 mr-1"></i> अपडेट करें
+        </button>
+      </div>
+
+      <!-- Card 4: VVIP Schedule -->
+      <div class="card-shadow bg-gradient-to-br from-purple-50 to-violet-50 rounded-2xl p-6 border border-purple-100">
+        <div class="flex items-center mb-4">
+          <div class="bg-purple-100 p-3 rounded-xl mr-4">
+            <i data-lucide="crown" class="text-purple-700 w-6 h-6"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800 gita-font">👑 विशिष्ट अतिथि</h2>
+        </div>
+        <div id="vvipSchedule" class="text-gray-700 devanagari min-h-[60px]">
+          <p>1 दिसंबर: हरियाणा के राज्यपाल</p>
+          <p>5 दिसंबर: केंद्रीय मंत्री</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="border-t border-gray-200 p-6 text-center">
+      <div class="mb-3">
+        <p class="font-semibold text-gray-800">आयोजित किया गया</p>
+        <p class="text-blue-700 font-medium">कुरुक्षेत्र विकास बोर्ड, जिला प्रशासन कुरुक्षेत्र एवं एनआईसी कुरुक्षेत्र द्वारा</p>
+      </div>
+      <div class="flex items-center justify-center mb-2">
+        <i data-lucide="shield-check" class="w-5 h-5 text-green-600 mr-1"></i>
+        <span class="text-gray-600">सनातन धर्म के प्रति समर्पित</span>
+      </div>
+      <p class="text-gray-500 text-sm devanagari">धर्मो रक्षति रक्षितः</p>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // Simulate program fetch (replace with n8n webhook in production)
+    function fetchProgram() {
+      document.getElementById('todayProgram').innerHTML = `
+        <p>10:00 AM – गीता जयंती समारोह</p>
+        <p>विशिष्ट अतिथि: हरियाणा के राज्यपाल</p>
+      `;
+      document.getElementById('vvipSchedule').innerHTML = `
+        <p>1 दिसंबर: हरियाणा के राज्यपाल</p>
+        <p>5 दिसंबर: केंद्रीय मंत्री</p>
+      `;
+    }
+  </script>
+</body>
+</html>
