@@ -1757,29 +1757,123 @@ ttsBtn.addEventListener('click', () => {
   ttsUtterance.pitch = 1;
   ttsUtterance.volume = 1;
   
+// ========================================================================
+  // SMART TTS WITH LANGUAGE DETECTION - Lines 1760-1824 Replacement
+  // ========================================================================
+  
   const voices = speechSynthesis.getVoices();
   let selectedVoice = null;
   
-  const hindiVoices = voices.filter(voice => 
-    voice.lang.startsWith('hi') || 
-    voice.lang === 'hi-IN' ||
-    voice.name.toLowerCase().includes('hindi')
-  );
+  // ========================================================================
+  // DETECT LANGUAGE (Hindi vs English)
+  // ========================================================================
+  function detectLanguage(text) {
+    const cleanText = text.replace(/[।॥.,!?;:\-\_\n\r]/g, ' ').trim();
+    const hindiCharCount = (cleanText.match(/[\u0900-\u097F]/g) || []).length;
+    const englishCharCount = (cleanText.match(/[a-zA-Z]/g) || []).length;
+    const totalChars = hindiCharCount + englishCharCount;
+    
+    if (totalChars === 0) return 'en';
+    const hindiPercentage = (hindiCharCount / totalChars) * 100;
+    
+    return hindiPercentage > 30 ? 'hi' : 'en';
+  }
   
-  if (hindiVoices.length > 0) {
-    selectedVoice = hindiVoices[0];
+  const detectedLang = detectLanguage(answerText);
+  console.log('🔍 Detected Language:', detectedLang);
+  console.log('📊 Available voices:', voices.length);
+  
+  // ========================================================================
+  // SELECT VOICE BASED ON DETECTED LANGUAGE
+  // ========================================================================
+  if (detectedLang === 'hi') {
+    // HINDI TEXT - Find Hindi Voice
+    const hindiVoices = voices.filter(voice => {
+      const lang = voice.lang.toLowerCase();
+      const name = voice.name.toLowerCase();
+      return (
+        lang === 'hi-in' || lang.startsWith('hi') ||
+        name.includes('hindi') || name.includes('हिंदी') || lang === 'hi'
+      );
+    });
+    
+    console.log('🇮🇳 Found Hindi voices:', hindiVoices.length);
+    
+    if (hindiVoices.length > 0) {
+      // Prefer female voices (better quality)
+      const femaleHindi = hindiVoices.find(v => 
+        v.name.toLowerCase().includes('female') || 
+        v.name.toLowerCase().includes('lekha') ||
+        v.name.toLowerCase().includes('kalpana')
+      );
+      selectedVoice = femaleHindi || hindiVoices[0];
+      console.log('✅ Using Hindi voice:', selectedVoice.name);
+    } else {
+      // NO HINDI VOICE - Show guidance
+      console.error('❌ No Hindi voice available');
+      
+      if (!sessionStorage.getItem('hindiVoiceWarningShown')) {
+        sessionStorage.setItem('hindiVoiceWarningShown', 'true');
+        
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        
+        let message = '🔊 Hindi voice not available on your device.\n\n';
+        
+        if (isAndroid) {
+          message += '📱 To install Hindi voice:\n\n' +
+                     '1. Settings → System → Languages & input\n' +
+                     '2. Text-to-speech output → Google TTS ⚙️\n' +
+                     '3. Install voice data → Hindi (India)\n' +
+                     '4. Restart browser\n\n' +
+                     'Using default voice for now.';
+        } else if (isIOS) {
+          message += '📱 To install Hindi voice:\n\n' +
+                     '1. Settings → Accessibility → Spoken Content\n' +
+                     '2. Voices → Hindi → Download\n' +
+                     '3. Restart browser\n\n' +
+                     'Using default voice for now.';
+        } else {
+          message += 'Please install Hindi language support.\n\n' +
+                     'Using default voice for now.';
+        }
+        
+        alert(message);
+      }
+      
+      // Fallback: Indian English voice (better for Hindi than US English)
+      const indianVoices = voices.filter(v => 
+        v.lang === 'en-IN' || v.name.toLowerCase().includes('india')
+      );
+      selectedVoice = indianVoices.length > 0 ? indianVoices[0] : voices[0];
+      console.log('⚠️ Using fallback voice:', selectedVoice?.name);
+    }
   } else {
-    selectedVoice = voices[0];
-    if (/iPhone|iPad|iPod/i.test(navigator.userAgent) && !sessionStorage.getItem('hindiVoiceWarned')) {
-      alert('Hindi voice not available. Using default voice. To enable Hindi, go to Settings > Accessibility > Spoken Content > Voices > Hindi.');
-      sessionStorage.setItem('hindiVoiceWarned', 'true');
+    // ENGLISH TEXT - Find English Voice
+    const englishVoices = voices.filter(voice => voice.lang.startsWith('en'));
+    
+    console.log('🇬🇧 Found English voices:', englishVoices.length);
+    
+    if (englishVoices.length > 0) {
+      const usEnglish = englishVoices.find(v => v.lang === 'en-US');
+      const gbEnglish = englishVoices.find(v => v.lang === 'en-GB');
+      const inEnglish = englishVoices.find(v => v.lang === 'en-IN');
+      
+      selectedVoice = usEnglish || gbEnglish || inEnglish || englishVoices[0];
+      console.log('✅ Using English voice:', selectedVoice.name);
+    } else {
+      selectedVoice = voices[0];
+      console.log('⚠️ Using default voice:', selectedVoice?.name);
     }
   }
   
+  // Apply selected voice
   if (selectedVoice) {
     ttsUtterance.voice = selectedVoice;
+    console.log('🎤 Final voice:', selectedVoice.name, '|', selectedVoice.lang);
   }
   
+  // Event handlers
   ttsUtterance.onstart = () => {
     isSpeaking = true;
     ttsBtn.classList.add('speaking');
@@ -1810,7 +1904,7 @@ ttsBtn.addEventListener('click', () => {
     } else if (e.error === 'not-allowed') {
       errorMsg += 'Please enable speech in browser settings.';
     } else if (e.error === 'language-unavailable') {
-      errorMsg += 'Hindi voice not available on your device.';
+      errorMsg += 'Voice not available on your device.';
     } else {
       errorMsg += 'Please try again.';
     }
@@ -1821,8 +1915,7 @@ ttsBtn.addEventListener('click', () => {
     speechSynthesis.speak(ttsUtterance);
   } catch (error) {
     alert('Text-to-speech is not available on your device.');
-  }
-});
+  }});
     
 document.getElementById('submitBtn').addEventListener('click', async () => {
   const question = userInput.value.trim();
