@@ -740,6 +740,28 @@
   #categorySelect {
     font-weight: 600;
   }
+
+   #categorySelect {
+    font-weight: 600;
+  }
+  
+/* Question font size - Desktop and Mobile */
+  #modalQuestion {
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+  }
+  
+  @media (max-width: 768px) {
+    #modalQuestion {
+      font-size: 11px !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #modalQuestion {
+      font-size: 10px !important;
+    }
+  }
 </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
@@ -933,7 +955,7 @@
             <p class="font-bold text-gray-900">Question:</p>
           </div>
           <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-2xl border-l-4 border-blue-500">
-            <pre id="modalQuestion" class="whitespace-pre-wrap text-gray-800 text-sm leading-relaxed"></pre>
+            <pre id="modalQuestion" class="whitespace-pre-wrap text-gray-800 leading-relaxed"></pre> 
           </div>
         </div>
 
@@ -1240,14 +1262,16 @@ const eventQuestions = {
       "When is Virat Sant Sammelan?",
       "Who is giving Gita Panchamrit discourse?",
       "When is Swami Rambhadracharya's discourse?",
-      "When is Bhagavat Katha?"
-//      "Geeta Shloka recitation, speech, essay writing, painting, rangoli and craft competitions for students?",
-    ],
-  '🎭 Cultural Programs': [ 
+      "When is Bhagavat Katha?",
+      "Geeta Shloka recitation, speech, essay writing, painting, rangoli and craft competitions for students?"
+    ]},
+  'Cultural Programs': {
+    '🎭 Cultural Programs': [ 
       "When is Cultural Program?",
       "When is Light and Sound Show on 'Vishwaroop' through 3D Mapping?",
-      "When is the light and sound show based on Mahabharata and Geeta?",
-    ],
+      "When is the light and sound show based on Mahabharata and Geeta?"
+    ]},
+  'Datewise Events': {
   '📅 Date & Time': [
       "Events on 15th Nov.?",
       "Events on 16th Nov.?",
@@ -1270,16 +1294,35 @@ const eventQuestions = {
       "Events on 3rd Dec.?",
       "Events on 4th Dec.?",
       "Events on 5th Dec.?"
-    ]
-/*
-  
-    '📚 Educational Workshops': [
+    ]},
+  'Educational Workshops': {
+      '📚 Educational Workshops': [
       "When is International Gita Seminar?",
-      "What programs at Kurukshetra University?",
-      "When is All India Vedic Conference?",
-      "What are student competitions?",
-      "What programs for students?"
-    ],
+      "Geeta Shloka recitation, speech, essay writing, painting, rangoli and craft competitions for students?",
+      "Who is giving Gita Panchamrit discourse?",
+      "When is Swami Rambhadracharya's discourse?",
+      "When is Bhagavat Katha?"
+    ]},
+  'Inaugural Events': {
+      '🎪 Inaugural Events': [
+      "International Gita Seminar?",
+      "Virat Sant Sammelan?",
+      "Panchamrit discourse?",
+      "Bhagavat Katha?",
+      "State Level Exhibitions?",
+      "Pavilions of Haryana, MP and Partner Countries?",
+      "Crafts Mela?"
+    ]},
+  'VVIP Visits': {
+      '⭐ VVIP Visits': [
+      "Which VVIPs are coming?",
+      "Which VIPs on November 24?"
+    ]},
+  'Exhibitions': {
+      '🏛️ Exhibitions': [
+      "State Level Exhibitions?"
+    ]}
+/*
     '📍 Venue & Location': [
      "Where is Brahma Sarovar?",
       "Where is Jyotisar?",
@@ -1290,29 +1333,7 @@ const eventQuestions = {
       "Events  at Brahma Sarovar?",
       "How to reach Jyotisar?"
     ],
-    '📅 Date & Time': [
-      "Events  on November 15?",
-      "Events  on November 24?",
-      "What programs on November 26?",
-      "What is on November 29?",
-      "What happens on November 30?",
-      "What is the schedule for December 1?",
-      "What are the daily programs?",
-      "What time is the morning aarti?",
-      "What are evening programs?"
-    ],
-    '🎪 Inaugural Events': [
-      "When is the opening ceremony?",
-      "What is the inauguration program on November 24?",
-      "When does IGM 2025 start?",
-      "Who will inaugurate the festival?"
-    ],
-    '⭐ VVIP Visits': [
-      "Which VVIPs are coming?",
-      "When are dignitaries visiting?",
-      "Who is the chief guest?",
-      "Which VIPs on November 24?"
-    ],
+
     '🏛️ Exhibitions': [
       "What exhibitions are there?",
       "Where is the institutions exhibition?",
@@ -1320,7 +1341,7 @@ const eventQuestions = {
       "Where are the stalls?"
     ]
  */
-  }
+  };
 
       /*
   'ACCOMMODATION_QUERY': {
@@ -1409,7 +1430,6 @@ const eventQuestions = {
     ]
   }
   */
-};
 
 const eventQuestionsHindi = {
   'EVENT_QUERY': {
