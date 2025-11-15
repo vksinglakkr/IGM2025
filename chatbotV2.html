@@ -723,6 +723,31 @@
    #categorySelect {
     font-weight: 600;
   }
+
+/* Question dropdown (questionSelect) options styling */
+  #questionSelect option:not([disabled]) {
+    padding: 10px 8px;
+    font-size: 14px;           /* Desktop: 14px */
+  }
+  
+  #questionSelect {
+    font-weight: 600;
+  }
+  
+  /* Mobile: Make question list smaller */
+  @media (max-width: 768px) {
+    #questionSelect option:not([disabled]) {
+      font-size: 13px;         /* Tablet: 13px */
+      padding: 8px 6px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #questionSelect option:not([disabled]) {
+      font-size: 12px;         /* Mobile: 12px */
+      padding: 8px 6px;
+    }
+  }   
   
 /* Question font size - Desktop and Mobile */
   #modalQuestion {
