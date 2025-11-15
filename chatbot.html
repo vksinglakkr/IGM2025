@@ -222,7 +222,7 @@
   cursor: pointer;
   border-bottom: 1px solid #f3f4f6;
   transition: all 0.2s;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -299,7 +299,7 @@
   
   .autocomplete-item {
     padding: 10px 12px;
-    font-size: 13px;
+    font-size: 11px;
   }
 }
 
@@ -710,7 +710,7 @@
     background: white;
   }
   
- 
+/* 
   #categorySelect option:not([disabled]) {
     padding: 12px 8px;
     font-size: 15px;
@@ -718,29 +718,41 @@
   
   #categorySelect {
     font-weight: 600;
-  }
-
-   #categorySelect {
+  }  
+   
+  #questionSelect {
     font-weight: 600;
   }
+
+
+  @media (max-width: 480px) {
+    #questionSelect {
+      font-size: 12px !important;
+    }
+    
+    #questionSelect option:not([disabled]) {
+      font-size: 12px !important;
+      padding: 8px 6px !important;
+    }
+  }
   
-/* Question font size - Desktop and Mobile */
   #modalQuestion {
-    font-size: 16px !important;
+    font-size: 18px !important;
     line-height: 1.6 !important;
   }
   
   @media (max-width: 768px) {
     #modalQuestion {
-      font-size: 15px !important;
+      font-size: 17px !important;
     }
   }
   
   @media (max-width: 480px) {
     #modalQuestion {
-      font-size: 14px !important;
+      font-size: 16px !important;
     }
   }
+*/
 </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
@@ -1314,8 +1326,8 @@ const eventQuestions = {
 
 '⭐ VVIP Visits': {
   '⭐ VVIP Visits': [
-    "⭐ Which VVIPs are scheduled to visit?",
-    "⭐ Which VIPs are visiting on November 24?"
+    "⭐ Which VVIPs are scheduled to visit?"
+/*    "⭐ Which VIPs are visiting on November 24?" */
   ]
 },
 
@@ -1502,8 +1514,8 @@ const eventQuestionsHindi = {
 
 '⭐ वीवीआईपी आगमन': {
   '⭐ वीवीआईपी आगमन': [
-    "⭐ कौन-कौन से वीवीआईपी के आगमन की संभावना है?",
-    "⭐ 24 नवंबर को कौन से वीआईपी आ रहे हैं?"
+    "⭐ कौन-कौन से वीवीआईपी के आगमन की संभावना है?"
+/*    "⭐ 24 नवंबर को कौन से वीआईपी आ रहे हैं?"   */
   ]
 },
 
@@ -1757,29 +1769,86 @@ ttsBtn.addEventListener('click', () => {
   ttsUtterance.pitch = 1;
   ttsUtterance.volume = 1;
   
+// ========================================================================
+  // SMART TTS WITH LANGUAGE DETECTION - Lines 1760-1824 Replacement
+  // ========================================================================
+  
   const voices = speechSynthesis.getVoices();
-  let selectedVoice = null;
   
-  const hindiVoices = voices.filter(voice => 
-    voice.lang.startsWith('hi') || 
-    voice.lang === 'hi-IN' ||
-    voice.name.toLowerCase().includes('hindi')
-  );
+  // ========================================================================
+  // DETECT LANGUAGE (Hindi vs English)
+  // ========================================================================
+  function detectLanguage(text) {
+    const cleanText = text.replace(/[।॥.,!?;:\-\_\n\r]/g, ' ').trim();
+    const hindiCharCount = (cleanText.match(/[\u0900-\u097F]/g) || []).length;
+    const englishCharCount = (cleanText.match(/[a-zA-Z]/g) || []).length;
+    const totalChars = hindiCharCount + englishCharCount;
+    
+    if (totalChars === 0) return 'en';
+    const hindiPercentage = (hindiCharCount / totalChars) * 100;
+    
+    return hindiPercentage > 30 ? 'hi' : 'en';
+  }
   
-  if (hindiVoices.length > 0) {
-    selectedVoice = hindiVoices[0];
+  const detectedLang = detectLanguage(answerText);
+  console.log('🔍 Detected Language:', detectedLang);
+  
+  // ========================================================================
+  // VERSION 24 STYLE - Auto-working TTS (No voice installation needed!)
+  // ========================================================================
+  
+  // Set language HINT - let browser choose best voice automatically
+  if (detectedLang === 'hi') {
+    ttsUtterance.lang = 'hi-IN';  // Hint: This is Hindi text
+    console.log('📢 Language hint: Hindi');
   } else {
-    selectedVoice = voices[0];
-    if (/iPhone|iPad|iPod/i.test(navigator.userAgent) && !sessionStorage.getItem('hindiVoiceWarned')) {
-      alert('Hindi voice not available. Using default voice. To enable Hindi, go to Settings > Accessibility > Spoken Content > Voices > Hindi.');
-      sessionStorage.setItem('hindiVoiceWarned', 'true');
+    ttsUtterance.lang = 'en-US';  // Hint: This is English text
+    console.log('📢 Language hint: English');
+  }
+  
+  // OPTIONAL: Try to use better voice if available, but DON'T FORCE
+  // (voices already declared above at line 1797)
+  console.log('📊 Available voices:', voices.length);
+  
+  if (voices.length > 0 && detectedLang === 'hi') {
+    // Try to find Hindi voice (optional enhancement)
+    const hindiVoice = voices.find(voice => 
+      voice.lang === 'hi-IN' || 
+      (voice.lang && voice.lang.startsWith('hi'))
+    );
+    
+    if (hindiVoice) {
+      ttsUtterance.voice = hindiVoice;
+      console.log('✅ Using installed Hindi voice:', hindiVoice.name);
+    } else {
+      // NO HINDI VOICE - Don't force English voice!
+      // Leave voice undefined → browser uses multilingual system default
+      console.log('ℹ️ No Hindi voice found - using system default (multilingual TTS)');
+      console.log('   System will read Hindi reasonably using phonetic rules');
+    }
+  } else if (voices.length > 0 && detectedLang === 'en') {
+    // For English, try to find best English voice
+    const englishVoice = voices.find(v => 
+      v.lang === 'en-US' || v.lang === 'en-GB' || v.lang === 'en-IN'
+    ) || voices.find(v => v.lang && v.lang.startsWith('en'));
+    
+    if (englishVoice) {
+      ttsUtterance.voice = englishVoice;
+      console.log('✅ Using English voice:', englishVoice.name);
     }
   }
   
-  if (selectedVoice) {
-    ttsUtterance.voice = selectedVoice;
-  }
+  console.log('🎤 Final TTS settings:');
+  console.log('   Voice:', ttsUtterance.voice?.name || 'System Default (Multilingual)');
+  console.log('   Language:', ttsUtterance.lang);
+  console.log('   Text length:', answerText.length, 'characters');
   
+  // ========================================================================
+  // KEY: If no specific voice set, browser uses system default
+  // System default is multilingual - can read Hindi without voice pack!
+  // ========================================================================
+  
+  // Event handlers
   ttsUtterance.onstart = () => {
     isSpeaking = true;
     ttsBtn.classList.add('speaking');
@@ -1810,7 +1879,7 @@ ttsBtn.addEventListener('click', () => {
     } else if (e.error === 'not-allowed') {
       errorMsg += 'Please enable speech in browser settings.';
     } else if (e.error === 'language-unavailable') {
-      errorMsg += 'Hindi voice not available on your device.';
+      errorMsg += 'Voice not available on your device.';
     } else {
       errorMsg += 'Please try again.';
     }
