@@ -1795,7 +1795,6 @@ ttsBtn.addEventListener('click', () => {
   // ========================================================================
   
   const voices = speechSynthesis.getVoices();
-  let selectedVoice = null;
   
   // ========================================================================
   // DETECT LANGUAGE (Hindi vs English)
@@ -1829,7 +1828,7 @@ ttsBtn.addEventListener('click', () => {
   }
   
   // OPTIONAL: Try to use better voice if available, but DON'T FORCE
-  const voices = speechSynthesis.getVoices();
+  // (voices already declared above at line 1797)
   console.log('📊 Available voices:', voices.length);
   
   if (voices.length > 0 && detectedLang === 'hi') {
@@ -1912,7 +1911,8 @@ ttsBtn.addEventListener('click', () => {
     speechSynthesis.speak(ttsUtterance);
   } catch (error) {
     alert('Text-to-speech is not available on your device.');
-  }});
+  }
+});
     
 document.getElementById('submitBtn').addEventListener('click', async () => {
   const question = userInput.value.trim();
