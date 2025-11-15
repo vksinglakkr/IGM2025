@@ -726,28 +726,37 @@
 
 /* Question dropdown (questionSelect) options styling */
   #questionSelect option:not([disabled]) {
-    padding: 10px 8px;
-    font-size: 14px;           /* Desktop: 14px */
+    padding: 10px 8px !important;
+    font-size: 14px !important;       /* Desktop - FORCE OVERRIDE */
   }
   
   #questionSelect {
-    font-weight: 600;
+    font-weight: 600 !important;
+    font-size: 14px !important;       /* OVERRIDE text-base */
   }
   
   /* Mobile: Make question list smaller */
   @media (max-width: 768px) {
+    #questionSelect {
+      font-size: 13px !important;
+    }
+    
     #questionSelect option:not([disabled]) {
-      font-size: 13px;         /* Tablet: 13px */
-      padding: 8px 6px;
+      font-size: 13px !important;
+      padding: 8px 6px !important;
     }
   }
   
   @media (max-width: 480px) {
-    #questionSelect option:not([disabled]) {
-      font-size: 12px;         /* Mobile: 12px */
-      padding: 8px 6px;
+    #questionSelect {
+      font-size: 12px !important;
     }
-  }   
+    
+    #questionSelect option:not([disabled]) {
+      font-size: 12px !important;
+      padding: 8px 6px !important;
+    }
+  }
   
 /* Question font size - Desktop and Mobile */
   #modalQuestion {
