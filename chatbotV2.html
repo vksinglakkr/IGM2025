@@ -1814,97 +1814,61 @@ ttsBtn.addEventListener('click', () => {
   
   const detectedLang = detectLanguage(answerText);
   console.log('🔍 Detected Language:', detectedLang);
+  
+  // ========================================================================
+  // VERSION 24 STYLE - Auto-working TTS (No voice installation needed!)
+  // ========================================================================
+  
+  // Set language HINT - let browser choose best voice automatically
+  if (detectedLang === 'hi') {
+    ttsUtterance.lang = 'hi-IN';  // Hint: This is Hindi text
+    console.log('📢 Language hint: Hindi');
+  } else {
+    ttsUtterance.lang = 'en-US';  // Hint: This is English text
+    console.log('📢 Language hint: English');
+  }
+  
+  // OPTIONAL: Try to use better voice if available, but DON'T FORCE
+  const voices = speechSynthesis.getVoices();
   console.log('📊 Available voices:', voices.length);
   
-  // ========================================================================
-  // SELECT VOICE BASED ON DETECTED LANGUAGE
-  // ========================================================================
-  if (detectedLang === 'hi') {
-    // HINDI TEXT - Find Hindi Voice
-    const hindiVoices = voices.filter(voice => {
-      const lang = voice.lang.toLowerCase();
-      const name = voice.name.toLowerCase();
-      return (
-        lang === 'hi-in' || lang.startsWith('hi') ||
-        name.includes('hindi') || name.includes('हिंदी') || lang === 'hi'
-      );
-    });
+  if (voices.length > 0 && detectedLang === 'hi') {
+    // Try to find Hindi voice (optional enhancement)
+    const hindiVoice = voices.find(voice => 
+      voice.lang === 'hi-IN' || 
+      (voice.lang && voice.lang.startsWith('hi'))
+    );
     
-    console.log('🇮🇳 Found Hindi voices:', hindiVoices.length);
-    
-    if (hindiVoices.length > 0) {
-      // Prefer female voices (better quality)
-      const femaleHindi = hindiVoices.find(v => 
-        v.name.toLowerCase().includes('female') || 
-        v.name.toLowerCase().includes('lekha') ||
-        v.name.toLowerCase().includes('kalpana')
-      );
-      selectedVoice = femaleHindi || hindiVoices[0];
-      console.log('✅ Using Hindi voice:', selectedVoice.name);
+    if (hindiVoice) {
+      ttsUtterance.voice = hindiVoice;
+      console.log('✅ Using installed Hindi voice:', hindiVoice.name);
     } else {
-      // NO HINDI VOICE - Show guidance
-      console.error('❌ No Hindi voice available');
-      
-      if (!sessionStorage.getItem('hindiVoiceWarningShown')) {
-        sessionStorage.setItem('hindiVoiceWarningShown', 'true');
-        
-        const isAndroid = /Android/i.test(navigator.userAgent);
-        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        
-        let message = '🔊 Hindi voice not available on your device.\n\n';
-        
-        if (isAndroid) {
-          message += '📱 To install Hindi voice:\n\n' +
-                     '1. Settings → System → Languages & input\n' +
-                     '2. Text-to-speech output → Google TTS ⚙️\n' +
-                     '3. Install voice data → Hindi (India)\n' +
-                     '4. Restart browser\n\n' +
-                     'Using default voice for now.';
-        } else if (isIOS) {
-          message += '📱 To install Hindi voice:\n\n' +
-                     '1. Settings → Accessibility → Spoken Content\n' +
-                     '2. Voices → Hindi → Download\n' +
-                     '3. Restart browser\n\n' +
-                     'Using default voice for now.';
-        } else {
-          message += 'Please install Hindi language support.\n\n' +
-                     'Using default voice for now.';
-        }
-        
-        alert(message);
-      }
-      
-      // Fallback: Indian English voice (better for Hindi than US English)
-      const indianVoices = voices.filter(v => 
-        v.lang === 'en-IN' || v.name.toLowerCase().includes('india')
-      );
-      selectedVoice = indianVoices.length > 0 ? indianVoices[0] : voices[0];
-      console.log('⚠️ Using fallback voice:', selectedVoice?.name);
+      // NO HINDI VOICE - Don't force English voice!
+      // Leave voice undefined → browser uses multilingual system default
+      console.log('ℹ️ No Hindi voice found - using system default (multilingual TTS)');
+      console.log('   System will read Hindi reasonably using phonetic rules');
     }
-  } else {
-    // ENGLISH TEXT - Find English Voice
-    const englishVoices = voices.filter(voice => voice.lang.startsWith('en'));
+  } else if (voices.length > 0 && detectedLang === 'en') {
+    // For English, try to find best English voice
+    const englishVoice = voices.find(v => 
+      v.lang === 'en-US' || v.lang === 'en-GB' || v.lang === 'en-IN'
+    ) || voices.find(v => v.lang && v.lang.startsWith('en'));
     
-    console.log('🇬🇧 Found English voices:', englishVoices.length);
-    
-    if (englishVoices.length > 0) {
-      const usEnglish = englishVoices.find(v => v.lang === 'en-US');
-      const gbEnglish = englishVoices.find(v => v.lang === 'en-GB');
-      const inEnglish = englishVoices.find(v => v.lang === 'en-IN');
-      
-      selectedVoice = usEnglish || gbEnglish || inEnglish || englishVoices[0];
-      console.log('✅ Using English voice:', selectedVoice.name);
-    } else {
-      selectedVoice = voices[0];
-      console.log('⚠️ Using default voice:', selectedVoice?.name);
+    if (englishVoice) {
+      ttsUtterance.voice = englishVoice;
+      console.log('✅ Using English voice:', englishVoice.name);
     }
   }
   
-  // Apply selected voice
-  if (selectedVoice) {
-    ttsUtterance.voice = selectedVoice;
-    console.log('🎤 Final voice:', selectedVoice.name, '|', selectedVoice.lang);
-  }
+  console.log('🎤 Final TTS settings:');
+  console.log('   Voice:', ttsUtterance.voice?.name || 'System Default (Multilingual)');
+  console.log('   Language:', ttsUtterance.lang);
+  console.log('   Text length:', answerText.length, 'characters');
+  
+  // ========================================================================
+  // KEY: If no specific voice set, browser uses system default
+  // System default is multilingual - can read Hindi without voice pack!
+  // ========================================================================
   
   // Event handlers
   ttsUtterance.onstart = () => {
