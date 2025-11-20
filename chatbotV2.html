@@ -817,6 +817,30 @@
     }
   }
 */
+/* Question Select Dropdown - Options Font Size */
+#questionSelect option {
+  font-size: 13px !important;
+  padding: 8px !important;
+  line-height: 1.4;
+}
+
+#questionSelect optgroup {
+  font-size: 14px !important;
+  font-weight: 600;
+  color: #1e40af;
+}
+
+/* Mobile ke liye aur bhi chhota */
+@media (max-width: 640px) {
+  #questionSelect option {
+    font-size: 12px !important;
+    padding: 6px !important;
+  }
+  
+  #questionSelect optgroup {
+    font-size: 13px !important;
+  }
+}
 </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
@@ -919,7 +943,7 @@
             <select id="categorySelect" class="block w-full px-5 py-4 text-base border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-blue-500 focus:border-blue-500 rounded-2xl bg-white shadow-md transition-all duration-300 font-medium">
               <option value="" selected disabled>Select Topic</option>
             </select>
-            <select id="questionSelect" class="block w-full px-4 py-3 text-sm md:text-base border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-blue-500 focus:border-blue-500 rounded-2xl bg-white shadow-md transition-all duration-300 font-medium" disabled>
+            <select id="questionSelect" class="block w-full px-5 py-4 text-base border-2 border-gray-200 focus:outline-none focus:ring-3 focus:ring-blue-500 focus:border-blue-500 rounded-2xl bg-white shadow-md transition-all duration-300 font-medium" disabled>
                 <option value="" selected disabled>Select Question</option>
             </select> 
           </div>
