@@ -960,22 +960,52 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 mb-2 mt-2">
-        <div class="event-card bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-600 shadow-lg">
-          <div class="flex items-center gap-3 mb-2">
-            <svg class="icon w-8 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            <p class="font-bold text-gray-900 text-lg">Craft Fair</p>
-          </div>
-          <p class="text-sm text-gray-700 font-semibold ml-11">15 Nov – 5 Dec 2025</p>
-        </div>
-        <div class="event-card bg-gradient-to-br from-green-50 to-green-100 border-l-4 border-green-600 shadow-lg">
-          <div class="flex items-center gap-3 mb-2">
-            <svg class="icon w-8 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
-            <p class="font-bold text-gray-900 text-lg">Cultural Programs</p>
-          </div>
-          <p class="text-sm text-gray-700 font-semibold ml-11">24 Nov – 1 Dec 2025</p>
-        </div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 md:gap-6 mb-4 mt-4 px-2">
+  <!-- Craft Fair Card -->
+  <div class="event-card bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-600 shadow-lg rounded-xl p-5 hover:shadow-xl transition-all duration-300 hover:scale-105">
+    <div class="flex items-center gap-3 mb-3">
+      <svg class="w-10 h-10 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      <div class="flex-1">
+        <p class="font-bold text-gray-900 text-lg">Craft Fair</p>
+        <p class="text-sm text-gray-600 font-medium">हस्तशिल्प मेला</p>
       </div>
+    </div>
+    <div class="ml-13 space-y-1">
+      <p class="text-sm text-gray-700 font-semibold flex items-center gap-2">
+        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        15 Nov – 5 Dec 2025
+      </p>
+      <p class="text-xs text-gray-500">Traditional handicrafts from across India</p>
+    </div>
+  </div>
+
+  <!-- Cultural Programs Card -->
+  <div class="event-card bg-gradient-to-br from-green-50 to-green-100 border-l-4 border-green-600 shadow-lg rounded-xl p-5 hover:shadow-xl transition-all duration-300 hover:scale-105">
+    <div class="flex items-center gap-3 mb-3">
+      <svg class="w-10 h-10 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+      </svg>
+      <div class="flex-1">
+        <p class="font-bold text-gray-900 text-lg">Cultural Programs</p>
+        <p class="text-sm text-gray-600 font-medium">सांस्कृतिक कार्यक्रम</p>
+      </div>
+    </div>
+    <div class="ml-13 space-y-1">
+      <p class="text-sm text-gray-700 font-semibold flex items-center gap-2">
+        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        24 Nov – 1 Dec 2025
+      </p>
+      <p class="text-xs text-gray-500">Evening performances & celebrations</p>
+    </div>
+  </div>
+</div>
 
       <div class="quote-section mb-1">
         <p class="text-1xl devanagari text-gray-900 text-center leading-relaxed mb-0.0 relative z-10 font-semibold">
