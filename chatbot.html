@@ -960,22 +960,52 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 mb-2 mt-2">
-        <div class="event-card bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-600 shadow-lg">
-          <div class="flex items-center gap-3 mb-2">
-            <svg class="icon w-8 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            <p class="font-bold text-gray-900 text-lg">Craft Fair</p>
-          </div>
-          <p class="text-sm text-gray-700 font-semibold ml-11">15 Nov – 5 Dec 2025</p>
-        </div>
-        <div class="event-card bg-gradient-to-br from-green-50 to-green-100 border-l-4 border-green-600 shadow-lg">
-          <div class="flex items-center gap-3 mb-2">
-            <svg class="icon w-8 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
-            <p class="font-bold text-gray-900 text-lg">Cultural Programs</p>
-          </div>
-          <p class="text-sm text-gray-700 font-semibold ml-11">24 Nov – 1 Dec 2025</p>
-        </div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 md:gap-6 mb-4 mt-4 px-2">
+  <!-- Craft Fair Card -->
+  <div class="event-card bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-600 shadow-lg rounded-xl p-5 hover:shadow-xl transition-all duration-300 hover:scale-105">
+    <div class="flex items-center gap-3 mb-3">
+      <svg class="w-10 h-10 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      <div class="flex-1">
+        <p class="font-bold text-gray-900 text-lg">Craft Fair</p>
+        <p class="text-sm text-gray-600 font-medium">हस्तशिल्प मेला</p>
       </div>
+    </div>
+    <div class="ml-13 space-y-1">
+      <p class="text-sm text-gray-700 font-semibold flex items-center gap-2">
+        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        15 Nov – 5 Dec 2025
+      </p>
+      <p class="text-xs text-gray-500">Traditional handicrafts from across India</p>
+    </div>
+  </div>
+
+  <!-- Cultural Programs Card -->
+  <div class="event-card bg-gradient-to-br from-green-50 to-green-100 border-l-4 border-green-600 shadow-lg rounded-xl p-5 hover:shadow-xl transition-all duration-300 hover:scale-105">
+    <div class="flex items-center gap-3 mb-3">
+      <svg class="w-10 h-10 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+      </svg>
+      <div class="flex-1">
+        <p class="font-bold text-gray-900 text-lg">Cultural Programs</p>
+        <p class="text-sm text-gray-600 font-medium">सांस्कृतिक कार्यक्रम</p>
+      </div>
+    </div>
+    <div class="ml-13 space-y-1">
+      <p class="text-sm text-gray-700 font-semibold flex items-center gap-2">
+        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        24 Nov – 1 Dec 2025
+      </p>
+      <p class="text-xs text-gray-500">Evening performances & celebrations</p>
+    </div>
+  </div>
+</div>
 
       <div class="quote-section mb-1">
         <p class="text-1xl devanagari text-gray-900 text-center leading-relaxed mb-0.0 relative z-10 font-semibold">
@@ -1325,7 +1355,7 @@ const gitaQuestionsHindi = {
 
 const eventQuestions = {
   '🕉️ Events-related Information': {
-    '🕉️ Religious Events': [
+    '🕉️ Religious & Spiritual Events': [
   "🕉️ When is Srimad Bhagavad Gita recitation (Paath) and Yagya?",
   "🕉️ When is Srimad Bhagavad Gita Yagya and Gita Poojan?",
   "🔥 When is the final oblation (Ahuti) of the Gita Yagya and the worship of the Banyan tree?",
@@ -1341,12 +1371,34 @@ const eventQuestions = {
   "📖 Who is giving the Gita Panchamrit discourse?",
   "🕉️ When is Swami Rambhadracharya's discourse?",
   "📚 When is the Bhagavat Katha?",
-  "🎓 When are the Gita Shloka recitation, speech, essay writing, painting, rangoli, and craft competitions for students?"
-],
-    '🎭 Cultural Programs': [
+  "🎓 When are the Gita Shloka recitation, speech, essay writing, painting, rangoli, and craft competitions for students?",
+  "📘 When is the International Gita Seminar scheduled?",
+  "🎓 Student competitions: Gita Shloka recitation, speech, essay writing, painting, rangoli, and craft — when are they held?",
+  "🕉️ Who will deliver the Gita Panchamrit discourse?",
+  "🕉️ When is Swami Rambhadracharya's discourse?",
+  "📖 When will the Bhagavat Katha take place?",
+  "🕉️ Iskcon Srimad Bhagavad Gita Katha?",
+  "🕉️ Iskcon Srimad Bhagavatam Katha?",
+  "🕉️ Gita Yajna ISKCON?",
+  "🕉️ ISKCON Pravachan?",
+  "🕉️ ISKCON Jyotisar events?",
+  "🕉️ Daily Harinam Sankirtan?",
+  "🕉️ ISKCON Gita Exhibition?",
+  "🕉️ ISKCON December 1?",
+  "🌊 Events held at Brahma Sarovar",
+  "🌊 Events held at Sannihit Sarovar",
+  "🛕 Events held at Jyotisar",
+  "🎓 Events held at Kurukshetra University",
+  "🏢 Events held at KDB Office (Opp.)",
+  "🌿 Events held at Keshav Park",
+  "🌏 Events held at 48 Kos Kurukshetra Bhumi"      
+    ],
+ 
+'🎭 Cultural Programs': [
   "🎭 When is the Cultural Program?",
   "🌐💡 When is the Light and Sound Show on 'Vishwaroop' through 3D Mapping?",
-  "💡🎶 When is the Light and Sound Show based on Mahabharata and Gita?"
+  "💡🎶 When is the Light and Sound Show based on Mahabharata and Gita?",
+   "🏛️ When are the State Level Exhibitions?"
 ],
   '📅 Datewise Events': [
       "Events on 15th Nov.?",
@@ -1372,24 +1424,6 @@ const eventQuestions = {
       "Events on 5th Dec.?"
     ],
     
-  '🌐 Venuewise Events': [
-    "🌊 Events held at Brahma Sarovar",
-    "🌊 Events held at Sannihit Sarovar",
-    "🛕 Events held at Jyotisar",
-    "🎓 Events held at Kurukshetra University",
-    "🏢 Events held at KDB Office (Opp.)",
-    "🌿 Events held at Keshav Park",
-    "🌏 Events held at 48 Kos Kurukshetra Bhumi"
-  ],
-  
-  '📚 Educational Workshops': [
-    "📘 When is the International Gita Seminar scheduled?",
-    "🎓 Student competitions: Gita Shloka recitation, speech, essay writing, painting, rangoli, and craft — when are they held?",
-    "🕉️ Who will deliver the Gita Panchamrit discourse?",
-    "🕉️ When is Swami Rambhadracharya's discourse?",
-    "📖 When will the Bhagavat Katha take place?"
-  ],
-
   '🎪 Inaugural Events': [
     "🌐 When is the International Gita Seminar inauguration?",
     "🛕 When is the Virat Sant Sammelan inauguration?",
@@ -1398,15 +1432,6 @@ const eventQuestions = {
     "🏛️ When are the State Level Exhibitions inaugurated?",
     "🌍 When will the pavilions of Haryana, MP, and partner countries open?",
     "🎨 When does the Crafts Mela begin?"
-  ],
-
-  '⭐ VVIP Visits': [
-    "⭐ Which VVIPs are scheduled to visit?"
-/*    "⭐ Which VIPs are visiting on November 24?" */
-  ],
-
-  '🏛️ Exhibitions': [
-    "🏛️ When are the State Level Exhibitions?"
   ]},
   '🎭 Evening Cultural Programme': {
   '🎭 Evening Cultural Programme': [
@@ -1436,19 +1461,6 @@ const eventQuestions = {
   ]
 }, 
 
-'🏥 Iskcon': {
-  '🏥 Iskcon': [
-     "Iskcon Srimad Bhagavad Gita Katha?",
-     "Iskcon Srimad Bhagavatam Katha?",
-     "Gita Yajna ISKCON?",
-     "ISKCON Pravachan?",
-     "ISKCON Jyotisar events?",
-     "Daily Harinam Sankirtan?",
-     "ISKCON Gita Exhibition?",
-     "ISKCON December 1?"
-  ]
-},
-  
 '🏥 Facilities': {
   '🏥 Facilities': [
     "🅿️ Where to park?",
@@ -1602,8 +1614,7 @@ const eventQuestions = {
       "Why is it celebrated?",
       "What happens at IGM?",
       "What is this festival about?",
-      "Why do people come here?",
-      "Tell me about Gita Mahotsav"
+      "Why do people come here?"
     ],
     
     '🎫 Entry & Fees': [
@@ -1611,16 +1622,14 @@ const eventQuestions = {
       "Do I need a ticket?",
       "How much is the entry fee?",
       "Do I need to register?",
-      "Can I enter without registration?",
-      "Is there any charge?",
-      "Entry fee for IGM?"
+      "Can I enter without registration?"
     ],
     
     '⏰ Timings': [
       "What time does it open?",
       "What time does it close?",
       "What are the timings?",
-      "When does morning aarti start?",
+      "When does Aarti start?",
       "What time are cultural programs?",
       "When is Light & Sound show?",
       "Is it open daily?"
@@ -1639,9 +1648,7 @@ const eventQuestions = {
     
     '🪯 Sikh Connection': [
       "Why is Kurukshetra important for Sikhs?",
-      "Did Guru Nanak visit Kurukshetra?",
-      "What is Sikh connection to Kurukshetra?",
-      "Is there Gurudwara here?"
+      "Did Guru Nanak visit Kurukshetra?"
     ],
     
     '☸️ Buddhism & Jainism': [
@@ -1905,10 +1912,6 @@ const eventQuestionsHindi = {
     "🎨 क्राफ्ट्स मेला कब शुरू होगा?"
   ],
 
-  '⭐ वीवीआईपी आगमन': [
-    "⭐ कौन-कौन से वीवीआईपी के आगमन की संभावना है?"
-/*    "⭐ 24 नवंबर को कौन से वीआईपी आ रहे हैं?"   */
-  ],
   '🏛️ प्रदर्शनियाँ': [
     "🏛️ राज्य स्तरीय प्रदर्शनियाँ कब आयोजित होंगी?"
   ]},
@@ -2103,8 +2106,7 @@ const eventQuestionsHindi = {
       "यह क्यों मनाया जाता है?",
       "IGM में क्या होता है?",
       "यह त्योहार किस बारे में है?",
-      "लोग यहां क्यों आते हैं?",
-      "गीता महोत्सव के बारे में बताएं"
+      "लोग यहां क्यों आते हैं?"
     ],
     
     '🎫 प्रवेश और शुल्क': [
@@ -2121,7 +2123,7 @@ const eventQuestionsHindi = {
       "यह किस समय खुलता है?",
       "यह किस समय बंद होता है?",
       "समय क्या है?",
-      "सुबह की आरती कब शुरू होती है?",
+      "आरती कब शुरू होती है?",
       "सांस्कृतिक कार्यक्रम किस समय हैं?",
       "लाइट एंड साउंड शो कब है?",
       "क्या यह रोज खुला रहता है?"
@@ -2140,9 +2142,7 @@ const eventQuestionsHindi = {
     
     '🪯 सिख संबंध': [
       "कुरुक्षेत्र सिखों के लिए क्यों महत्वपूर्ण है?",
-      "क्या गुरु नानक ने कुरुक्षेत्र का दौरा किया?",
-      "कुरुक्षेत्र से सिख संबंध क्या है?",
-      "क्या यहां गुरुद्वारा है?"
+      "क्या गुरु नानक ने कुरुक्षेत्र का दौरा किया?"
     ],
     
     '☸️ बौद्ध और जैन धर्म': [
